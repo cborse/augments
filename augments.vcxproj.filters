@@ -2,148 +2,44 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="src">
-      <UniqueIdentifier>{40a8532b-85f5-43be-972a-c23d7807de26}</UniqueIdentifier>
+      <UniqueIdentifier>{2f829323-f70b-4dc7-b30a-a49aa7e98f6e}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\graphics">
-      <UniqueIdentifier>{e952cf21-37d8-41b3-997c-6195a965c7c3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\scenes">
-      <UniqueIdentifier>{6de7b7c7-f671-4e41-ad7e-36380466bf58}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\net">
-      <UniqueIdentifier>{24884716-fcc4-46ec-bc8c-9ee2473cb6ea}</UniqueIdentifier>
+      <UniqueIdentifier>{3976dc03-aa71-40ce-9737-5e33825184d5}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\widgets">
-      <UniqueIdentifier>{fc3daad1-7cc2-49e7-9609-6739ce3d8939}</UniqueIdentifier>
+      <UniqueIdentifier>{794cd5d4-1b3c-416b-9bbe-f15aa4d4739d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net">
+      <UniqueIdentifier>{352e5474-2e62-4147-8e12-9831b3ed81f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\scenes">
+      <UniqueIdentifier>{a6392e45-5057-4a12-ade8-c9cc8562b437}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\cache">
-      <UniqueIdentifier>{0d98b68b-f72f-4b6b-ba16-abbea1521eab}</UniqueIdentifier>
+      <UniqueIdentifier>{d159360e-7e32-4572-8eab-5c2340c3efda}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\texture.cpp">
-      <Filter>src\graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\renderer.cpp">
-      <Filter>src\graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\game.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\net\http_request.cpp">
-      <Filter>src\net</Filter>
-    </ClCompile>
-    <ClCompile Include="src\net\http_container.cpp">
-      <Filter>src\net</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scenes\login_scene.cpp">
-      <Filter>src\scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cache\user.cpp">
-      <Filter>src\cache</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cache\cache.cpp">
-      <Filter>src\cache</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cache\species.cpp">
-      <Filter>src\cache</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\texture_container.cpp">
-      <Filter>src\graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scenes\menu_scene.cpp">
-      <Filter>src\scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cache\staff.cpp">
-      <Filter>src\cache</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cache\creature.cpp">
-      <Filter>src\cache</Filter>
-    </ClCompile>
-    <ClCompile Include="src\widgets\button.cpp">
-      <Filter>src\widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="src\widgets\image.cpp">
-      <Filter>src\widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="src\widgets\label.cpp">
-      <Filter>src\widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="src\widgets\widget_container.cpp">
-      <Filter>src\widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scenes\team_scene.cpp">
-      <Filter>src\scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="src\widgets\cell.cpp">
-      <Filter>src\widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="src\widgets\progress_bar.cpp">
-      <Filter>src\widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scenes\hatch_scene.cpp">
-      <Filter>src\scenes</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\graphics\texture.h">
-      <Filter>src\graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\renderer.h">
-      <Filter>src\graphics</Filter>
-    </ClInclude>
     <ClInclude Include="src\error.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\game.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\scenes\scene.h">
-      <Filter>src\scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="src\net\http_request.h">
-      <Filter>src\net</Filter>
-    </ClInclude>
-    <ClInclude Include="src\net\http_container.h">
-      <Filter>src\net</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scenes\login_scene.h">
-      <Filter>src\scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cache\user.h">
-      <Filter>src\cache</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cache\cache.h">
-      <Filter>src\cache</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cache\species.h">
-      <Filter>src\cache</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cache\enums.h">
-      <Filter>src\cache</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\texture_container.h">
-      <Filter>src\graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scenes\menu_scene.h">
-      <Filter>src\scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cache\staff.h">
-      <Filter>src\cache</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cache\creature.h">
-      <Filter>src\cache</Filter>
-    </ClInclude>
     <ClInclude Include="src\widgets\button.h">
+      <Filter>src\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\widgets\cell.h">
+      <Filter>src\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\widgets\image.h">
       <Filter>src\widgets</Filter>
     </ClInclude>
     <ClInclude Include="src\widgets\label.h">
       <Filter>src\widgets</Filter>
     </ClInclude>
-    <ClInclude Include="src\widgets\image.h">
+    <ClInclude Include="src\widgets\progress_bar.h">
       <Filter>src\widgets</Filter>
     </ClInclude>
     <ClInclude Include="src\widgets\widget.h">
@@ -152,17 +48,121 @@
     <ClInclude Include="src\widgets\widget_container.h">
       <Filter>src\widgets</Filter>
     </ClInclude>
-    <ClInclude Include="src\scenes\team_scene.h">
-      <Filter>src\scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="src\widgets\cell.h">
-      <Filter>src\widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="src\widgets\progress_bar.h">
-      <Filter>src\widgets</Filter>
-    </ClInclude>
     <ClInclude Include="src\scenes\hatch_scene.h">
       <Filter>src\scenes</Filter>
     </ClInclude>
+    <ClInclude Include="src\scenes\login_scene.h">
+      <Filter>src\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scenes\menu_scene.h">
+      <Filter>src\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scenes\scene.h">
+      <Filter>src\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scenes\team_scene.h">
+      <Filter>src\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cache\cache.h">
+      <Filter>src\cache</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cache\creature.h">
+      <Filter>src\cache</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cache\enums.h">
+      <Filter>src\cache</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cache\species.h">
+      <Filter>src\cache</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cache\staff.h">
+      <Filter>src\cache</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cache\user.h">
+      <Filter>src\cache</Filter>
+    </ClInclude>
+    <ClInclude Include="src\net\http_container.h">
+      <Filter>src\net</Filter>
+    </ClInclude>
+    <ClInclude Include="src\net\http_request.h">
+      <Filter>src\net</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\renderer.h">
+      <Filter>src\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\texture.h">
+      <Filter>src\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\texture_container.h">
+      <Filter>src\graphics</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\game.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\widgets\button.cpp">
+      <Filter>src\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\widgets\cell.cpp">
+      <Filter>src\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\widgets\image.cpp">
+      <Filter>src\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\widgets\label.cpp">
+      <Filter>src\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\widgets\progress_bar.cpp">
+      <Filter>src\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\widgets\widget_container.cpp">
+      <Filter>src\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scenes\hatch_scene.cpp">
+      <Filter>src\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scenes\login_scene.cpp">
+      <Filter>src\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scenes\menu_scene.cpp">
+      <Filter>src\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scenes\team_scene.cpp">
+      <Filter>src\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cache\cache.cpp">
+      <Filter>src\cache</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cache\creature.cpp">
+      <Filter>src\cache</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cache\species.cpp">
+      <Filter>src\cache</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cache\staff.cpp">
+      <Filter>src\cache</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cache\user.cpp">
+      <Filter>src\cache</Filter>
+    </ClCompile>
+    <ClCompile Include="src\net\http_container.cpp">
+      <Filter>src\net</Filter>
+    </ClCompile>
+    <ClCompile Include="src\net\http_request.cpp">
+      <Filter>src\net</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\renderer.cpp">
+      <Filter>src\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\texture.cpp">
+      <Filter>src\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\texture_container.cpp">
+      <Filter>src\graphics</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
