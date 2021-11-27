@@ -96,6 +96,30 @@
     <ClInclude Include="src\graphics\texture_container.h">
       <Filter>src\graphics</Filter>
     </ClInclude>
+    <ClInclude Include="src\cache\series.h">
+      <Filter>src\cache</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cache\action.h">
+      <Filter>src\cache</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cache\actionset.h">
+      <Filter>src\cache</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scenes\augments_scene.h">
+      <Filter>src\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cache\skill.h">
+      <Filter>src\cache</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cache\user_action.h">
+      <Filter>src\cache</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cache\user_skill.h">
+      <Filter>src\cache</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cache\skillset.h">
+      <Filter>src\cache</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\game.cpp">
@@ -163,6 +187,30 @@
     </ClCompile>
     <ClCompile Include="src\graphics\texture_container.cpp">
       <Filter>src\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cache\series.cpp">
+      <Filter>src\cache</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cache\action.cpp">
+      <Filter>src\cache</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cache\actionset.cpp">
+      <Filter>src\cache</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cache\skill.cpp">
+      <Filter>src\cache</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scenes\augments_scene.cpp">
+      <Filter>src\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cache\user_action.cpp">
+      <Filter>src\cache</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cache\user_skill.cpp">
+      <Filter>src\cache</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cache\skillset.cpp">
+      <Filter>src\cache</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

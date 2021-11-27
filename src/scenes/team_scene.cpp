@@ -22,7 +22,7 @@ TeamScene::TeamScene(Game& game)
         .with_color({ 23, 23, 20 })
         .with_position({ 60, 8 })
         .with_shadow(false)
-        .with_string("Staffs");
+        .with_string("STAFFS");
 
     // List
     widgets.add<Button>("button-staff_left")

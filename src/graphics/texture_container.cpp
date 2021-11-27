@@ -53,6 +53,11 @@ const Texture& TextureContainer::get_action(Type type) const
     return actions.at((size_t)type);
 }
 
+const Texture& TextureContainer::get_skill() const
+{
+    return skills.at(0);
+}
+
 void TextureContainer::load(const Renderer& renderer)
 {
     // General
@@ -113,49 +118,40 @@ void TextureContainer::load(const Renderer& renderer)
             species.emplace_back(renderer.load_texture(file));
     }
 
-    //// Types
-    //types.emplace_back(); // none
-    //types.emplace_back(renderer.load_texture("types/type_earth.png"));
-    //types.emplace_back(renderer.load_texture("types/type_water.png"));
-    //types.emplace_back(renderer.load_texture("types/type_ice.png"));
-    //types.emplace_back(renderer.load_texture("types/type_fire.png"));
-    //types.emplace_back(renderer.load_texture("types/type_chemical.png"));
-    //types.emplace_back(renderer.load_texture("types/type_solar.png"));
-    //types.emplace_back(renderer.load_texture("types/type_strength.png"));
-    //types.emplace_back(renderer.load_texture("types/type_psyche.png"));
-    //types.emplace_back(renderer.load_texture("types/type_wind.png"));
-    //types.emplace_back(renderer.load_texture("types/type_metal.png"));
-    //types.emplace_back(renderer.load_texture("types/type_electric.png"));
-    //types.emplace_back(renderer.load_texture("types/type_spirit.png"));
+    // Types
+    types.emplace_back(); // none
+    types.emplace_back(renderer.load_texture("assets/types/type_strength.png"));
+    types.emplace_back(renderer.load_texture("assets/types/type_ground.png"));
+    types.emplace_back(renderer.load_texture("assets/types/type_water.png"));
+    types.emplace_back(renderer.load_texture("assets/types/type_ice.png"));
+    types.emplace_back(renderer.load_texture("assets/types/type_chemical.png"));
+    types.emplace_back(renderer.load_texture("assets/types/type_metal.png"));
+    types.emplace_back(renderer.load_texture("assets/types/type_stone.png"));
+    types.emplace_back(renderer.load_texture("assets/types/type_solar.png"));
+    types.emplace_back(renderer.load_texture("assets/types/type_psyche.png"));
+    types.emplace_back(renderer.load_texture("assets/types/type_wind.png"));
+    types.emplace_back(renderer.load_texture("assets/types/type_electric.png"));
+    types.emplace_back(renderer.load_texture("assets/types/type_spirit.png"));
+    types.emplace_back(renderer.load_texture("assets/types/type_fire.png"));
+    types.emplace_back(renderer.load_texture("assets/types/type_illusion.png"));
 
-    //// Actions
-    //actions.emplace_back(); // none
-    //actions.emplace_back(renderer.load_texture("actions/action_earth.png"));
-    //actions.emplace_back(renderer.load_texture("actions/action_water.png"));
-    //actions.emplace_back(renderer.load_texture("actions/action_ice.png"));
-    //actions.emplace_back(renderer.load_texture("actions/action_fire.png"));
-    //actions.emplace_back(renderer.load_texture("actions/action_chemical.png"));
-    //actions.emplace_back(renderer.load_texture("actions/action_solar.png"));
-    //actions.emplace_back(renderer.load_texture("actions/action_strength.png"));
-    //actions.emplace_back(renderer.load_texture("actions/action_psyche.png"));
-    //actions.emplace_back(renderer.load_texture("actions/action_wind.png"));
-    //actions.emplace_back(renderer.load_texture("actions/action_metal.png"));
-    //actions.emplace_back(renderer.load_texture("actions/action_electric.png"));
-    //actions.emplace_back(renderer.load_texture("actions/action_spirit.png"));
+    // Actions
+    actions.emplace_back(); // none
+    actions.emplace_back(renderer.load_texture("assets/actions/action_strength.png"));
+    actions.emplace_back(renderer.load_texture("assets/actions/action_ground.png"));
+    actions.emplace_back(renderer.load_texture("assets/actions/action_water.png"));
+    actions.emplace_back(renderer.load_texture("assets/actions/action_ice.png"));
+    actions.emplace_back(renderer.load_texture("assets/actions/action_chemical.png"));
+    actions.emplace_back(renderer.load_texture("assets/actions/action_metal.png"));
+    actions.emplace_back(renderer.load_texture("assets/actions/action_stone.png"));
+    actions.emplace_back(renderer.load_texture("assets/actions/action_solar.png"));
+    actions.emplace_back(renderer.load_texture("assets/actions/action_psyche.png"));
+    actions.emplace_back(renderer.load_texture("assets/actions/action_wind.png"));
+    actions.emplace_back(renderer.load_texture("assets/actions/action_electric.png"));
+    actions.emplace_back(renderer.load_texture("assets/actions/action_spirit.png"));
+    actions.emplace_back(renderer.load_texture("assets/actions/action_fire.png"));
+    actions.emplace_back(renderer.load_texture("assets/actions/action_illusion.png"));
 
-    //// Skills
-    //skills.emplace_back(renderer.load_texture("skills/skill_accuracy.png"));
-    //skills.emplace_back(renderer.load_texture("skills/skill_actions.png"));
-    //skills.emplace_back(renderer.load_texture("skills/skill_contact.png"));
-    //skills.emplace_back(renderer.load_texture("skills/skill_detection.png"));
-    //skills.emplace_back(renderer.load_texture("skills/skill_effectivity.png"));
-    //skills.emplace_back(renderer.load_texture("skills/skill_elimination.png"));
-    //skills.emplace_back(renderer.load_texture("skills/skill_energy.png"));
-    //skills.emplace_back(renderer.load_texture("skills/skill_health.png"));
-    //skills.emplace_back(renderer.load_texture("skills/skill_movement.png"));
-    //skills.emplace_back(renderer.load_texture("skills/skill_special.png"));
-    //skills.emplace_back(renderer.load_texture("skills/skill_stats.png"));
-    //skills.emplace_back(renderer.load_texture("skills/skill_trick.png"));
-    //skills.emplace_back(renderer.load_texture("skills/skill_types.png"));
-    //skills.emplace_back(renderer.load_texture("skills/skill_visibility.png"));
+    // Skills
+    skills.emplace_back(renderer.load_texture("assets/skills/skill_accuracy.png"));
 }

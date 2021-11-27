@@ -19,7 +19,6 @@ public:
 
 private:
     void refresh_data();
-
     void refresh_widgets();
     void refresh_list_widgets();
     void refresh_grid_widgets();

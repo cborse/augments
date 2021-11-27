@@ -11,12 +11,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\cache\action.h" />
+    <ClInclude Include="src\cache\actionset.h" />
     <ClInclude Include="src\cache\cache.h" />
     <ClInclude Include="src\cache\creature.h" />
     <ClInclude Include="src\cache\enums.h" />
+    <ClInclude Include="src\cache\series.h" />
+    <ClInclude Include="src\cache\skill.h" />
+    <ClInclude Include="src\cache\skillset.h" />
     <ClInclude Include="src\cache\species.h" />
     <ClInclude Include="src\cache\staff.h" />
     <ClInclude Include="src\cache\user.h" />
+    <ClInclude Include="src\cache\user_action.h" />
+    <ClInclude Include="src\cache\user_skill.h" />
     <ClInclude Include="src\error.h" />
     <ClInclude Include="src\game.h" />
     <ClInclude Include="src\graphics\renderer.h" />
@@ -24,6 +31,7 @@
     <ClInclude Include="src\graphics\texture_container.h" />
     <ClInclude Include="src\net\http_container.h" />
     <ClInclude Include="src\net\http_request.h" />
+    <ClInclude Include="src\scenes\augments_scene.h" />
     <ClInclude Include="src\scenes\hatch_scene.h" />
     <ClInclude Include="src\scenes\login_scene.h" />
     <ClInclude Include="src\scenes\menu_scene.h" />
@@ -38,11 +46,18 @@
     <ClInclude Include="src\widgets\widget_container.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\cache\action.cpp" />
+    <ClCompile Include="src\cache\actionset.cpp" />
     <ClCompile Include="src\cache\cache.cpp" />
     <ClCompile Include="src\cache\creature.cpp" />
+    <ClCompile Include="src\cache\series.cpp" />
+    <ClCompile Include="src\cache\skill.cpp" />
+    <ClCompile Include="src\cache\skillset.cpp" />
     <ClCompile Include="src\cache\species.cpp" />
     <ClCompile Include="src\cache\staff.cpp" />
     <ClCompile Include="src\cache\user.cpp" />
+    <ClCompile Include="src\cache\user_action.cpp" />
+    <ClCompile Include="src\cache\user_skill.cpp" />
     <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\graphics\renderer.cpp" />
     <ClCompile Include="src\graphics\texture.cpp" />
@@ -50,6 +65,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\net\http_container.cpp" />
     <ClCompile Include="src\net\http_request.cpp" />
+    <ClCompile Include="src\scenes\augments_scene.cpp" />
     <ClCompile Include="src\scenes\hatch_scene.cpp" />
     <ClCompile Include="src\scenes\login_scene.cpp" />
     <ClCompile Include="src\scenes\menu_scene.cpp" />

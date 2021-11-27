@@ -27,7 +27,7 @@ public:
     const Texture& get_hatch_animation(Rarity rarity) const;
     const Texture& get_type(Type type) const;
     const Texture& get_action(Type type) const;
-    //const Texture& get_skill(Skill_type type) const;
+    const Texture& get_skill() const;
 
 private:
     std::map<std::string, Texture> general;

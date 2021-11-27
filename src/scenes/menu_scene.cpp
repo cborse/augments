@@ -6,6 +6,7 @@
 //
 
 #include <steam/steam_api.h>
+#include "augments_scene.h"
 #include "menu_scene.h"
 #include "team_scene.h"
 
@@ -28,7 +29,7 @@ MenuScene::MenuScene(Game& game)
         .with_string("staffs");
 
     widgets.add<Button>()
-        //.with_action([&]() { game.push_scene(std::make_unique<Augments_scene>(game)); })
+        .with_action([&]() { game.push_scene(std::make_unique<AugmentsScene>(game)); })
         .with_bounds({ 180, 144, 100, 18 })
         .with_string("augments");
 
