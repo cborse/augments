@@ -27,6 +27,7 @@ Renderer::Renderer()
     }
 
     SDL_RenderSetLogicalSize(renderer, size.x, size.y);
+    SDL_RenderSetIntegerScale(renderer, SDL_TRUE);
 
     // Font
     font = TTF_OpenFont("assets/font.ttf", 8);
