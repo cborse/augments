@@ -199,6 +199,12 @@ void TeamScene::refresh_grid_widgets()
         cell.set_active(i == index - 8);
         cell.set_visibility(i < size);
 
+        auto& cell_image = cell.get_image();
+        if (page != -1 && i == index - 8)
+            cell_image.set_anim_type(Image::anim_type_bounce);
+        else
+            cell_image.set_anim_type(Image::anim_type_none);
+
         auto& assigned = widgets.find<Image>("image-assigned" + std::to_string(i));
         assigned.set_visibility(false);
 
@@ -207,6 +213,12 @@ void TeamScene::refresh_grid_widgets()
                 const Creature* creature = eggs.at(i);
                 const Species& species = game.cache.get_species(creature->species_id);
                 cell.set_texture(game.renderer.get_textures().get_egg_icon(species.rarity));
+
+                // Special animation for egg ready to hatch
+                if (creature->wins >= (uint32_t)species.get_needed_egg_wins())
+                    cell_image.set_anim_type(Image::anim_type_shake);
+                else
+                    cell_image.set_anim_type(Image::anim_type_none);
             }
             else {
                 const Creature* creature = storage.at(i + page * 20);
