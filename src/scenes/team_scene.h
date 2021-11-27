@@ -14,7 +14,7 @@ public:
     TeamScene(Game& game);
 
     virtual void handle_event(const SDL_Event& e) override;
-    virtual void update() override {}
+    virtual void update() override;
     virtual void draw() const override;
 
 private:

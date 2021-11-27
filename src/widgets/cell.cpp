@@ -28,6 +28,11 @@ bool Cell::handle_event(const SDL_Event& e)
     return false;
 }
 
+void Cell::update()
+{
+    image.update();
+}
+
 void Cell::draw() const
 {
     const TextureContainer& textures = renderer.get_textures();
@@ -40,6 +45,11 @@ void Cell::draw() const
         image.draw();
         label.draw();
     }
+}
+
+Image& Cell::get_image()
+{
+    return image;
 }
 
 void Cell::set_action(std::function<void()> action)

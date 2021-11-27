@@ -123,6 +123,11 @@ void TeamScene::handle_event(const SDL_Event& e)
     widgets.handle_event(e);
 }
 
+void TeamScene::update()
+{
+    widgets.update();
+}
+
 void TeamScene::draw() const
 {
     game.renderer.clear({ 243, 239, 225 });
@@ -171,6 +176,12 @@ void TeamScene::refresh_list_widgets()
         auto& cell = widgets.find<Cell>("cell-list" + std::to_string(i));
         cell.set_active(i == index);
         cell.set_visibility(i < size);
+
+        auto& cell_image = cell.get_image();
+        if (i == index)
+            cell_image.set_anim_type(Image::anim_type_bounce);
+        else
+            cell_image.set_anim_type(Image::anim_type_none);
 
         if (i < size) {
             const Creature* creature = staff_creatures.at(staff).at(i);

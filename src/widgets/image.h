@@ -57,5 +57,5 @@ private:
     SDL_Point anim_frame_size = {};
     double anim_angle = 0.0;
 
-    static constexpr int anim_speed_factor = 12;
+    static constexpr int anim_speed_factor = 8;
 };
