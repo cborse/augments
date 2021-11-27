@@ -108,7 +108,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>src;external;C:\dev\lib\SDL2-devel-2.0.16-VC\SDL2-2.0.16\include;C:\dev\lib\SDL2_image-devel-2.0.5-VC\SDL2_image-2.0.5\include;C:\dev\lib\SDL2_ttf-devel-2.0.15-VC\SDL2_ttf-2.0.15\include;C:\dev\lib\libcurl\include;C:\dev\lib\steamworks_sdk_152\sdk\public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4996; 26812; 26819</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -127,7 +127,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>src;external;C:\dev\lib\SDL2-devel-2.0.16-VC\SDL2-2.0.16\include;C:\dev\lib\SDL2_image-devel-2.0.5-VC\SDL2_image-2.0.5\include;C:\dev\lib\SDL2_ttf-devel-2.0.15-VC\SDL2_ttf-2.0.15\include;C:\dev\lib\libcurl\include;C:\dev\lib\steamworks_sdk_152\sdk\public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4996; 26812; 26819</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
