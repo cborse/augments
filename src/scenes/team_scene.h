@@ -27,6 +27,7 @@ private:
     void refresh_staff_widgets();
     void refresh_page_widgets();
     void refresh_control_widgets();
+    void animate_pair();
 
     void click_staff_left();
     void click_staff_right();

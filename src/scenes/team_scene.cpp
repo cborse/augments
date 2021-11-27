@@ -167,6 +167,7 @@ void TeamScene::refresh_widgets()
     refresh_staff_widgets();
     refresh_page_widgets();
     refresh_control_widgets();
+    animate_pair();
 }
 
 void TeamScene::refresh_list_widgets()
@@ -217,8 +218,6 @@ void TeamScene::refresh_grid_widgets()
                 // Special animation for egg ready to hatch
                 if (creature->wins >= (uint32_t)species.get_needed_egg_wins())
                     cell_image.set_anim_type(Image::anim_type_shake);
-                else
-                    cell_image.set_anim_type(Image::anim_type_none);
             }
             else {
                 const Creature* creature = storage.at(i + page * 20);
@@ -334,6 +333,30 @@ void TeamScene::refresh_control_widgets()
             control3.set_visibility(true);
             control3.set_string("hatch");
             control3.set_action(std::bind(&TeamScene::hatch, this));
+        }
+    }
+}
+
+void TeamScene::animate_pair()
+{
+    const Creature* creature = get_selected_creature();
+    if (!creature || creature->is_egg || page == -1 /*|| augment*/)
+        return;
+
+    if (index < 8) {
+        for (int i = 0; i < 20 && i < storage.size() - page * 20; i++) {
+            if (creature->id == storage.at(i + page * 20)->id) {
+                auto& cell = widgets.find<Cell>("cell-grid" + std::to_string(i));
+                cell.get_image().set_anim_type(Image::anim_type_bounce);
+            }
+        }
+    }
+    else {
+        for (int i = 0; i < staff_creatures.at(staff).size(); i++) {
+            if (creature->id == staff_creatures.at(staff).at(i)->id) {
+                auto& cell = widgets.find<Cell>("cell-list" + std::to_string(i));
+                cell.get_image().set_anim_type(Image::anim_type_bounce);
+            }
         }
     }
 }
