@@ -22,6 +22,7 @@ public:
     Rarity rarity = Rarity::common;
     Type type1 = Type::none;
     Type type2 = Type::none;
+    Type type3 = Type::none;
     uint32_t height = 0;
     uint32_t weight = 0;
     uint8_t inner_power = 0;

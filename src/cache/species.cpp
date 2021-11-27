@@ -16,6 +16,7 @@ Species::Species(const nlohmann::json& json)
         rarity = json.at("rarity");
         type1 = json.at("type1");
         type2 = json.at("type2");
+        type3 = json.at("type3");
     }
     catch (...) {
         throw Error("Failed to parse species data.");
