@@ -59,7 +59,6 @@ void Button::set_string(const std::string& string)
 void Button::set_visibility(bool visible)
 {
     this->visible = visible;
-    hovered = visible ? hovered : false;
 }
 
 Button& Button::with_action(std::function<void()> action)
