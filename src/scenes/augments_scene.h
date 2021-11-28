@@ -20,6 +20,11 @@ public:
 private:
     void refresh_data();
     void refresh_widgets();
+    void refresh_list_widgets();
+    void refresh_info_widgets();
+    void refresh_page_widgets();
+    void refresh_control_widgets();
+
     void click_list(int i);
     void click_page_left();
     void click_page_right();

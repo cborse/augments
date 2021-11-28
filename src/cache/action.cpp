@@ -34,3 +34,25 @@ Action::Action(const nlohmann::json& json)
         throw Error("Failed to parse action data.");
     }
 }
+
+std::string Action::get_cover_string(uint8_t cover)
+{
+    static const std::vector<std::string> covers = {
+        "-", "RING 1", "RING 2", "ARC 2",
+        "ARC 3", "ARC 4", "ARC 5", "TILE 1",
+        "TILE 2", "TILE 3", "TILE 4", "TILE 5",
+        "LINE 2", "LINE 3", "LINE 4", "LINE 5"
+    };
+
+    return covers.at(cover);
+}
+
+std::string Action::get_style_string(uint8_t style)
+{
+    if (style == 1)
+        return "INNER";
+    else if (style == 2)
+        return "OUTER";
+
+    return "-";
+}
