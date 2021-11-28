@@ -33,6 +33,7 @@ public:
     // Helpers
     uint8_t get_user_action_qty(uint32_t id) const;
     uint8_t get_user_skill_qty(uint32_t id) const;
+    bool can_learn(const Creature& creature, const Action& action) const;
 
     User user;
     std::vector<UserAction> user_actions;

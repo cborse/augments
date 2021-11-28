@@ -107,3 +107,14 @@ uint8_t Cache::get_user_skill_qty(uint32_t id) const
 
     return 0;
 }
+
+bool Cache::can_learn(const Creature& creature, const Action& action) const
+{
+    if (creature.is_egg)
+        return false;
+
+    auto lambda = [&creature, &action](const Actionset& actionset) {
+        return actionset.species_id == creature.species_id && actionset.action_id == action.id;
+    };
+    return std::find_if(actionsets.begin(), actionsets.end(), lambda) != actionsets.end();
+}
