@@ -113,6 +113,10 @@ bool Cache::can_learn(const Creature& creature, const Action& action) const
     if (creature.is_egg)
         return false;
 
+    const Species& species = get_species(creature.species_id);
+    if (action.core && (action.type == species.type1 || action.type == species.type2) || action.type == species.type3)
+        return true;
+
     auto lambda = [&creature, &action](const Actionset& actionset) {
         return actionset.species_id == creature.species_id && actionset.action_id == action.id;
     };
