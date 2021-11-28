@@ -78,16 +78,11 @@ void HatchScene::end()
     widgets.find<Image>("image").set_visibility(true);
 
     auto& button = widgets.find<Button>("button");
-    button.set_action(std::bind(&HatchScene::back, this));
+    button.set_action(std::bind(&Game::pop_scene, &game, true));
     button.set_string("back");
     button.set_visibility(true);
 
     auto& label = widgets.find<Label>("label");
     label.set_string(creature.name + " hatched from the egg!");
     label.set_visibility(true);
-}
-
-void HatchScene::back()
-{
-    game.pop_scene();
 }

@@ -20,7 +20,6 @@ public:
 private:
     void start();
     void end();
-    void back();
 
     bool animating = true;
     const Creature& creature;
