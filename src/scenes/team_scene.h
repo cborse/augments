@@ -11,7 +11,7 @@
 
 class TeamScene : public Scene {
 public:
-    TeamScene(Game& game);
+    TeamScene(Game& game, const Augment* augment = nullptr);
 
     virtual void handle_event(const SDL_Event& e) override;
     virtual void update() override;
@@ -26,6 +26,7 @@ private:
     void refresh_staff_widgets();
     void refresh_page_widgets();
     void refresh_control_widgets();
+    void refresh_augment_widgets();
     void animate_pair();
 
     void click_staff_left();
@@ -40,10 +41,12 @@ private:
     void assign();
     void unassign();
     void hatch();
+    void use_augment();
 
     int index = 8;
     int staff = 0;
     int page = 0;
+    const Augment* augment;
 
     std::vector<Creature*> eggs;
     std::vector<Creature*> storage;

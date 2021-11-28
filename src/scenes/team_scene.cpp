@@ -8,8 +8,8 @@
 #include "team_scene.h"
 #include "hatch_scene.h"
 
-TeamScene::TeamScene(Game& game)
-    : Scene(game)
+TeamScene::TeamScene(Game& game, const Augment* augment)
+    : Scene(game), augment(augment)
 {
     // Back/cancel button
     widgets.add<Button>()
@@ -22,7 +22,7 @@ TeamScene::TeamScene(Game& game)
         .with_color({ 23, 23, 20 })
         .with_position({ 60, 8 })
         .with_shadow(false)
-        .with_string("STAFFS");
+        .with_string(augment ? "USE AUGMENT" : "STAFFS");
 
     // List
     widgets.add<Button>("button-staff_left")
@@ -108,6 +108,23 @@ TeamScene::TeamScene(Game& game)
     widgets.add<ProgressBar>("pbar-summary")
         .with_bounds({ 380, 157, 78, 8 });
 
+    // Augment
+    widgets.add<Image>("image-augment")
+        .with_position({ 341, 185 })
+        .with_visibility(augment);
+
+    widgets.add<Label>("label-augment")
+        .with_color({ 243, 239, 225 })
+        .with_position({ 366, 191 })
+        .with_visibility(augment);
+
+    widgets.add<Label>("label-augment_unable")
+        .with_alignment(Label::center)
+        .with_color({ 182, 83, 83 })
+        .with_position({ 401, 216 })
+        .with_string("unable!")
+        .with_visibility(augment);
+
     // Controls
     for (int i = 0; i < 4; i++) {
         widgets.add<Button>("button-control" + std::to_string(i))
@@ -115,6 +132,8 @@ TeamScene::TeamScene(Game& game)
     }
 
     refresh_data();
+    if (storage.empty() && !augment)
+        page = -1;
     refresh_widgets();
 }
 
@@ -168,6 +187,9 @@ void TeamScene::refresh_widgets()
     refresh_page_widgets();
     refresh_control_widgets();
     animate_pair();
+
+    if (augment)
+        refresh_augment_widgets();
 }
 
 void TeamScene::refresh_list_widgets()
@@ -179,15 +201,35 @@ void TeamScene::refresh_list_widgets()
         cell.set_visibility(i < size);
 
         auto& cell_image = cell.get_image();
-        if (i == index)
-            cell_image.set_anim_type(Image::anim_type_bounce);
-        else
+        if (i >= size)
             cell_image.set_anim_type(Image::anim_type_none);
 
         if (i < size) {
             const Creature* creature = staff_creatures.at(staff).at(i);
             cell.set_string(creature->name);
             cell.set_texture(game.renderer.get_textures().get_species_icon(creature->species_id));
+
+            bool can_augment = false;
+            if (augment) {
+                if (std::holds_alternative<Action>(*augment)) {
+                    const Action& action = std::get<Action>(*augment);
+                    can_augment = game.cache.can_learn(*creature, action);
+                }
+                else if (std::holds_alternative<Skill>(*augment)) {
+                    const Skill& skill = std::get<Skill>(*augment);
+                    //can_augment = game.cache.can_learn(*creature, skill);
+                }
+            }
+
+            cell_image.set_alpha(augment && !can_augment ? 64 : 255);
+            cell.get_label().set_alpha(augment && !can_augment ? 64 : 255);
+
+            if (can_augment)
+                cell_image.set_anim_type(Image::anim_type_bounce);
+            else if (!augment && i == index)
+                cell_image.set_anim_type(Image::anim_type_bounce);
+            else
+                cell_image.set_anim_type(Image::anim_type_none);
         }
     }
 }
@@ -201,9 +243,7 @@ void TeamScene::refresh_grid_widgets()
         cell.set_visibility(i < size);
 
         auto& cell_image = cell.get_image();
-        if (page != -1 && i == index - 8)
-            cell_image.set_anim_type(Image::anim_type_bounce);
-        else
+        if (i >= size)
             cell_image.set_anim_type(Image::anim_type_none);
 
         auto& assigned = widgets.find<Image>("image-assigned" + std::to_string(i));
@@ -215,14 +255,37 @@ void TeamScene::refresh_grid_widgets()
                 const Species& species = game.cache.get_species(creature->species_id);
                 cell.set_texture(game.renderer.get_textures().get_egg_icon(species.rarity));
 
-                // Special animation for egg ready to hatch
                 if (creature->wins >= (uint32_t)species.get_needed_egg_wins())
                     cell_image.set_anim_type(Image::anim_type_shake);
+                else
+                    cell_image.set_anim_type(Image::anim_type_none);
             }
             else {
                 const Creature* creature = storage.at(i + page * 20);
                 assigned.set_visibility(creature->staff_slot != -1);
                 cell.set_texture(game.renderer.get_textures().get_species_icon(creature->species_id));
+
+                bool can_augment = false;
+                if (augment) {
+                    if (std::holds_alternative<Action>(*augment)) {
+                        const Action& action = std::get<Action>(*augment);
+                        can_augment = game.cache.can_learn(*creature, action);
+                    }
+                    else if (std::holds_alternative<Skill>(*augment)) {
+                        const Skill& skill = std::get<Skill>(*augment);
+                        //can_augment = game.cache.can_learn(*creature, skill);
+                    }
+                }
+
+                cell_image.set_alpha(augment && !can_augment ? 64 : 255);
+                assigned.set_alpha(augment && !can_augment ? 64 : 255);
+
+                if (can_augment)
+                    cell_image.set_anim_type(Image::anim_type_bounce);
+                else if (!augment && i == index - 8)
+                    cell_image.set_anim_type(Image::anim_type_bounce);
+                else
+                    cell_image.set_anim_type(Image::anim_type_none);
             }
         }
     }
@@ -281,7 +344,7 @@ void TeamScene::refresh_staff_widgets()
 void TeamScene::refresh_page_widgets()
 {
     auto& label_left = widgets.find<Button>("button-storage_left");
-    label_left.set_visibility(page > -1);
+    label_left.set_visibility(page > -1 && !augment);
 
     auto& label_right = widgets.find<Button>("button-storage_right");
     label_right.set_visibility(page + 1 < (int)game.cache.user.storage_pages && !storage.empty());
@@ -306,8 +369,28 @@ void TeamScene::refresh_control_widgets()
     if (!creature)
         return;
 
+    // Using augment
+    if (augment) {
+        bool usable = false;
+        if (std::holds_alternative<Action>(*augment)) {
+            const Action& action = std::get<Action>(*augment);
+            usable = game.cache.can_learn(*creature, action);
+        }
+        else if (std::holds_alternative<Skill>(*augment)) {
+            const Skill& skill = std::get<Skill>(*augment);
+            //usable = game.cache.can_learn(*creature, skill);
+        }
+
+        control2.set_visibility(usable && !creature->is_egg);
+        control3.set_visibility(!creature->is_egg);
+
+        control2.set_string("use");
+        control2.set_action(std::bind(&TeamScene::use_augment, this));
+
+        control3.set_string("stats");
+    }
     // Creature
-    if (!creature->is_egg) {
+    else if (!creature->is_egg) {
         control0.set_visibility(true);
         control1.set_visibility(true);
         control2.set_visibility(true);
@@ -337,10 +420,38 @@ void TeamScene::refresh_control_widgets()
     }
 }
 
+void TeamScene::refresh_augment_widgets()
+{
+    auto& image_augment = widgets.find<Image>("image-augment");
+    auto& label_augment = widgets.find<Label>("label-augment");
+    auto& label_unable = widgets.find<Label>("label-augment_unable");
+
+    const Creature* creature = get_selected_creature();
+
+    image_augment.set_visibility(creature);
+    label_augment.set_visibility(creature);
+    label_unable.set_visibility(creature);
+
+    if (creature) {
+        if (std::holds_alternative<Action>(*augment)) {
+            const Action& action = std::get<Action>(*augment);
+            image_augment.set_texture(game.renderer.get_textures().get_action(action.type));
+            label_augment.set_string(action.name);
+            label_unable.set_visibility(!game.cache.can_learn(*creature, action));
+        }
+        else if (std::holds_alternative<Skill>(*augment)) {
+            const Skill& skill = std::get<Skill>(*augment);
+            image_augment.set_texture(game.renderer.get_textures().get_skill());
+            label_augment.set_string(skill.name);
+            //label_unable.set_visibility(!game.cache.can_learn(*creature, skill));
+        }
+    }
+}
+
 void TeamScene::animate_pair()
 {
     const Creature* creature = get_selected_creature();
-    if (!creature || creature->is_egg || page == -1 /*|| augment*/)
+    if (!creature || creature->is_egg || page == -1 || augment)
         return;
 
     if (index < 8) {
@@ -489,4 +600,8 @@ void TeamScene::hatch()
     refresh_widgets();
 
     game.push_scene(std::make_unique<HatchScene>(game, *creature));
+}
+
+void TeamScene::use_augment()
+{
 }
