@@ -52,6 +52,11 @@ Image& Cell::get_image()
     return image;
 }
 
+Label& Cell::get_label()
+{
+    return label;
+}
+
 void Cell::set_action(std::function<void()> action)
 {
     this->action = action;

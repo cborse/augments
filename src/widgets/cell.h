@@ -20,6 +20,7 @@ public:
     virtual void draw() const override;
 
     Image& get_image();
+    Label& get_label();
 
     void set_action(std::function<void()> action);
     void set_active(bool active);
