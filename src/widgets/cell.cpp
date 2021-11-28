@@ -70,7 +70,19 @@ void Cell::set_active(bool active)
 void Cell::set_bounds(const SDL_Rect& bounds)
 {
     this->bounds = bounds;
-    label.set_position({ bounds.x + 4, bounds.y + 6 });
+
+    if (align == Label::center) {
+        label.set_alignment(Label::center);
+        label.set_position({ bounds.x + bounds.w / 2, bounds.y + 6 });
+    }
+    else if (align == Label::right) {
+        label.set_alignment(Label::right);
+        label.set_position({ bounds.x + bounds.w - 4, bounds.y + 6 });
+    }
+    else {
+        label.set_alignment(Label::left);
+        label.set_position({ bounds.x + 4, bounds.y + 6 });
+    }
 }
 
 void Cell::set_image_offset(const SDL_Point& offset)
@@ -78,9 +90,16 @@ void Cell::set_image_offset(const SDL_Point& offset)
     image.set_position({ bounds.x + offset.x, bounds.y + offset.y });
 }
 
+void Cell::set_label_alignment(Label::Align align)
+{
+    this->align = align;
+    set_bounds(bounds);
+}
+
 void Cell::set_string(const std::string& string)
 {
     label.set_string(string);
+    set_bounds(bounds);
 }
 
 void Cell::set_texture(const Texture& texture)
@@ -108,6 +127,12 @@ Cell& Cell::with_bounds(const SDL_Rect& bounds)
 Cell& Cell::with_image_offset(const SDL_Point& offset)
 {
     set_image_offset(offset);
+    return *this;
+}
+
+Cell& Cell::with_label_alignment(Label::Align align)
+{
+    set_label_alignment(align);
     return *this;
 }
 

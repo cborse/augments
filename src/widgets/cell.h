@@ -26,6 +26,7 @@ public:
     void set_active(bool active);
     void set_bounds(const SDL_Rect& bounds);
     void set_image_offset(const SDL_Point& offset);
+    void set_label_alignment(Label::Align align);
     void set_string(const std::string& string);
     void set_texture(const Texture& texture);
     void set_visibility(bool visible);
@@ -33,6 +34,7 @@ public:
     Cell& with_action(std::function<void()> action);
     Cell& with_bounds(const SDL_Rect& bounds);
     Cell& with_image_offset(const SDL_Point& offset);
+    Cell& with_label_alignment(Label::Align align);
     Cell& with_string(const std::string& string);
     Cell& with_texture(const Texture& texture);
     Cell& with_visibility(bool visible);
@@ -40,6 +42,7 @@ public:
 private:
     bool visible = true;
     bool active = false;
+    Label::Align align = Label::left;
     SDL_Rect bounds = {};
     std::function<void()> action = [] {};
     Image image;
