@@ -350,7 +350,7 @@ void TeamScene::refresh_page_widgets()
     label_right.set_visibility(page + 1 < (int)game.cache.user.storage_pages && !storage.empty());
 
     auto& label_page = widgets.find<Label>("label-storage_page");
-    label_page.set_string(page == -1 ? "Eggs" : "Storage " + std::to_string(page + 1));
+    label_page.set_string(page == -1 ? "EGGS" : "STORAGE " + std::to_string(page + 1));
 }
 
 void TeamScene::refresh_control_widgets()
