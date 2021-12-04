@@ -48,6 +48,11 @@ void MenuScene::handle_event(const SDL_Event& e)
     widgets.handle_event(e);
 }
 
+void MenuScene::update()
+{
+    widgets.update();
+}
+
 void MenuScene::draw() const
 {
     game.renderer.clear({ 243, 239, 225 });

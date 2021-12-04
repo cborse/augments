@@ -64,6 +64,11 @@ void Renderer::toggle_fullscreen() const
     SDL_SetWindowFullscreen(window, flags ^ SDL_WINDOW_FULLSCREEN_DESKTOP);
 }
 
+void Renderer::update_mouse(const SDL_Event& e)
+{
+    mouse = { e.motion.x, e.motion.y };
+}
+
 void Renderer::fade(uint8_t alpha) const
 {
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
@@ -146,4 +151,9 @@ Texture Renderer::load_texture(const std::string& filename) const
 const TextureContainer& Renderer::get_textures() const
 {
     return textures;
+}
+
+const SDL_Point& Renderer::get_mouse() const
+{
+    return mouse;
 }

@@ -15,7 +15,7 @@ public:
     explicit Button(const Renderer& renderer);
 
     virtual bool handle_event(const SDL_Event& e) override;
-    virtual void update() override {}
+    virtual void update() override;
     virtual void draw() const override;
 
     void set_action(std::function<void()> action);

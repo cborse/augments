@@ -15,16 +15,17 @@ Button::Button(const Renderer& renderer) : Widget(renderer), label(renderer)
 
 bool Button::handle_event(const SDL_Event& e)
 {
-    if (e.type == SDL_MOUSEMOTION) {
-        const SDL_Point mouse = { e.motion.x, e.motion.y };
-        hovered = SDL_PointInRect(&mouse, &bounds);
-    }
-    else if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT && visible && hovered) {
+    if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT && visible && hovered) {
         action();
         return true;
     }
 
     return false;
+}
+
+void Button::update()
+{
+    hovered = SDL_PointInRect(&renderer.get_mouse(), &bounds);
 }
 
 void Button::draw() const

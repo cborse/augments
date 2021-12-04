@@ -10,6 +10,7 @@
 
 Game::Game()
 {
+    SDL_ShowCursor(SDL_DISABLE);
 }
 
 Game::~Game()
@@ -36,6 +37,9 @@ void Game::loop()
             else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_F11)
                 renderer.toggle_fullscreen();
 
+            else if (e.type == SDL_MOUSEMOTION)
+                renderer.update_mouse(e);
+
             else if (!scenes.empty())
                 scenes.back()->handle_event(e);
         }
@@ -49,6 +53,7 @@ void Game::loop()
         renderer.clear();
         for (const auto& scene : scenes)
             scene->draw();
+        renderer.draw(renderer.get_textures().get_general("cursor"), renderer.get_mouse());
         renderer.present();
 
         last_count = this_count;

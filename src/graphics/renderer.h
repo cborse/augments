@@ -18,6 +18,7 @@ public:
     void present() const;
     void clear(const SDL_Color& color = {}) const;
     void toggle_fullscreen() const;
+    void update_mouse(const SDL_Event& e);
     void fade(uint8_t alpha) const;
 
     void draw_rect(const SDL_Rect& rect, const SDL_Color& color) const;
@@ -32,6 +33,7 @@ public:
     Texture load_texture(const std::string& filename) const;
 
     const TextureContainer& get_textures() const;
+    const SDL_Point& get_mouse() const;
 
     static constexpr SDL_Point size = { 480, 270 };
     static constexpr unsigned int framerate = 60;
@@ -41,4 +43,5 @@ private:
     SDL_Renderer* renderer = nullptr;
     TTF_Font* font = nullptr;
     TextureContainer textures;
+    SDL_Point mouse = {};
 };
