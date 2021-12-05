@@ -217,7 +217,7 @@ void TeamScene::refresh_list_widgets()
                 }
                 else if (std::holds_alternative<Skill>(*augment)) {
                     const Skill& skill = std::get<Skill>(*augment);
-                    //can_augment = game.cache.can_learn(*creature, skill);
+                    can_augment = game.cache.can_learn(*creature, skill);
                 }
             }
 
@@ -273,7 +273,7 @@ void TeamScene::refresh_grid_widgets()
                     }
                     else if (std::holds_alternative<Skill>(*augment)) {
                         const Skill& skill = std::get<Skill>(*augment);
-                        //can_augment = game.cache.can_learn(*creature, skill);
+                        can_augment = game.cache.can_learn(*creature, skill);
                     }
                 }
 
@@ -378,7 +378,7 @@ void TeamScene::refresh_control_widgets()
         }
         else if (std::holds_alternative<Skill>(*augment)) {
             const Skill& skill = std::get<Skill>(*augment);
-            //usable = game.cache.can_learn(*creature, skill);
+            usable = game.cache.can_learn(*creature, skill);
         }
 
         control2.set_visibility(usable && !creature->egg);
@@ -443,7 +443,7 @@ void TeamScene::refresh_augment_widgets()
             const Skill& skill = std::get<Skill>(*augment);
             image_augment.set_texture(game.renderer.get_textures().get_skill());
             label_augment.set_string(skill.name);
-            //label_unable.set_visibility(!game.cache.can_learn(*creature, skill));
+            label_unable.set_visibility(!game.cache.can_learn(*creature, skill));
         }
     }
 }

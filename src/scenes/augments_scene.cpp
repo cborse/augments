@@ -164,7 +164,7 @@ void AugmentsScene::refresh_list_widgets()
 
                 cell.get_label().set_string(action.name);
 
-                std::string qty = std::to_string(game.cache.get_user_action_qty(action.id));
+                std::string qty = std::to_string(game.cache.get_quantity(action));
                 label_qty.set_string(qty.length() > 1 ? ("x" + qty) : "x " + qty);
             }
             else if (std::holds_alternative<Skill>(augment)) {
@@ -174,7 +174,7 @@ void AugmentsScene::refresh_list_widgets()
 
                 cell.get_label().set_string(skill.name);
 
-                std::string qty = std::to_string(game.cache.get_user_skill_qty(skill.id));
+                std::string qty = std::to_string(game.cache.get_quantity(skill));
                 label_qty.set_string(qty.length() > 1 ? ("x" + qty) : "x " + qty);
             }
         }

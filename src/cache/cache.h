@@ -31,9 +31,10 @@ public:
     const Species& get_species(uint32_t id) const;
 
     // Helpers
-    uint8_t get_user_action_qty(uint32_t id) const;
-    uint8_t get_user_skill_qty(uint32_t id) const;
+    uint8_t get_quantity(const Action& action) const;
+    uint8_t get_quantity(const Skill& skill) const;
     bool can_learn(const Creature& creature, const Action& action) const;
+    bool can_learn(const Creature& creature, const Skill& skill) const;
 
     User user;
     std::vector<UserAction> user_actions;

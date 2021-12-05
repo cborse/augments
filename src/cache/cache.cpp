@@ -82,10 +82,10 @@ const Species& Cache::get_species(uint32_t id) const
     return species.at(id);
 }
 
-uint8_t Cache::get_user_action_qty(uint32_t id) const
+uint8_t Cache::get_quantity(const Action& action) const
 {
-    auto lambda = [&id](const UserAction& user_action) {
-        return user_action.action_id == id;
+    auto lambda = [&action](const UserAction& user_action) {
+        return user_action.action_id == action.id;
     };
 
     auto it = std::find_if(user_actions.begin(), user_actions.end(), lambda);
@@ -95,10 +95,10 @@ uint8_t Cache::get_user_action_qty(uint32_t id) const
     return 0;
 }
 
-uint8_t Cache::get_user_skill_qty(uint32_t id) const
+uint8_t Cache::get_quantity(const Skill& skill) const
 {
-    auto lambda = [&id](const UserSkill& user_skill) {
-        return user_skill.skill_id == id;
+    auto lambda = [&skill](const UserSkill& user_skill) {
+        return user_skill.skill_id == skill.id;
     };
 
     auto it = std::find_if(user_skills.begin(), user_skills.end(), lambda);
@@ -121,4 +121,18 @@ bool Cache::can_learn(const Creature& creature, const Action& action) const
         return actionset.species_id == creature.species_id && actionset.action_id == action.id;
     };
     return std::find_if(actionsets.begin(), actionsets.end(), lambda) != actionsets.end();
+}
+
+bool Cache::can_learn(const Creature& creature, const Skill& skill) const
+{
+    if (creature.egg)
+        return false;
+
+    if (skill.core)
+        return true;
+
+    auto lambda = [&creature, &skill](const Skillset& skillset) {
+        return skillset.species_id == creature.species_id && skillset.skill_id == skill.id;
+    };
+    return std::find_if(skillsets.begin(), skillsets.end(), lambda) != skillsets.end();
 }
