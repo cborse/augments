@@ -17,6 +17,7 @@ public:
 
     uint32_t id = 0;
     std::string name;
+    bool core = false;
     std::string desc1;
     std::string desc2;
     std::string desc3;
