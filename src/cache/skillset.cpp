@@ -13,7 +13,6 @@ Skillset::Skillset(const nlohmann::json& json)
     try {
         species_id = json.at("species_id");
         skill_id = json.at("skill_id");
-        series_id = json.at("series_id");
     }
     catch (...) {
         throw Error("Failed to parse skillset data.");
