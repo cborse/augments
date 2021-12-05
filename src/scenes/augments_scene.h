@@ -30,6 +30,7 @@ private:
     void click_page_right();
 
     const Augment* get_selected_augment() const;
+    int get_page_size() const;
 
     void use();
 

@@ -236,10 +236,8 @@ void TeamScene::refresh_list_widgets()
 
 void TeamScene::refresh_grid_widgets()
 {
-    int size = page == -1 ? (int)eggs.size() : max(min((int)storage.size() - page * 20, 20), 0);
+    int size = page == -1 ? (int)eggs.size() : get_page_size();
     for (int i = 0; i < 20; i++) {
-        OutputDebugStringA((std::to_string(i) + "\n").c_str());
-
         auto& cell = widgets.find<Cell>("cell-grid" + std::to_string(i));
         cell.set_active(i == index - 8);
         cell.set_visibility(i < size);
@@ -457,7 +455,7 @@ void TeamScene::animate_pair()
         return;
 
     if (index < 8) {
-        for (int i = 0; i < 20 && i < max(min((int)storage.size() - page * 20, 20), 0); i++) {
+        for (int i = 0; i < 20 && i < get_page_size(); i++) {
             if (creature->id == storage.at(i + page * 20)->id) {
                 auto& cell = widgets.find<Cell>("cell-grid" + std::to_string(i));
                 cell.get_image().set_anim_type(Image::anim_type_bounce);
@@ -527,11 +525,16 @@ Creature* TeamScene::get_selected_creature() const
             return eggs.at(index - 8);
     }
     else {
-        if (index - 8 < (int)storage.size() - page * 20)
+        if (index - 8 < get_page_size())
             return storage.at(index - 8 + page * 20);
     }
 
     return nullptr;
+}
+
+int TeamScene::get_page_size() const
+{
+    return max(min((int)storage.size() - page * 20, 20), 0);
 }
 
 void TeamScene::assign()
@@ -550,7 +553,7 @@ void TeamScene::assign()
     // Server
     const nlohmann::json json = {
         { "creature_id", creature->id },
-        { "staff_slot", creature->staff_id } };
+        { "staff_id", creature->staff_id } };
 
     game.api.push_request()
         .with_header_id(game.cache.user.id)

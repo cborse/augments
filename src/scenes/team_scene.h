@@ -37,6 +37,7 @@ private:
     void click_grid(int i);
 
     Creature* get_selected_creature() const;
+    int get_page_size() const;
 
     void assign();
     void unassign();

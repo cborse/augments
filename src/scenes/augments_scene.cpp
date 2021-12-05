@@ -144,7 +144,7 @@ void AugmentsScene::refresh_widgets()
 
 void AugmentsScene::refresh_list_widgets()
 {
-    int size = (int)augments.size() - page * 8;
+    int size = get_page_size();
 
     for (int i = 0; i < 8; i++) {
         auto& cell = widgets.find<Cell>("cell-list" + std::to_string(i));
@@ -274,7 +274,7 @@ void AugmentsScene::refresh_page_widgets()
 
 void AugmentsScene::refresh_control_widgets()
 {
-    int size = (int)augments.size() - page * 8;
+    int size = get_page_size();
 
     auto& control0 = widgets.find<Button>("button-control0");
     auto& control1 = widgets.find<Button>("button-control1");
@@ -312,10 +312,15 @@ void AugmentsScene::click_page_right()
 
 const Augment* AugmentsScene::get_selected_augment() const
 {
-    if (index < augments.size() - page * 8)
+    if (index < get_page_size())
         return &augments.at(index + page * 8);
 
     return nullptr;
+}
+
+int AugmentsScene::get_page_size() const
+{
+    return max(min((int)augments.size() - page * 8, 8), 0);
 }
 
 void AugmentsScene::use()
