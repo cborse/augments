@@ -236,8 +236,10 @@ void TeamScene::refresh_list_widgets()
 
 void TeamScene::refresh_grid_widgets()
 {
-    int size = page == -1 ? (int)eggs.size() : (int)storage.size() - page * 20;
+    int size = page == -1 ? (int)eggs.size() : max(min((int)storage.size() - page * 20, 20), 0);
     for (int i = 0; i < 20; i++) {
+        OutputDebugStringA((std::to_string(i) + "\n").c_str());
+
         auto& cell = widgets.find<Cell>("cell-grid" + std::to_string(i));
         cell.set_active(i == index - 8);
         cell.set_visibility(i < size);
@@ -344,7 +346,7 @@ void TeamScene::refresh_staff_widgets()
 void TeamScene::refresh_page_widgets()
 {
     auto& label_left = widgets.find<Button>("button-storage_left");
-    label_left.set_visibility(page > -1 && !augment);
+    label_left.set_visibility(page >= 0 && !augment || page > 0);
 
     auto& label_right = widgets.find<Button>("button-storage_right");
     label_right.set_visibility(page + 1 < (int)game.cache.user.storage_pages && !storage.empty());
@@ -523,7 +525,7 @@ Creature* TeamScene::get_selected_creature() const
             return eggs.at(index - 8);
     }
     else {
-        if (index - 8 < storage.size() - page * 20)
+        if (index - 8 < (int)storage.size() - page * 20)
             return storage.at(index - 8 + page * 20);
     }
 
