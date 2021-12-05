@@ -16,7 +16,7 @@ Creature::Creature(const nlohmann::json& json)
         species_id = json.at("species_id");
         staff_slot = json.at("staff_slot");
         name = json.at("name");
-        is_egg = json.at("is_egg");
+        egg = json.at("egg");
         xp = json.at("xp");
         wins = json.at("wins");
     }

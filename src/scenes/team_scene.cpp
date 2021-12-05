@@ -167,7 +167,7 @@ void TeamScene::refresh_data()
     staff_creatures.resize(game.cache.staffs.size());
 
     for (auto& creature : game.cache.creatures) {
-        if (creature.is_egg) {
+        if (creature.egg) {
             eggs.push_back(&creature);
         }
         else {
@@ -381,8 +381,8 @@ void TeamScene::refresh_control_widgets()
             //usable = game.cache.can_learn(*creature, skill);
         }
 
-        control2.set_visibility(usable && !creature->is_egg);
-        control3.set_visibility(!creature->is_egg);
+        control2.set_visibility(usable && !creature->egg);
+        control3.set_visibility(!creature->egg);
 
         control2.set_string("use");
         control2.set_action(std::bind(&TeamScene::use_augment, this));
@@ -390,7 +390,7 @@ void TeamScene::refresh_control_widgets()
         control3.set_string("stats");
     }
     // Creature
-    else if (!creature->is_egg) {
+    else if (!creature->egg) {
         control0.set_visibility(true);
         control1.set_visibility(true);
         control2.set_visibility(true);
@@ -451,7 +451,7 @@ void TeamScene::refresh_augment_widgets()
 void TeamScene::animate_pair()
 {
     const Creature* creature = get_selected_creature();
-    if (!creature || creature->is_egg || page == -1 || augment)
+    if (!creature || creature->egg || page == -1 || augment)
         return;
 
     if (index < 8) {
@@ -585,7 +585,7 @@ void TeamScene::hatch()
     }
 
     // Client
-    creature->is_egg = false;
+    creature->egg = false;
     creature->wins = 0;
 
     // Server

@@ -110,7 +110,7 @@ uint8_t Cache::get_user_skill_qty(uint32_t id) const
 
 bool Cache::can_learn(const Creature& creature, const Action& action) const
 {
-    if (creature.is_egg)
+    if (creature.egg)
         return false;
 
     const Species& species = get_species(creature.species_id);

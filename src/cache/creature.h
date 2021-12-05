@@ -22,7 +22,7 @@ public:
     uint32_t species_id = 0;
     int8_t staff_slot = 0;
     std::string name;
-    bool is_egg = false;
+    bool egg = false;
     uint32_t xp = 0;
     uint32_t wins = 0;
 
