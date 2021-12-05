@@ -37,6 +37,9 @@ void HttpContainer::update()
 
         // Copy the request info because it's going to be deleted
         long code = request.get_response_code();
+        if (code != 200)
+            throw Error("Server returned code " + std::to_string(code) + ".");
+
         std::string response = *request.response;
         auto callback = request.callback;
 
