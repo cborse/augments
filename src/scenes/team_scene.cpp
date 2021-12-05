@@ -310,7 +310,7 @@ void TeamScene::refresh_summary_widgets()
     pbar.set_visibility(creature && page != -1);
 
     if (creature) {
-        if (page == -1) {
+        if (creature->egg) {
             const Species& species = game.cache.get_species(creature->species_id);
             image_creature.set_texture(game.renderer.get_textures().get_egg(species.rarity));
             label_name.set_string("EGG");
