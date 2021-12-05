@@ -132,7 +132,7 @@ TeamScene::TeamScene(Game& game, const Augment* augment)
     }
 
     refresh_data();
-    if (storage.empty() && !augment)
+    if (storage.empty())
         page = -1;
     refresh_widgets();
 }
@@ -164,7 +164,7 @@ void TeamScene::refresh_data()
     eggs.clear();
     storage.clear();
     staff_creatures.clear();
-    staff_creatures.resize(game.cache.staffs.size());
+    uint64_t staff_id = game.cache.staffs.at(staff).id;
 
     for (auto& creature : game.cache.creatures) {
         if (creature.egg) {
@@ -172,8 +172,8 @@ void TeamScene::refresh_data()
         }
         else {
             storage.push_back(&creature);
-            if (creature.staff_slot != -1)
-                staff_creatures.at(creature.staff_slot).push_back(&creature);
+            if (creature.staff_id == staff_id)
+                staff_creatures.push_back(&creature);
         }
     }
 }
@@ -194,7 +194,7 @@ void TeamScene::refresh_widgets()
 
 void TeamScene::refresh_list_widgets()
 {
-    int size = (int)staff_creatures.at(staff).size();
+    int size = (int)staff_creatures.size();
     for (int i = 0; i < 8; i++) {
         auto& cell = widgets.find<Cell>("cell-list" + std::to_string(i));
         cell.set_active(i == index);
@@ -205,7 +205,7 @@ void TeamScene::refresh_list_widgets()
             cell_image.set_anim_type(Image::anim_type_none);
 
         if (i < size) {
-            const Creature* creature = staff_creatures.at(staff).at(i);
+            const Creature* creature = staff_creatures.at(i);
             cell.set_string(creature->name);
             cell.set_texture(game.renderer.get_textures().get_species_icon(creature->species_id));
 
@@ -264,7 +264,7 @@ void TeamScene::refresh_grid_widgets()
             }
             else {
                 const Creature* creature = storage.at(i + page * 20);
-                assigned.set_visibility(creature->staff_slot != -1);
+                assigned.set_visibility(creature->staff_id != 0);
                 cell.set_texture(game.renderer.get_textures().get_species_icon(creature->species_id));
 
                 bool can_augment = false;
@@ -398,7 +398,7 @@ void TeamScene::refresh_control_widgets()
         control2.set_visibility(true);
         control3.set_visibility(true);
 
-        if (creature->staff_slot == -1) {
+        if (creature->staff_id == 0) {
             control0.set_string("assign");
             control0.set_action(std::bind(&TeamScene::assign, this));
         }
@@ -457,7 +457,7 @@ void TeamScene::animate_pair()
         return;
 
     if (index < 8) {
-        for (int i = 0; i < 20 && i < storage.size() - page * 20; i++) {
+        for (int i = 0; i < 20 && i < max(min((int)storage.size() - page * 20, 20), 0); i++) {
             if (creature->id == storage.at(i + page * 20)->id) {
                 auto& cell = widgets.find<Cell>("cell-grid" + std::to_string(i));
                 cell.get_image().set_anim_type(Image::anim_type_bounce);
@@ -465,8 +465,8 @@ void TeamScene::animate_pair()
         }
     }
     else {
-        for (int i = 0; i < staff_creatures.at(staff).size(); i++) {
-            if (creature->id == staff_creatures.at(staff).at(i)->id) {
+        for (int i = 0; i < staff_creatures.size(); i++) {
+            if (creature->id == staff_creatures.at(i)->id) {
                 auto& cell = widgets.find<Cell>("cell-list" + std::to_string(i));
                 cell.get_image().set_anim_type(Image::anim_type_bounce);
             }
@@ -477,12 +477,14 @@ void TeamScene::animate_pair()
 void TeamScene::click_staff_left()
 {
     staff--;
+    refresh_data();
     refresh_widgets();
 }
 
 void TeamScene::click_staff_right()
 {
     staff++;
+    refresh_data();
     refresh_widgets();
 }
 
@@ -517,8 +519,8 @@ void TeamScene::click_grid(int i)
 Creature* TeamScene::get_selected_creature() const
 {
     if (index < 8) {
-        if (index < staff_creatures.at(staff).size())
-            return staff_creatures.at(staff).at(index);
+        if (index < staff_creatures.size())
+            return staff_creatures.at(index);
     }
     else if (page == -1) {
         if (index - 8 < eggs.size())
@@ -537,16 +539,19 @@ void TeamScene::assign()
     Creature* creature = get_selected_creature();
 
     // Make sure there's room on the staff
-    if (staff_creatures.at(staff).size() >= 8) {
+    if (staff_creatures.size() >= 8) {
         // error
         return;
     }
 
     // Client
-    creature->staff_slot = staff;
+    creature->staff_id = game.cache.staffs.at(staff).id;
 
     // Server
-    const nlohmann::json json = { { "creature_id", creature->id }, { "staff_slot", staff } };
+    const nlohmann::json json = {
+        { "creature_id", creature->id },
+        { "staff_slot", creature->staff_id } };
+
     game.api.push_request()
         .with_header_id(game.cache.user.id)
         .with_header_token(game.cache.user.token)
@@ -562,7 +567,7 @@ void TeamScene::unassign()
     Creature* creature = get_selected_creature();
 
     // Client
-    creature->staff_slot = -1;
+    creature->staff_id = 0;
 
     // Server
     const nlohmann::json json = { { "creature_id", creature->id } };

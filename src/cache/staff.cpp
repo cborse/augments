@@ -11,8 +11,8 @@
 Staff::Staff(const nlohmann::json& json)
 {
     try {
+        id = json.at("id");
         user_id = json.at("user_id");
-        slot = json.at("slot");
         name = json.at("name");
     }
     catch (...) {

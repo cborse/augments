@@ -14,7 +14,7 @@ public:
     User() = default;
     explicit User(const nlohmann::json& json);
 
-    uint32_t id = 0;
+    uint64_t id = 0;
     uint64_t steam_id = 0;
     std::string token;
     uint8_t egg_cap = 0;

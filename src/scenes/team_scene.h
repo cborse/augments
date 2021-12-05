@@ -50,5 +50,5 @@ private:
 
     std::vector<Creature*> eggs;
     std::vector<Creature*> storage;
-    std::vector<std::vector<Creature*>> staff_creatures;
+    std::vector<Creature*> staff_creatures;
 };
