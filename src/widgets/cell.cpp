@@ -35,13 +35,13 @@ void Cell::update()
 
 void Cell::draw() const
 {
-    const TextureContainer& textures = renderer.get_textures();
-    if (active)
-        renderer.draw_border(bounds, textures.get_general("cell_active"), { 82, 81, 74 });
-    else
-        renderer.draw_border(bounds, textures.get_general("cell"), { 48, 48, 44 });
-
     if (visible) {
+        const TextureContainer& textures = renderer.get_textures();
+        if (active)
+            renderer.draw_border(bounds, textures.get_general("cell_active"), { 82, 81, 74 });
+        else
+            renderer.draw_border(bounds, textures.get_general("cell"), { 48, 48, 44 });
+
         image.draw();
         label.draw();
     }

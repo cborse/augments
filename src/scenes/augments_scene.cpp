@@ -183,39 +183,37 @@ void AugmentsScene::refresh_list_widgets()
 
 void AugmentsScene::refresh_info_widgets()
 {
-    int size = (int)augments.size() - page * 8;
+    const Augment* augment = get_selected_augment();
 
     auto& name = widgets.find<Label>("label-info_name");
-    name.set_visibility(index < size);
+    name.set_visibility(augment);
 
     auto& icon = widgets.find<Image>("image-info_icon");
-    icon.set_visibility(index < size);
+    icon.set_visibility(augment);
 
     auto& desc1 = widgets.find<Label>("label-info_desc0");
-    desc1.set_visibility(index < size);
+    desc1.set_visibility(augment);
 
     auto& desc2 = widgets.find<Label>("label-info_desc1");
-    desc2.set_visibility(index < size);
+    desc2.set_visibility(augment);
 
     auto& desc3 = widgets.find<Label>("label-info_desc2");
-    desc3.set_visibility(index < size);
+    desc3.set_visibility(augment);
 
     for (int i = 0; i < 9; i++) {
         auto& detail_image = widgets.find<Image>("image-info_detail" + std::to_string(i));
-        detail_image.set_visibility(index < size);
+        detail_image.set_visibility(augment && std::holds_alternative<Action>(*augment));
 
         auto& detail_label = widgets.find<Label>("label-info_detail" + std::to_string(i));
-        detail_label.set_visibility(index < size);
+        detail_label.set_visibility(augment && std::holds_alternative<Action>(*augment));
 
         auto& detail_cell = widgets.find<Cell>("cell-info_detail" + std::to_string(i));
-        detail_cell.set_visibility(index < size);
+        detail_cell.set_visibility(augment && std::holds_alternative<Action>(*augment));
     }
 
-    if (index < size) {
-        const Augment& augment = augments.at(index + page * 8);
-
-        if (std::holds_alternative<Action>(augment)) {
-            const Action& action = std::get<Action>(augment);
+    if (augment) {
+        if (std::holds_alternative<Action>(*augment)) {
+            const Action& action = std::get<Action>(*augment);
 
             name.set_string(action.name);
             icon.set_texture(game.renderer.get_textures().get_action(action.type));
@@ -250,8 +248,8 @@ void AugmentsScene::refresh_info_widgets()
             auto& move = widgets.find<Cell>("cell-info_detail8");
             move.set_string(Action::get_cover_string(action.move));
         }
-        else if (std::holds_alternative<Skill>(augment)) {
-            const Skill& skill = std::get<Skill>(augment);
+        else if (std::holds_alternative<Skill>(*augment)) {
+            const Skill& skill = std::get<Skill>(*augment);
 
             name.set_string(skill.name);
             icon.set_texture(game.renderer.get_textures().get_skill());
@@ -310,6 +308,14 @@ void AugmentsScene::click_page_right()
 {
     page++;
     refresh_widgets();
+}
+
+const Augment* AugmentsScene::get_selected_augment() const
+{
+    if (index < augments.size() - page * 8)
+        return &augments.at(index + page * 8);
+
+    return nullptr;
 }
 
 void AugmentsScene::use()

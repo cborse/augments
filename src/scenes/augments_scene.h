@@ -29,6 +29,8 @@ private:
     void click_page_left();
     void click_page_right();
 
+    const Augment* get_selected_augment() const;
+
     void use();
 
     int index = 0;
