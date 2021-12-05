@@ -224,9 +224,7 @@ void TeamScene::refresh_list_widgets()
             cell_image.set_alpha(augment && !can_augment ? 64 : 255);
             cell.get_label().set_alpha(augment && !can_augment ? 64 : 255);
 
-            if (can_augment)
-                cell_image.set_anim_type(Image::anim_type_bounce);
-            else if (!augment && i == index)
+            if (i == index)
                 cell_image.set_anim_type(Image::anim_type_bounce);
             else
                 cell_image.set_anim_type(Image::anim_type_none);
@@ -280,9 +278,7 @@ void TeamScene::refresh_grid_widgets()
                 cell_image.set_alpha(augment && !can_augment ? 64 : 255);
                 assigned.set_alpha(augment && !can_augment ? 64 : 255);
 
-                if (can_augment)
-                    cell_image.set_anim_type(Image::anim_type_bounce);
-                else if (!augment && i == index - 8)
+                if (i == index - 8)
                     cell_image.set_anim_type(Image::anim_type_bounce);
                 else
                     cell_image.set_anim_type(Image::anim_type_none);
@@ -451,7 +447,7 @@ void TeamScene::refresh_augment_widgets()
 void TeamScene::animate_pair()
 {
     const Creature* creature = get_selected_creature();
-    if (!creature || creature->egg || page == -1 || augment)
+    if (!creature || creature->egg || page == -1)
         return;
 
     if (index < 8) {
