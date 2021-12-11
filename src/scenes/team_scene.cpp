@@ -550,7 +550,8 @@ void TeamScene::assign()
     // Server
     const nlohmann::json json = {
         { "creature_id", creature->id },
-        { "staff_id", creature->staff_id } };
+        { "staff_id", creature->staff_id }
+    };
 
     game.api.push_request()
         .with_header_id(game.cache.user.id)
