@@ -12,7 +12,7 @@
 
 class AugmentInfo {
 public:
-    AugmentInfo(const Renderer& renderer);
+    explicit AugmentInfo(const Renderer& renderer);
 
     void draw() const;
     void set_augment(const Augment* augment);
