@@ -48,7 +48,7 @@ private:
     int index = 8;
     int staff = 0;
     int page = 0;
-    const Augment* augment;
+    const Augment* augment = nullptr;
 
     std::vector<Creature*> eggs;
     std::vector<Creature*> storage;
