@@ -431,7 +431,7 @@ void TeamScene::refresh_augment_widgets()
     if (creature) {
         if (std::holds_alternative<Action>(*augment)) {
             const Action& action = std::get<Action>(*augment);
-            image_augment.set_texture(game.renderer.get_textures().get_action(action.type));
+            image_augment.set_texture(game.renderer.get_textures().get_augment(action.type));
             label_augment.set_string(action.name);
             label_unable.set_visibility(!game.cache.can_learn(*creature, action));
         }

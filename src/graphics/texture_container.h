@@ -26,7 +26,7 @@ public:
     const Texture& get_egg_icon(Rarity rarity) const;
     const Texture& get_hatch_animation(Rarity rarity) const;
     const Texture& get_type(Type type) const;
-    const Texture& get_action(Type type) const;
+    const Texture& get_augment(Type type) const;
     const Texture& get_skill() const;
 
 private:
@@ -37,6 +37,5 @@ private:
     std::vector<Texture> egg_icons;
     std::vector<Texture> hatch_animations;
     std::vector<Texture> types;
-    std::vector<Texture> actions;
-    std::vector<Texture> skills;
+    std::vector<Texture> augments;
 };

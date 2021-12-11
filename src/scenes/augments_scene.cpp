@@ -62,30 +62,34 @@ AugmentsScene::AugmentsScene(Game& game)
     widgets.add<Image>("image-info_icon")
         .with_position({ 196, 34 });
 
-    for (int i = 0; i < 3; i++) {
+    widgets.add<Label>("label-info_desc0")
+        .with_color({ 23, 23, 20 })
+        .with_position({ 196, 69 })
+        .with_string("DESCRIPTION")
+        .with_shadow(false);
+
+    for (int i = 1; i <= 3; i++) {
         widgets.add<Label>("label-info_desc" + std::to_string(i))
             .with_color({ 243, 239, 225 })
-            .with_position({ 196, 65 + i * 14 });
+            .with_position({ 196, 69 + i * 14 });
     }
 
     const std::vector<std::string> detail_strings = {
         "POWER", "ENERGY", "SPEED",
-        "ACC.", "STYLE", "CONTACT",
+        "ACCURACY", "STYLE", "CONTACT",
         "COVER", "DETECT", "MOVE"
     };
 
     for (int i = 0; i < 9; i++) {
-        widgets.add<Image>("image-info_detail" + std::to_string(i))
-            .with_position({ 196 + i % 3 * 90, 110 + i / 3 * 48 })
-            .with_texture(game.renderer.get_textures().get_skill());
-
         widgets.add<Label>("label-info_detail" + std::to_string(i))
-            .with_color({ 243, 239, 225 })
-            .with_position({ 220 + i % 3 * 90, 116 + i / 3 * 48 })
-            .with_string(detail_strings.at(i));
+            .with_alignment(Label::center)
+            .with_color({ 23, 23, 20 })
+            .with_position({ 196 + i % 3 * 90 + 82 / 2, 132 + i / 3 * 44 })
+            .with_string(detail_strings.at(i))
+            .with_shadow(false);
 
         widgets.add<Cell>("cell-info_detail" + std::to_string(i))
-            .with_bounds({ 196 + i % 3 * 90, 135 + i / 3 * 48, 82, 18 })
+            .with_bounds({ 196 + i % 3 * 90, 143 + i / 3 * 44, 82, 18 })
             .with_label_alignment(Label::center);
     }
 
@@ -160,7 +164,7 @@ void AugmentsScene::refresh_list_widgets()
             if (std::holds_alternative<Action>(augment)) {
                 const Action& action = std::get<Action>(augment);
 
-                cell.get_image().set_texture(game.renderer.get_textures().get_action(action.type));
+                cell.get_image().set_texture(game.renderer.get_textures().get_augment(action.type));
 
                 cell.get_label().set_string(action.name);
 
@@ -191,19 +195,16 @@ void AugmentsScene::refresh_info_widgets()
     auto& icon = widgets.find<Image>("image-info_icon");
     icon.set_visibility(augment);
 
-    auto& desc1 = widgets.find<Label>("label-info_desc0");
+    auto& desc1 = widgets.find<Label>("label-info_desc1");
     desc1.set_visibility(augment);
 
-    auto& desc2 = widgets.find<Label>("label-info_desc1");
+    auto& desc2 = widgets.find<Label>("label-info_desc2");
     desc2.set_visibility(augment);
 
-    auto& desc3 = widgets.find<Label>("label-info_desc2");
+    auto& desc3 = widgets.find<Label>("label-info_desc3");
     desc3.set_visibility(augment);
 
     for (int i = 0; i < 9; i++) {
-        auto& detail_image = widgets.find<Image>("image-info_detail" + std::to_string(i));
-        detail_image.set_visibility(augment && std::holds_alternative<Action>(*augment));
-
         auto& detail_label = widgets.find<Label>("label-info_detail" + std::to_string(i));
         detail_label.set_visibility(augment && std::holds_alternative<Action>(*augment));
 
@@ -216,7 +217,7 @@ void AugmentsScene::refresh_info_widgets()
             const Action& action = std::get<Action>(*augment);
 
             name.set_string(action.name);
-            icon.set_texture(game.renderer.get_textures().get_action(action.type));
+            icon.set_texture(game.renderer.get_textures().get_augment(action.type));
             desc1.set_string(action.desc1);
             desc2.set_string(action.desc2);
             desc3.set_string(action.desc3);
