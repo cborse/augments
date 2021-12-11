@@ -12,7 +12,7 @@
 
 class LearnScene : public Scene {
 public:
-    LearnScene(Game& game, const Augment& augment, const Creature& creature);
+    LearnScene(Game& game, const Augment& augment, Creature& creature);
 
     virtual void handle_event(const SDL_Event& e) override;
     virtual void update() override;
@@ -25,8 +25,10 @@ private:
 
     void click_list(int i);
 
+    void replace();
+
     int index = 0;
     AugmentInfo info;
     const Augment& augment;
-    const Creature& creature;
+    Creature& creature;
 };

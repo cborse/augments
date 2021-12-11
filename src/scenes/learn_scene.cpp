@@ -7,7 +7,7 @@
 
 #include "learn_scene.h"
 
-LearnScene::LearnScene(Game& game, const Augment& augment, const Creature& creature)
+LearnScene::LearnScene(Game& game, const Augment& augment, Creature& creature)
     : Scene(game), info(game.renderer), augment(augment), creature(creature)
 {
     // Back button
@@ -53,6 +53,7 @@ LearnScene::LearnScene(Game& game, const Augment& augment, const Creature& creat
 
     // Control
     widgets.add<Button>("button-control")
+        .with_action(std::bind(&LearnScene::replace, this))
         .with_bounds({ 394, 36, 68, 18 })
         .with_string("replace");
 
@@ -156,4 +157,48 @@ void LearnScene::click_list(int i)
         index = i;
         refresh_widgets();
     }
+}
+
+void LearnScene::replace()
+{
+    if (std::holds_alternative<Action>(augment)) {
+        const Action& action = std::get<Action>(augment);
+
+        // Client
+        creature.actions[index] = action.id;
+
+        // Server
+        const nlohmann::json json = {
+            { "creature_id", creature.id },
+            { "slot", index },
+            { "action_id", action.id }
+        };
+
+        game.api.push_request()
+            .with_header_id(game.cache.user.id)
+            .with_header_token(game.cache.user.token)
+            .with_body(json.dump())
+            .with_uri("replace_action");
+    }
+    else if (std::holds_alternative<Skill>(augment)) {
+        const Skill& skill = std::get<Skill>(augment);
+
+        // Client
+        creature.skills[index] = skill.id;
+
+        // Server
+        const nlohmann::json json = {
+            { "creature_id", creature.id },
+            { "slot", index },
+            { "skill_id", skill.id }
+        };
+
+        game.api.push_request()
+            .with_header_id(game.cache.user.id)
+            .with_header_token(game.cache.user.token)
+            .with_body(json.dump())
+            .with_uri("replace_skill");
+    }
+
+    game.pop_scene();
 }

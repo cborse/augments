@@ -612,7 +612,7 @@ void TeamScene::hatch()
 
 void TeamScene::use_augment()
 {
-    const Creature* creature = get_selected_creature();
+    Creature* creature = get_selected_creature();
     if (augment && creature)
         game.push_scene(std::make_unique<LearnScene>(game, *augment, *creature));
 }
