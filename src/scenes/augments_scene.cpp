@@ -106,10 +106,12 @@ void AugmentsScene::refresh_widgets()
     refresh_control_widgets();
 
     const Augment* augment = get_selected_augment();
-    if (std::holds_alternative<Action>(*augment))
+    if (augment && std::holds_alternative<Action>(*augment))
         info.set_augment(std::get<Action>(*augment));
-    else if (std::holds_alternative<Skill>(*augment))
+    else if (augment && std::holds_alternative<Skill>(*augment))
         info.set_augment(std::get<Skill>(*augment));
+    else
+        info.set_augment(game.cache.get_action(0));
 }
 
 void AugmentsScene::refresh_list_widgets()

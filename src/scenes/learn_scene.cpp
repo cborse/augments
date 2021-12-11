@@ -107,13 +107,25 @@ void LearnScene::refresh_list_widgets()
 
         if (std::holds_alternative<Action>(augment)) {
             const Action& action = game.cache.get_action(creature.actions[i]);
-            cell.get_image().set_texture(game.renderer.get_textures().get_augment(action.type));
-            cell.get_label().set_string(action.name);
+            if (action.id != 0) {
+                cell.get_image().set_texture(game.renderer.get_textures().get_augment(action.type));
+                cell.get_label().set_string(action.name);
+            }
+            else {
+                cell.get_image().set_visibility(false);
+                cell.get_label().set_string("-");
+            }
         }
         else if (std::holds_alternative<Skill>(augment)) {
             const Skill& skill = game.cache.get_skill(creature.skills[i]);
-            cell.get_image().set_texture(game.renderer.get_textures().get_skill());
-            cell.get_label().set_string(skill.name);
+            if (skill.id != 0) {
+                cell.get_image().set_texture(game.renderer.get_textures().get_skill());
+                cell.get_label().set_string(skill.name);
+            }
+            else {
+                cell.get_image().set_visibility(false);
+                cell.get_label().set_string("-");
+            }
         }
     }
 
