@@ -195,6 +195,9 @@ void AugmentsScene::refresh_info_widgets()
     auto& icon = widgets.find<Image>("image-info_icon");
     icon.set_visibility(augment);
 
+    auto& desc0 = widgets.find<Label>("label-info_desc0");
+    desc0.set_visibility(augment);
+
     auto& desc1 = widgets.find<Label>("label-info_desc1");
     desc1.set_visibility(augment);
 
