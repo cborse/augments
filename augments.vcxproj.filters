@@ -126,6 +126,9 @@
     <ClInclude Include="src\cache\augment.h">
       <Filter>src\cache</Filter>
     </ClInclude>
+    <ClInclude Include="src\scenes\learn_scene.h">
+      <Filter>src\scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\game.cpp">
@@ -219,6 +222,9 @@
       <Filter>src\cache</Filter>
     </ClCompile>
     <ClCompile Include="src\scenes\augment_info.cpp">
+      <Filter>src\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scenes\learn_scene.cpp">
       <Filter>src\scenes</Filter>
     </ClCompile>
   </ItemGroup>

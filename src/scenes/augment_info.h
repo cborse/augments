@@ -15,12 +15,14 @@ public:
     explicit AugmentInfo(const Renderer& renderer);
 
     void draw() const;
-    void set_augment(const Augment* augment);
+    void set_augment(const Action& action);
+    void set_augment(const Skill& skill);
 
 private:
     void refresh();
 
-    const Augment* augment = nullptr;
+    const Action* action = nullptr;
+    const Skill* skill = nullptr;
     const Renderer& renderer;
     WidgetContainer widgets;
 };

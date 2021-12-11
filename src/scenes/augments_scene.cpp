@@ -104,7 +104,12 @@ void AugmentsScene::refresh_widgets()
     refresh_list_widgets();
     refresh_page_widgets();
     refresh_control_widgets();
-    info.set_augment(get_selected_augment());
+
+    const Augment* augment = get_selected_augment();
+    if (std::holds_alternative<Action>(*augment))
+        info.set_augment(std::get<Action>(*augment));
+    else if (std::holds_alternative<Skill>(*augment))
+        info.set_augment(std::get<Skill>(*augment));
 }
 
 void AugmentsScene::refresh_list_widgets()
