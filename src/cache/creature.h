@@ -25,12 +25,8 @@ public:
     bool egg = false;
     uint32_t xp = 0;
     uint32_t wins = 0;
-    uint32_t action1 = 0;
-    uint32_t action2 = 0;
-    uint32_t action3 = 0;
-    uint32_t skill1 = 0;
-    uint32_t skill2 = 0;
-    uint32_t skill3 = 0;
+    uint32_t actions[3] = {};
+    uint32_t skills[3] = {};
 
 private:
     static int get_xp(int level);

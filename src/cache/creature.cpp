@@ -19,12 +19,12 @@ Creature::Creature(const nlohmann::json& json)
         egg = json.at("egg");
         xp = json.at("xp");
         wins = json.at("wins");
-        action1 = json.at("action1");
-        action2 = json.at("action2");
-        action3 = json.at("action3");
-        skill1 = json.at("skill1");
-        skill2 = json.at("skill2");
-        skill3 = json.at("skill3");
+        actions[0] = json.at("action1");
+        actions[1] = json.at("action2");
+        actions[2] = json.at("action3");
+        skills[0] = json.at("skill1");
+        skills[1] = json.at("skill2");
+        skills[2] = json.at("skill3");
     }
     catch (...) {
         throw Error("Failed to parse creature data.");
