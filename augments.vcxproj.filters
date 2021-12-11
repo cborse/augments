@@ -120,6 +120,12 @@
     <ClInclude Include="src\cache\skillset.h">
       <Filter>src\cache</Filter>
     </ClInclude>
+    <ClInclude Include="src\scenes\augment_info.h">
+      <Filter>src\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cache\augment.h">
+      <Filter>src\cache</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\game.cpp">
@@ -211,6 +217,9 @@
     </ClCompile>
     <ClCompile Include="src\cache\skillset.cpp">
       <Filter>src\cache</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scenes\augment_info.cpp">
+      <Filter>src\scenes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

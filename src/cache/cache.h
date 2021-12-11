@@ -7,7 +7,6 @@
 
 #pragma once
 
-#include <variant>
 #include "action.h"
 #include "actionset.h"
 #include "creature.h"
@@ -19,8 +18,6 @@
 #include "user.h"
 #include "user_action.h"
 #include "user_skill.h"
-
-typedef std::variant<Action, Skill> Augment;
 
 class Cache {
 public:

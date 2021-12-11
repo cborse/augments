@@ -8,6 +8,7 @@
 #pragma once
 
 #include "scene.h"
+#include "cache/augment.h"
 
 class TeamScene : public Scene {
 public:

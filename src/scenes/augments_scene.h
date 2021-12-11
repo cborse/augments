@@ -8,6 +8,7 @@
 #pragma once
 
 #include "scene.h"
+#include "augment_info.h"
 
 class AugmentsScene : public Scene {
 public:
@@ -21,7 +22,6 @@ private:
     void refresh_data();
     void refresh_widgets();
     void refresh_list_widgets();
-    void refresh_info_widgets();
     void refresh_page_widgets();
     void refresh_control_widgets();
 
@@ -36,6 +36,6 @@ private:
 
     int index = 0;
     int page = 0;
-
+    AugmentInfo info;
     std::vector<Augment> augments;
 };
