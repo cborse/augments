@@ -165,14 +165,14 @@ void AugmentsScene::refresh_list_widgets()
 
 void AugmentsScene::refresh_page_widgets()
 {
-    auto& label_storage_left = widgets.find<Button>("button-page_left");
-    label_storage_left.set_visibility(page > 0);
+    auto& button_left = widgets.find<Button>("button-page_left");
+    button_left.set_visibility(page > 0);
 
-    auto& label_storage_right = widgets.find<Button>("button-page_right");
-    label_storage_right.set_visibility((page + 1) * 8 + 1 < (int)augments.size());
+    auto& button_right = widgets.find<Button>("button-page_right");
+    button_right.set_visibility((page + 1) * 8 < (int)augments.size());
 
-    auto& label_storage_page = widgets.find<Label>("label-page");
-    label_storage_page.set_string("PAGE " + std::to_string(page + 1));
+    auto& label_page = widgets.find<Label>("label-page");
+    label_page.set_string("PAGE " + std::to_string(page + 1));
 }
 
 void AugmentsScene::refresh_control_widgets()
