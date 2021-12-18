@@ -77,15 +77,7 @@ void AugmentInfo::refresh()
     name.set_visibility(is_valid);
 
     auto& icon = widgets.find<Image>("image-info_icon");
-    if (is_valid) {
-        if (action && action->id != 0)
-            icon.set_visibility(true);
-        else if (skill && skill->id != 0)
-            icon.set_visibility(true);
-        else
-            icon.set_visibility(false);
-    }
-
+    icon.set_visibility(is_valid);
 
     auto& desc0 = widgets.find<Label>("label-info_desc0");
     desc0.set_visibility(is_valid);
