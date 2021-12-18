@@ -71,7 +71,7 @@ void AugmentInfo::set_augment(const Skill& skill)
 
 void AugmentInfo::refresh()
 {
-    bool is_valid = (action && action->id != 0) || skill;
+    bool is_valid = (action && action->id != 0) || (skill && skill->id != 0);
 
     auto& name = widgets.find<Label>("label-info_name");
     name.set_visibility(is_valid);
