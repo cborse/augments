@@ -64,6 +64,12 @@ AugmentsScene::AugmentsScene(Game& game)
     refresh_widgets();
 }
 
+void AugmentsScene::resume()
+{
+    refresh_data();
+    refresh_widgets();
+}
+
 void AugmentsScene::handle_event(const SDL_Event& e)
 {
     widgets.handle_event(e);
@@ -88,10 +94,14 @@ void AugmentsScene::draw() const
 void AugmentsScene::refresh_data()
 {
     augments.clear();
-    for (const auto& action : game.cache.user_actions)
-        augments.push_back(game.cache.get_action(action.action_id));
-    for (const auto& skill : game.cache.user_skills)
-        augments.push_back(game.cache.get_skill(skill.skill_id));
+    for (const auto& action : game.cache.user_actions) {
+        if (action.qty > 0)
+            augments.push_back(game.cache.get_action(action.action_id));
+    }
+    for (const auto& skill : game.cache.user_skills) {
+        if (skill.qty > 0)
+            augments.push_back(game.cache.get_skill(skill.skill_id));
+    }
 
     auto lambda = [](auto const& x) {
         return std::visit([](auto const& e) { return e.name; }, x);
@@ -136,7 +146,7 @@ void AugmentsScene::refresh_list_widgets()
 
                 cell.get_label().set_string(action.name);
 
-                std::string qty = std::to_string(game.cache.get_quantity(action));
+                std::string qty = std::to_string(game.cache.find_user_action(action.id).qty);
                 label_qty.set_string(qty.length() > 1 ? ("x" + qty) : "x " + qty);
             }
             else if (std::holds_alternative<Skill>(augment)) {
@@ -146,7 +156,7 @@ void AugmentsScene::refresh_list_widgets()
 
                 cell.get_label().set_string(skill.name);
 
-                std::string qty = std::to_string(game.cache.get_quantity(skill));
+                std::string qty = std::to_string(game.cache.find_user_skill(skill.id).qty);
                 label_qty.set_string(qty.length() > 1 ? ("x" + qty) : "x " + qty);
             }
         }

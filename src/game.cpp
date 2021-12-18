@@ -75,4 +75,6 @@ void Game::push_scene(std::unique_ptr<Scene> scene)
 void Game::pop_scene()
 {
     scenes.pop_back();
+    if (!scenes.empty())
+        scenes.back()->resume();
 }

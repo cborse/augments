@@ -14,6 +14,7 @@ class Scene {
 public:
     virtual ~Scene() = default;
 
+    virtual void resume() = 0;
     virtual void handle_event(const SDL_Event& e) = 0;
     virtual void update() = 0;
     virtual void draw() const = 0;

@@ -28,8 +28,8 @@ public:
     const Species& get_species(uint32_t id) const;
 
     // Helpers
-    uint8_t get_quantity(const Action& action) const;
-    uint8_t get_quantity(const Skill& skill) const;
+    UserAction& find_user_action(uint32_t action_id);
+    UserSkill& find_user_skill(uint32_t skill_id);
     bool can_learn(const Creature& creature, const Action& action) const;
     bool can_learn(const Creature& creature, const Skill& skill) const;
 

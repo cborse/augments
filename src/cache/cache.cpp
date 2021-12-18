@@ -82,30 +82,30 @@ const Species& Cache::get_species(uint32_t id) const
     return species.at(id);
 }
 
-uint8_t Cache::get_quantity(const Action& action) const
+UserAction& Cache::find_user_action(uint32_t action_id)
 {
-    auto lambda = [&action](const UserAction& user_action) {
-        return user_action.action_id == action.id;
+    auto lambda = [&action_id](const UserAction& user_action) {
+        return user_action.action_id == action_id;
     };
 
     auto it = std::find_if(user_actions.begin(), user_actions.end(), lambda);
-    if (it != user_actions.end())
-        return it->qty;
+    if (it == user_actions.end())
+        throw std::out_of_range("user_actions");
 
-    return 0;
+    return *it;
 }
 
-uint8_t Cache::get_quantity(const Skill& skill) const
+UserSkill& Cache::find_user_skill(uint32_t skill_id)
 {
-    auto lambda = [&skill](const UserSkill& user_skill) {
-        return user_skill.skill_id == skill.id;
+    auto lambda = [&skill_id](const UserSkill& user_skill) {
+        return user_skill.skill_id == skill_id;
     };
 
     auto it = std::find_if(user_skills.begin(), user_skills.end(), lambda);
-    if (it != user_skills.end())
-        return it->qty;
+    if (it == user_skills.end())
+        throw std::out_of_range("user_skills");
 
-    return 0;
+    return *it;
 }
 
 bool Cache::can_learn(const Creature& creature, const Action& action) const

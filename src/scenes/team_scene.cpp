@@ -138,6 +138,12 @@ TeamScene::TeamScene(Game& game, const Augment* augment)
     refresh_widgets();
 }
 
+void TeamScene::resume()
+{
+    refresh_data();
+    refresh_widgets();
+}
+
 void TeamScene::handle_event(const SDL_Event& e)
 {
     widgets.handle_event(e);

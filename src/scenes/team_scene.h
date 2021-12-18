@@ -14,6 +14,7 @@ class TeamScene : public Scene {
 public:
     TeamScene(Game& game, const Augment* augment = nullptr);
 
+    virtual void resume() override;
     virtual void handle_event(const SDL_Event& e) override;
     virtual void update() override;
     virtual void draw() const override;

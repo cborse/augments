@@ -167,6 +167,9 @@ void LearnScene::replace()
         // Client
         creature.actions[index] = action.id;
 
+        UserAction& user_action = game.cache.find_user_action(action.id);
+        user_action.qty--;
+
         // Server
         const nlohmann::json json = {
             { "creature_id", creature.id },
@@ -185,6 +188,9 @@ void LearnScene::replace()
 
         // Client
         creature.skills[index] = skill.id;
+
+        UserSkill& user_skill = game.cache.find_user_skill(skill.id);
+        user_skill.qty--;
 
         // Server
         const nlohmann::json json = {

@@ -14,6 +14,7 @@ class LearnScene : public Scene {
 public:
     LearnScene(Game& game, const Augment& augment, Creature& creature);
 
+    virtual void resume() override {}
     virtual void handle_event(const SDL_Event& e) override;
     virtual void update() override;
     virtual void draw() const override;
