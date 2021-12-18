@@ -15,7 +15,7 @@ AugmentInfo::AugmentInfo(const Renderer& renderer)
         .with_position({ 224, 41 });
 
     widgets.add<Image>("image-info_icon")
-        .with_position({ 196, 34 });
+        .with_position({ 196, 36 });
 
     widgets.add<Label>("label-info_desc0")
         .with_color({ 23, 23, 20 })
