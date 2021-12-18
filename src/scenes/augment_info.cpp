@@ -71,7 +71,7 @@ void AugmentInfo::set_augment(const Skill& skill)
 
 void AugmentInfo::refresh()
 {
-    bool is_valid = action || skill;
+    bool is_valid = (action && action->id != 0) || skill;
 
     auto& name = widgets.find<Label>("label-info_name");
     name.set_visibility(is_valid);
@@ -101,10 +101,10 @@ void AugmentInfo::refresh()
 
     for (int i = 0; i < 9; i++) {
         auto& detail_label = widgets.find<Label>("label-info_detail" + std::to_string(i));
-        detail_label.set_visibility(action);
+        detail_label.set_visibility(action && action->id != 0);
 
         auto& detail_cell = widgets.find<Cell>("cell-info_detail" + std::to_string(i));
-        detail_cell.set_visibility(action);
+        detail_cell.set_visibility(action && action->id != 0);
     }
 
     if (action) {

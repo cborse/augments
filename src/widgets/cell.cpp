@@ -42,8 +42,10 @@ void Cell::draw() const
         else
             renderer.draw_border(bounds, textures.get_general("cell"), { 48, 48, 44 });
 
-        image.draw();
-        label.draw();
+        if (content_visible) {
+            image.draw();
+            label.draw();
+        }
     }
 }
 
@@ -112,6 +114,11 @@ void Cell::set_visibility(bool visible)
     this->visible = visible;
 }
 
+void Cell::set_content_visibility(bool visible)
+{
+    content_visible = visible;
+}
+
 Cell& Cell::with_action(std::function<void()> action)
 {
     set_action(action);
@@ -151,5 +158,11 @@ Cell& Cell::with_texture(const Texture& texture)
 Cell& Cell::with_visibility(bool visible)
 {
     set_visibility(visible);
+    return *this;
+}
+
+Cell& Cell::with_content_visibility(bool visible)
+{
+    set_content_visibility(visible);
     return *this;
 }

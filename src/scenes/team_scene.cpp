@@ -199,7 +199,7 @@ void TeamScene::refresh_list_widgets()
     for (int i = 0; i < 8; i++) {
         auto& cell = widgets.find<Cell>("cell-list" + std::to_string(i));
         cell.set_active(i == index);
-        cell.set_visibility(i < size);
+        cell.set_content_visibility(i < size);
 
         auto& cell_image = cell.get_image();
         if (i >= size)
@@ -239,7 +239,7 @@ void TeamScene::refresh_grid_widgets()
     for (int i = 0; i < 20; i++) {
         auto& cell = widgets.find<Cell>("cell-grid" + std::to_string(i));
         cell.set_active(i == index - 8);
-        cell.set_visibility(i < size);
+        cell.set_content_visibility(i < size);
 
         auto& cell_image = cell.get_image();
         if (i >= size)

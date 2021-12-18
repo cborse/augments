@@ -121,7 +121,7 @@ void AugmentsScene::refresh_list_widgets()
     for (int i = 0; i < 8; i++) {
         auto& cell = widgets.find<Cell>("cell-list" + std::to_string(i));
         cell.set_active(i == index);
-        cell.set_visibility(i < size);
+        cell.set_content_visibility(i < size);
 
         auto& label_qty = widgets.find<Label>("label-list_qty" + std::to_string(i));
         label_qty.set_visibility(i < size);

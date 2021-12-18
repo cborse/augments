@@ -30,6 +30,7 @@ public:
     void set_string(const std::string& string);
     void set_texture(const Texture& texture);
     void set_visibility(bool visible);
+    void set_content_visibility(bool visible);
 
     Cell& with_action(std::function<void()> action);
     Cell& with_bounds(const SDL_Rect& bounds);
@@ -38,9 +39,11 @@ public:
     Cell& with_string(const std::string& string);
     Cell& with_texture(const Texture& texture);
     Cell& with_visibility(bool visible);
+    Cell& with_content_visibility(bool visible);
 
 private:
     bool visible = true;
+    bool content_visible = true;
     bool active = false;
     Label::Align align = Label::left;
     SDL_Rect bounds = {};
