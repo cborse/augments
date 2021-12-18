@@ -21,7 +21,7 @@ public:
     void loop();
     void set_scene(std::unique_ptr<Scene> scene);
     void push_scene(std::unique_ptr<Scene> scene);
-    void pop_scene();
+    void pop_scene(int count = 1);
 
     Cache cache;
     HttpContainer api;

@@ -12,7 +12,7 @@ LearnScene::LearnScene(Game& game, const Augment& augment, Creature& creature)
 {
     // Back button
     widgets.add<Button>()
-        .with_action(std::bind(&Game::pop_scene, &game))
+        .with_action(std::bind(&Game::pop_scene, &game, 1))
         .with_bounds({ 8, 3, 44, 18 })
         .with_string("back");
 
@@ -206,5 +206,5 @@ void LearnScene::replace()
             .with_uri("replace_skill");
     }
 
-    game.pop_scene();
+    game.pop_scene(2);
 }

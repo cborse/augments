@@ -14,7 +14,7 @@ TeamScene::TeamScene(Game& game, const Augment* augment)
 {
     // Back/cancel button
     widgets.add<Button>()
-        .with_action(std::bind(&Game::pop_scene, &game))
+        .with_action(std::bind(&Game::pop_scene, &game, 1))
         .with_bounds({ 8, 3, 44, 18 })
         .with_string("back");
 

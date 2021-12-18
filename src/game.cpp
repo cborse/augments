@@ -72,9 +72,10 @@ void Game::push_scene(std::unique_ptr<Scene> scene)
     scenes.push_back(std::move(scene));
 }
 
-void Game::pop_scene()
+void Game::pop_scene(int count)
 {
-    scenes.pop_back();
+    for (int i = 0; i < count; i++)
+        scenes.pop_back();
     if (!scenes.empty())
         scenes.back()->resume();
 }
