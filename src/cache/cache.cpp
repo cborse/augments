@@ -113,6 +113,11 @@ bool Cache::can_learn(const Creature& creature, const Action& action) const
     if (creature.egg)
         return false;
 
+    for (int i = 0; i < 3; i++) {
+        if (creature.actions[i] == action.id)
+            return false;
+    }
+
     const Species& species = get_species(creature.species_id);
     if (action.core && (action.type == species.type1 || action.type == species.type2) || action.type == species.type3)
         return true;
@@ -127,6 +132,11 @@ bool Cache::can_learn(const Creature& creature, const Skill& skill) const
 {
     if (creature.egg)
         return false;
+
+    for (int i = 0; i < 3; i++) {
+        if (creature.skills[i] == skill.id)
+            return false;
+    }
 
     if (skill.core)
         return true;
