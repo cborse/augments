@@ -6,6 +6,7 @@
 //
 
 #include "team_scene.h"
+#include "dialog_scene.h"
 #include "hatch_scene.h"
 #include "learn_scene.h"
 
@@ -542,13 +543,11 @@ int TeamScene::get_page_size() const
 
 void TeamScene::assign()
 {
-    Creature* creature = get_selected_creature();
-
     // Make sure there's room on the staff
-    if (staff_creatures.size() >= 8) {
-        // error
+    if (staff_creatures.size() >= 8)
         return;
-    }
+
+    Creature* creature = get_selected_creature();
 
     // Client
     creature->staff_id = game.cache.staffs.at(staff).id;
@@ -594,7 +593,12 @@ void TeamScene::hatch()
 
     // Make sure there's room in storage
     if (storage.size() + 1 >= game.cache.user.storage_pages * 20) {
-        // show error
+        auto dlg = std::make_unique<DialogScene>(game);
+        dlg->add_line("There isn't enough");
+        dlg->add_line("storage room to hatch");
+        dlg->add_line("this egg!");
+        dlg->add_choice("ok", [&] { game.pop_scene(); });
+        game.push_scene(std::move(dlg));
         return;
     }
 
