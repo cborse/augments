@@ -129,6 +129,9 @@
     <ClInclude Include="src\scenes\learn_scene.h">
       <Filter>src\scenes</Filter>
     </ClInclude>
+    <ClInclude Include="src\scenes\dialog_scene.h">
+      <Filter>src\scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\game.cpp">
@@ -225,6 +228,9 @@
       <Filter>src\scenes</Filter>
     </ClCompile>
     <ClCompile Include="src\scenes\learn_scene.cpp">
+      <Filter>src\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scenes\dialog_scene.cpp">
       <Filter>src\scenes</Filter>
     </ClCompile>
   </ItemGroup>
