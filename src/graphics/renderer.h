@@ -19,7 +19,7 @@ public:
     void clear(const SDL_Color& color = {}) const;
     void toggle_fullscreen() const;
     void update_mouse(const SDL_Event& e);
-    void fade(uint8_t alpha) const;
+    void fade() const;
 
     void draw_rect(const SDL_Rect& rect, const SDL_Color& color) const;
     void fill_rect(const SDL_Rect& rect, const SDL_Color& color) const;

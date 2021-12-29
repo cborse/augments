@@ -51,7 +51,7 @@ void HatchScene::update()
 
 void HatchScene::draw() const
 {
-    game.renderer.fade(192);
+    game.renderer.fade();
 
     game.renderer.draw_border({ 100, 58, 280, 166 }, game.renderer.get_textures().get_general("frame"), { 59, 59, 53 });
 

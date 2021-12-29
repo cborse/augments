@@ -69,10 +69,10 @@ void Renderer::update_mouse(const SDL_Event& e)
     mouse = { e.motion.x, e.motion.y };
 }
 
-void Renderer::fade(uint8_t alpha) const
+void Renderer::fade() const
 {
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-    fill_rect({ 0, 0, size.x, size.y }, { 0, 0, 0, alpha });
+    fill_rect({ 0, 0, size.x, size.y }, { 0, 0, 0, 192 });
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);
 }
 
