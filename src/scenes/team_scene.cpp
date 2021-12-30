@@ -597,7 +597,7 @@ void TeamScene::hatch()
         dlg->add_line("There isn't enough");
         dlg->add_line("storage room to hatch");
         dlg->add_line("this egg!");
-        dlg->add_choice("ok", [&] { game.pop_scene(); });
+        dlg->add_choice("ok", std::bind(&Game::pop_scene, &game, 1));
         game.push_scene(std::move(dlg));
         return;
     }
@@ -646,7 +646,7 @@ void TeamScene::use_augment()
     dlg->add_line("Use " + augment_name);
     dlg->add_line("on " + creature->name + "?");
     dlg->add_choice("yes", std::bind(&TeamScene::use_augment2, this));
-    dlg->add_choice("no", [&] { game.pop_scene(); });
+    dlg->add_choice("no", std::bind(&Game::pop_scene, &game, 1));
     game.push_scene(std::move(dlg));
 }
 
