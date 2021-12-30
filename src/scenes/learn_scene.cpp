@@ -181,7 +181,7 @@ void LearnScene::replace()
             .with_header_id(game.cache.user.id)
             .with_header_token(game.cache.user.token)
             .with_body(json.dump())
-            .with_uri("replace_action");
+            .with_uri("learn_action");
     }
     else if (std::holds_alternative<Skill>(augment)) {
         const Skill& skill = std::get<Skill>(augment);
@@ -203,7 +203,7 @@ void LearnScene::replace()
             .with_header_id(game.cache.user.id)
             .with_header_token(game.cache.user.token)
             .with_body(json.dump())
-            .with_uri("replace_skill");
+            .with_uri("learn_skill");
     }
 
     game.pop_scene(2);

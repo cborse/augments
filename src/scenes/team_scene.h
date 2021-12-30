@@ -45,6 +45,7 @@ private:
     void unassign();
     void hatch();
     void use_augment();
+    void use_augment2();
 
     int index = 8;
     int staff = 0;

@@ -623,6 +623,98 @@ void TeamScene::hatch()
 void TeamScene::use_augment()
 {
     Creature* creature = get_selected_creature();
-    if (augment && creature)
-        game.push_scene(std::make_unique<LearnScene>(game, *augment, *creature));
+    std::string augment_name;
+
+    // Does the creature already know 3 actions or skills?
+    if (std::holds_alternative<Action>(*augment)) {
+        augment_name = std::get<Action>(*augment).name;
+        if (creature->actions[0] != 0 && creature->actions[1] != 0 && creature->actions[2] != 0) {
+            game.push_scene(std::make_unique<LearnScene>(game, *augment, *creature));
+            return;
+        }
+    }
+    else if (std::holds_alternative<Skill>(*augment)) {
+        augment_name = std::get<Skill>(*augment).name;
+        if (creature->skills[0] != 0 && creature->skills[1] != 0 && creature->skills[2] != 0) {
+            game.push_scene(std::make_unique<LearnScene>(game, *augment, *creature));
+            return;
+        }
+    }
+
+    // Ask
+    auto dlg = std::make_unique<DialogScene>(game);
+    dlg->add_line("Use " + augment_name);
+    dlg->add_line("on " + creature->name + "?");
+    dlg->add_choice("yes", std::bind(&TeamScene::use_augment2, this));
+    dlg->add_choice("no", [&] { game.pop_scene(); });
+    game.push_scene(std::move(dlg));
+}
+
+void TeamScene::use_augment2()
+{
+    game.pop_scene();
+
+    Creature* creature = get_selected_creature();
+    int slot = 0;
+
+    if (std::holds_alternative<Action>(*augment)) {
+        const Action& action = std::get<Action>(*augment);
+
+        for (int i = 0; i < 3; i++) {
+            if (creature->actions[i] == 0) {
+                slot = i;
+                break;
+            }
+        }
+
+        // Client
+        creature->actions[slot] = action.id;
+
+        UserAction& user_action = game.cache.find_user_action(action.id);
+        user_action.qty--;
+
+        // Server
+        const nlohmann::json json = {
+            { "creature_id", creature->id },
+            { "slot", slot },
+            { "action_id", action.id }
+        };
+
+        game.api.push_request()
+            .with_header_id(game.cache.user.id)
+            .with_header_token(game.cache.user.token)
+            .with_body(json.dump())
+            .with_uri("learn_action");
+    }
+    else if (std::holds_alternative<Skill>(*augment)) {
+        const Skill& skill = std::get<Skill>(*augment);
+
+        for (int i = 0; i < 3; i++) {
+            if (creature->skills[i] == 0) {
+                slot = i;
+                break;
+            }
+        }
+
+        // Client
+        creature->skills[slot] = skill.id;
+
+        UserSkill& user_skill = game.cache.find_user_skill(skill.id);
+        user_skill.qty--;
+
+        // Server
+        const nlohmann::json json = {
+            { "creature_id", creature->id },
+            { "slot", slot },
+            { "skill_id", skill.id }
+        };
+
+        game.api.push_request()
+            .with_header_id(game.cache.user.id)
+            .with_header_token(game.cache.user.token)
+            .with_body(json.dump())
+            .with_uri("learn_skill");
+    }
+
+    game.pop_scene();
 }
