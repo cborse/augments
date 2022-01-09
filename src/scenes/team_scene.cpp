@@ -573,7 +573,7 @@ void TeamScene::unassign()
     Creature* creature = get_selected_creature();
 
     // Client
-    creature->staff_slot = 0;
+    creature->staff_slot = -1;
 
     // Server
     const nlohmann::json json = { { "creature_id", creature->id } };
