@@ -46,7 +46,7 @@ void LoginScene::steam_callback(GetAuthSessionTicketResponse_t* result)
 
     uint64_t steam_id = SteamUser()->GetSteamID().ConvertToUint64();
     auto callback = std::bind_front(&LoginScene::login_callback, this);
-    const nlohmann::json json({ { "ticket", hex_ticket },{ "steam_id", steam_id } });
+    const nlohmann::json json({ { "steam_id", steam_id }, { "steam_ticket", hex_ticket } });
 
     game.api.push_request()
         .with_body(json.dump())

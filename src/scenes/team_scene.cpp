@@ -172,7 +172,7 @@ void TeamScene::refresh_data()
     eggs.clear();
     storage.clear();
     staff_creatures.clear();
-    uint64_t staff_id = game.cache.staffs.at(staff).id;
+    uint64_t staff_slot = game.cache.staffs.at(staff).slot;
 
     for (auto& creature : game.cache.creatures) {
         if (creature.egg) {
@@ -180,7 +180,7 @@ void TeamScene::refresh_data()
         }
         else {
             storage.push_back(&creature);
-            if (creature.staff_id == staff_id)
+            if (creature.staff_slot == staff_slot)
                 staff_creatures.push_back(&creature);
         }
     }
@@ -268,7 +268,7 @@ void TeamScene::refresh_grid_widgets()
             }
             else {
                 const Creature* creature = storage.at(i + page * 20);
-                assigned.set_visibility(creature->staff_id != 0);
+                assigned.set_visibility(creature->staff_slot != -1);
                 cell.set_texture(game.renderer.get_textures().get_species_icon(creature->species_id));
 
                 bool can_augment = false;
@@ -400,7 +400,7 @@ void TeamScene::refresh_control_widgets()
         control2.set_visibility(true);
         control3.set_visibility(true);
 
-        if (creature->staff_id == 0) {
+        if (creature->staff_slot == -1) {
             control0.set_string("assign");
             control0.set_action(std::bind(&TeamScene::assign, this));
         }
@@ -550,12 +550,12 @@ void TeamScene::assign()
     Creature* creature = get_selected_creature();
 
     // Client
-    creature->staff_id = game.cache.staffs.at(staff).id;
+    creature->staff_slot = game.cache.staffs.at(staff).slot;
 
     // Server
     const nlohmann::json json = {
         { "creature_id", creature->id },
-        { "staff_id", creature->staff_id }
+        { "staff_slot", creature->staff_slot }
     };
 
     game.api.push_request()
@@ -573,7 +573,7 @@ void TeamScene::unassign()
     Creature* creature = get_selected_creature();
 
     // Client
-    creature->staff_id = 0;
+    creature->staff_slot = 0;
 
     // Server
     const nlohmann::json json = { { "creature_id", creature->id } };
