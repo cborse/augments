@@ -58,12 +58,27 @@ void LoginScene::login_callback(long code, const std::string& response)
 {
     SteamUser()->CancelAuthTicket(ticket_handle);
 
-    if (code != 200)
-        throw Error("Login error! Code = " + std::to_string(code) + ".");
+    try {
+        const auto json = nlohmann::json::parse(response);
+        uint64_t id = json.at("id");
+        std::string token = json.at("token");
 
+        game.api.push_request()
+            .with_callback(std::bind_front(&LoginScene::get_data_callback, this))
+            .with_header_id(id)
+            .with_header_token(token)
+            .with_uri("get_data");
+    }
+    catch (...) {
+        throw Error("Failed to parse login response!");
+    }
+}
+
+void LoginScene::get_data_callback(long code, const std::string& response)
+{
     const nlohmann::json json = nlohmann::json::parse(response, nullptr, false);
     if (json.is_discarded())
-        throw Error("Failed to parse login response!");
+        throw Error("Failed to parse get_data response!");
 
     game.cache.init(json);
 

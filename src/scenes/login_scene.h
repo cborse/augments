@@ -22,6 +22,7 @@ public:
 private:
     STEAM_CALLBACK(LoginScene, steam_callback, GetAuthSessionTicketResponse_t);
     void login_callback(long code, const std::string& response);
+    void get_data_callback(long code, const std::string& response);
 
     std::string hex_ticket;
     HAuthTicket ticket_handle = k_HAuthTicketInvalid;
