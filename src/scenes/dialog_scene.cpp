@@ -25,7 +25,7 @@ void DialogScene::update()
 void DialogScene::draw() const
 {
     game.renderer.fade();
-    game.renderer.draw_border({ 140, 85, 200, 100 }, game.renderer.get_textures().get_general("window"), { 23, 23, 20 });
+    game.renderer.draw_border({ 140, 85, 200, num_lines * 14 + 14 + 24 }, game.renderer.get_textures().get_general("window"), { 23, 23, 20 });
 
     widgets.draw();
 }
@@ -44,7 +44,7 @@ void DialogScene::add_choice(const std::string& string, std::function<void()> ac
 {
     widgets.add<Button>()
         .with_action(action)
-        .with_bounds({ 152 + 56 * num_choices, 160, 52, 18 })
+        .with_bounds({ 152 + 56 * num_choices, 97 + num_lines * 14, 52, 18 })
         .with_string(string);
 
     num_choices++;
