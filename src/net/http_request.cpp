@@ -33,9 +33,6 @@ HttpRequest::HttpRequest()
     headers = curl_slist_append(headers, "Content-Type: application/json");
     headers = curl_slist_append(headers, "charset: utf-8");
     curl_easy_setopt(handle, CURLOPT_HTTPHEADER, headers);
-
-    // Timeout 5 seconds
-    curl_easy_setopt(handle, CURLOPT_TIMEOUT, 5);
 }
 
 HttpRequest::HttpRequest(HttpRequest&& other) noexcept
@@ -134,6 +131,12 @@ HttpRequest& HttpRequest::with_header_id(uint64_t id)
 HttpRequest& HttpRequest::with_header_token(const std::string& token)
 {
     set_header_token(token);
+    return *this;
+}
+
+HttpRequest& HttpRequest::with_timeout(long secs)
+{
+    curl_easy_setopt(handle, CURLOPT_TIMEOUT, secs);
     return *this;
 }
 

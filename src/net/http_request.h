@@ -34,6 +34,7 @@ public:
     HttpRequest& with_callback(Callback callback);
     HttpRequest& with_header_id(uint64_t id);
     HttpRequest& with_header_token(const std::string& token);
+    HttpRequest& with_timeout(long secs);
     HttpRequest& with_uri(const std::string& uri);
 
 private:
