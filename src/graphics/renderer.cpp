@@ -13,7 +13,7 @@ Renderer::Renderer()
 {
     // Window
     window = SDL_CreateWindow("AUGMENTS", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                              size.x * 3, size.y * 3, SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_RESIZABLE);
+                              size.x * 2, size.y * 2, SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_RESIZABLE);
     if (!window) {
         std::string msg(SDL_GetError());
         throw Error("Failed to create window : " + msg + ".");
