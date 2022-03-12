@@ -15,6 +15,6 @@ public:
     explicit Staff(const nlohmann::json& json);
 
     uint64_t user_id = 0;
-    int8_t slot = 0;
+    uint8_t slot = 0;
     std::string name;
 };
