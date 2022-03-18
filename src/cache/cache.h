@@ -10,7 +10,6 @@
 #include "action.h"
 #include "actionset.h"
 #include "creature.h"
-#include "series.h"
 #include "skill.h"
 #include "skillset.h"
 #include "species.h"
@@ -44,6 +43,5 @@ private:
     std::vector<Actionset> actionsets;
     std::vector<Skill> skills;
     std::vector<Skillset> skillsets;
-    std::vector<Series> series;
     std::vector<Species> species;
 };

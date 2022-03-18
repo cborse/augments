@@ -23,11 +23,6 @@ void Cache::init(const nlohmann::json& json)
     for (const auto& obj : json.at("skills"))
         skills.emplace_back(obj);
 
-    // Series
-    series.clear();
-    for (const auto& obj : json.at("series"))
-        series.emplace_back(obj);
-
     // Skills
     skills.clear();
     for (const auto& obj : json.at("skills"))

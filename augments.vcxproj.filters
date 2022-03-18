@@ -96,9 +96,6 @@
     <ClInclude Include="src\graphics\texture_container.h">
       <Filter>src\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="src\cache\series.h">
-      <Filter>src\cache</Filter>
-    </ClInclude>
     <ClInclude Include="src\cache\action.h">
       <Filter>src\cache</Filter>
     </ClInclude>
@@ -199,9 +196,6 @@
     </ClCompile>
     <ClCompile Include="src\graphics\texture_container.cpp">
       <Filter>src\graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cache\series.cpp">
-      <Filter>src\cache</Filter>
     </ClCompile>
     <ClCompile Include="src\cache\action.cpp">
       <Filter>src\cache</Filter>
