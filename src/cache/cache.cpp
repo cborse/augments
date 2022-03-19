@@ -42,14 +42,14 @@ void Cache::init(const nlohmann::json& json)
     user = User(json.at("user"));
 
     // User actions
-    user_actions.clear();
+    user_actions.fill(0);
     for (const auto& obj : json.at("user_actions"))
-        user_actions.emplace_back(obj);
+        user_actions.at(json.at("action_id")) = json.at("qty");
 
     // User skills
-    user_skills.clear();
+    user_skills.fill(0);
     for (const auto& obj : json.at("user_skills"))
-        user_skills.emplace_back(obj);
+        user_skills.at(json.at("skill_id")) = json.at("qty");
 
     // Staffs
     staffs.clear();
@@ -75,32 +75,6 @@ const Skill& Cache::get_skill(uint32_t id) const
 const Species& Cache::get_species(uint32_t id) const
 {
     return species.at(id);
-}
-
-UserAction& Cache::find_user_action(uint32_t action_id)
-{
-    auto lambda = [&action_id](const UserAction& user_action) {
-        return user_action.action_id == action_id;
-    };
-
-    auto it = std::find_if(user_actions.begin(), user_actions.end(), lambda);
-    if (it == user_actions.end())
-        throw std::out_of_range("user_actions");
-
-    return *it;
-}
-
-UserSkill& Cache::find_user_skill(uint32_t skill_id)
-{
-    auto lambda = [&skill_id](const UserSkill& user_skill) {
-        return user_skill.skill_id == skill_id;
-    };
-
-    auto it = std::find_if(user_skills.begin(), user_skills.end(), lambda);
-    if (it == user_skills.end())
-        throw std::out_of_range("user_skills");
-
-    return *it;
 }
 
 bool Cache::can_learn(const Creature& creature, const Action& action) const

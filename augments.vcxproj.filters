@@ -108,12 +108,6 @@
     <ClInclude Include="src\cache\skill.h">
       <Filter>src\cache</Filter>
     </ClInclude>
-    <ClInclude Include="src\cache\user_action.h">
-      <Filter>src\cache</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cache\user_skill.h">
-      <Filter>src\cache</Filter>
-    </ClInclude>
     <ClInclude Include="src\cache\skillset.h">
       <Filter>src\cache</Filter>
     </ClInclude>
@@ -208,12 +202,6 @@
     </ClCompile>
     <ClCompile Include="src\scenes\augments_scene.cpp">
       <Filter>src\scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cache\user_action.cpp">
-      <Filter>src\cache</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cache\user_skill.cpp">
-      <Filter>src\cache</Filter>
     </ClCompile>
     <ClCompile Include="src\cache\skillset.cpp">
       <Filter>src\cache</Filter>

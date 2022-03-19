@@ -15,8 +15,6 @@
 #include "species.h"
 #include "staff.h"
 #include "user.h"
-#include "user_action.h"
-#include "user_skill.h"
 
 class Cache {
 public:
@@ -27,14 +25,12 @@ public:
     const Species& get_species(uint32_t id) const;
 
     // Helpers
-    UserAction& find_user_action(uint32_t action_id);
-    UserSkill& find_user_skill(uint32_t skill_id);
     bool can_learn(const Creature& creature, const Action& action) const;
     bool can_learn(const Creature& creature, const Skill& skill) const;
 
     User user;
-    std::vector<UserAction> user_actions;
-    std::vector<UserSkill> user_skills;
+    std::array<uint8_t, ACTION_COUNT> user_actions;
+    std::array<uint8_t, SKILL_COUNT> user_skills;
     std::vector<Staff> staffs;
     std::vector<Creature> creatures;
 
