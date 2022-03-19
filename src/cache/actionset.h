@@ -16,5 +16,4 @@ public:
 
     uint32_t species_id = 0;
     uint32_t action_id = 0;
-    uint8_t series_id = 0;
 };

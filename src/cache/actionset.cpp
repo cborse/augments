@@ -13,7 +13,6 @@ Actionset::Actionset(const nlohmann::json& json)
     try {
         species_id = json.at("species_id");
         action_id = json.at("action_id");
-        series_id = json.at("series_id");
     }
     catch (...) {
         throw Error("Failed to parse actionset data.");

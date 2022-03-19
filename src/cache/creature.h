@@ -20,7 +20,6 @@ public:
     uint64_t id = 0;
     uint64_t user_id = 0;
     uint32_t species_id = 0;
-    uint8_t series_id = 0;
     int8_t staff_slot = 0;
     std::string name;
     bool egg = false;
