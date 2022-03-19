@@ -246,7 +246,7 @@ enum ActionID {
     ACTION_MIRAGE,
     ACTION_PEEK_A_BOO,
 
-    ACTION_COUNT
+    ACTION_COUNT = ACTION_PEEK_A_BOO
 };
 
 enum CoverID {
@@ -450,7 +450,7 @@ enum SkillID {
     SKILL_CORK,
     SKILL_CRACKEDSHELL,
 
-    SKILL_COUNT
+    SKILL_COUNT = SKILL_CRACKEDSHELL
 };
 
 enum SpeciesID {
@@ -608,7 +608,7 @@ enum SpeciesID {
     SPECIES_CORKCUB,
     SPECIES_PSEUTLE,
 
-    SPECIES_COUNT
+    SPECIES_COUNT = SPECIES_PSEUTLE
 };
 
 enum StyleID {
