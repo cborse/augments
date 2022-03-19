@@ -8,10 +8,8 @@
 #pragma once
 
 #include "action.h"
-#include "actionset.h"
 #include "creature.h"
 #include "skill.h"
-#include "skillset.h"
 #include "species.h"
 #include "staff.h"
 #include "user.h"
@@ -23,10 +21,8 @@ public:
     const Action& get_action(uint32_t id) const;
     const Skill& get_skill(uint32_t id) const;
     const Species& get_species(uint32_t id) const;
-
-    // Helpers
-    bool can_learn(const Creature& creature, const Action& action) const;
-    bool can_learn(const Creature& creature, const Skill& skill) const;
+    const std::vector<ActionID>& get_actionset(SpeciesID species_id) const;
+    const std::vector<SkillID>& get_skillset(SpeciesID species_id) const;
 
     User user;
     std::array<uint8_t, ACTION_COUNT> user_actions;
@@ -36,8 +32,8 @@ public:
 
 private:
     std::vector<Action> actions;
-    std::vector<Actionset> actionsets;
     std::vector<Skill> skills;
-    std::vector<Skillset> skillsets;
     std::vector<Species> species;
+    std::array<std::vector<ActionID>, SPECIES_COUNT> actionsets;
+    std::array<std::vector<SkillID>, SPECIES_COUNT> skillsets;
 };

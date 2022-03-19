@@ -15,9 +15,9 @@ void Cache::init(const nlohmann::json& json)
         actions.emplace_back(obj);
 
     // Actionsets
-    actionsets.clear();
+    actionsets.fill({});
     for (const auto& obj : json.at("actionsets"))
-        actionsets.emplace_back(obj);
+        actionsets.at(json.at("species_id")).push_back(json.at("action_id"));
 
     skills.clear();
     for (const auto& obj : json.at("skills"))
@@ -29,9 +29,9 @@ void Cache::init(const nlohmann::json& json)
         skills.emplace_back(obj);
 
     // Skillsets
-    skillsets.clear();
+    skillsets.fill({});
     for (const auto& obj : json.at("skillsets"))
-        skillsets.emplace_back(obj);
+        skillsets.at(json.at("species_id")).push_back(json.at("skill_id"));
 
     // Species
     species.clear();
@@ -77,41 +77,12 @@ const Species& Cache::get_species(uint32_t id) const
     return species.at(id);
 }
 
-bool Cache::can_learn(const Creature& creature, const Action& action) const
+const std::vector<ActionID>& Cache::get_actionset(SpeciesID species_id) const
 {
-    if (creature.egg)
-        return false;
-
-    for (int i = 0; i < 3; i++) {
-        if (creature.actions[i] == action.id)
-            return false;
-    }
-
-    const Species& species = get_species(creature.species_id);
-    if (action.core && (action.type == species.type1 || action.type == species.type2) || action.type == species.type3)
-        return true;
-
-    auto lambda = [&creature, &action](const Actionset& actionset) {
-        return actionset.species_id == creature.species_id && actionset.action_id == action.id;
-    };
-    return std::find_if(actionsets.begin(), actionsets.end(), lambda) != actionsets.end();
+    return actionsets.at(species_id);
 }
 
-bool Cache::can_learn(const Creature& creature, const Skill& skill) const
+const std::vector<SkillID>& Cache::get_skillset(SpeciesID species_id) const
 {
-    if (creature.egg)
-        return false;
-
-    for (int i = 0; i < 3; i++) {
-        if (creature.skills[i] == skill.id)
-            return false;
-    }
-
-    if (skill.core)
-        return true;
-
-    auto lambda = [&creature, &skill](const Skillset& skillset) {
-        return skillset.species_id == creature.species_id && skillset.skill_id == skill.id;
-    };
-    return std::find_if(skillsets.begin(), skillsets.end(), lambda) != skillsets.end();
+    return skillsets.at(species_id);
 }

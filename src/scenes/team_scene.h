@@ -40,6 +40,8 @@ private:
 
     Creature* get_selected_creature() const;
     int get_page_size() const;
+    bool can_learn(const Creature& creature, const Action& action) const;
+    bool can_learn(const Creature& creature, const Skill& skill) const;
 
     void assign();
     void unassign();

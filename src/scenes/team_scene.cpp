@@ -221,11 +221,11 @@ void TeamScene::refresh_list_widgets()
             if (augment) {
                 if (std::holds_alternative<Action>(*augment)) {
                     const Action& action = std::get<Action>(*augment);
-                    can_augment = game.cache.can_learn(*creature, action);
+                    can_augment = can_learn(*creature, action);
                 }
                 else if (std::holds_alternative<Skill>(*augment)) {
                     const Skill& skill = std::get<Skill>(*augment);
-                    can_augment = game.cache.can_learn(*creature, skill);
+                    can_augment = can_learn(*creature, skill);
                 }
             }
 
@@ -275,11 +275,11 @@ void TeamScene::refresh_grid_widgets()
                 if (augment) {
                     if (std::holds_alternative<Action>(*augment)) {
                         const Action& action = std::get<Action>(*augment);
-                        can_augment = game.cache.can_learn(*creature, action);
+                        can_augment = can_learn(*creature, action);
                     }
                     else if (std::holds_alternative<Skill>(*augment)) {
                         const Skill& skill = std::get<Skill>(*augment);
-                        can_augment = game.cache.can_learn(*creature, skill);
+                        can_augment = can_learn(*creature, skill);
                     }
                 }
 
@@ -378,11 +378,11 @@ void TeamScene::refresh_control_widgets()
         bool usable = false;
         if (std::holds_alternative<Action>(*augment)) {
             const Action& action = std::get<Action>(*augment);
-            usable = game.cache.can_learn(*creature, action);
+            usable = can_learn(*creature, action);
         }
         else if (std::holds_alternative<Skill>(*augment)) {
             const Skill& skill = std::get<Skill>(*augment);
-            usable = game.cache.can_learn(*creature, skill);
+            usable = can_learn(*creature, skill);
         }
 
         control2.set_visibility(usable && !creature->egg);
@@ -441,13 +441,13 @@ void TeamScene::refresh_augment_widgets()
             const Action& action = std::get<Action>(*augment);
             image_augment.set_texture(game.renderer.get_textures().get_augment(action.type));
             label_augment.set_string(action.name);
-            label_unable.set_visibility(!game.cache.can_learn(*creature, action));
+            label_unable.set_visibility(!can_learn(*creature, action));
         }
         else if (std::holds_alternative<Skill>(*augment)) {
             const Skill& skill = std::get<Skill>(*augment);
             image_augment.set_texture(game.renderer.get_textures().get_skill());
             label_augment.set_string(skill.name);
-            label_unable.set_visibility(!game.cache.can_learn(*creature, skill));
+            label_unable.set_visibility(!can_learn(*creature, skill));
         }
     }
 }
@@ -539,6 +539,41 @@ Creature* TeamScene::get_selected_creature() const
 int TeamScene::get_page_size() const
 {
     return max(min((int)storage.size() - page * 20, 20), 0);
+}
+
+bool TeamScene::can_learn(const Creature& creature, const Action& action) const
+{
+    if (creature.egg)
+        return false;
+
+    for (int i = 0; i < 3; i++) {
+        if (creature.actions[i] == action.id)
+            return false;
+    }
+
+    const Species& species = game.cache.get_species(creature.species_id);
+    if (action.core && (action.type == species.type1 || action.type == species.type2) || action.type == species.type3)
+        return true;
+
+    const std::vector<ActionID>& actionset = game.cache.get_actionset(creature.species_id);
+    return std::find(actionset.begin(), actionset.end(), action.id) != actionset.end();
+}
+
+bool TeamScene::can_learn(const Creature& creature, const Skill& skill) const
+{
+    if (creature.egg)
+        return false;
+
+    for (int i = 0; i < 3; i++) {
+        if (creature.skills[i] == skill.id)
+            return false;
+    }
+
+    if (skill.core)
+        return true;
+
+    const std::vector<SkillID>& skillset = game.cache.get_skillset(creature.species_id);
+    return std::find(skillset.begin(), skillset.end(), skill.id) != skillset.end();
 }
 
 void TeamScene::assign()

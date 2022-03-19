@@ -585,7 +585,7 @@ enum SpeciesID {
     SPECIES_CORKCUB,
     SPECIES_PSEUTLE,
 
-    SPECIES_ID
+    SPECIES_COUNT
 };
 
 enum TypeID {
