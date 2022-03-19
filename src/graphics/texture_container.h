@@ -20,8 +20,8 @@ public:
     void load(const class Renderer& renderer);
 
     const Texture& get_general(const std::string& id) const;
-    const Texture& get_species(uint32_t id) const;
-    const Texture& get_species_icon(uint32_t id) const;
+    const Texture& get_species(SpeciesID id) const;
+    const Texture& get_species_icon(SpeciesID id) const;
     const Texture& get_egg(RarityID rarity) const;
     const Texture& get_egg_icon(RarityID rarity) const;
     const Texture& get_hatch_animation(RarityID rarity) const;

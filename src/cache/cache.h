@@ -18,9 +18,9 @@ class Cache {
 public:
     void init(const nlohmann::json& json);
 
-    const Action& get_action(uint32_t id) const;
-    const Skill& get_skill(uint32_t id) const;
-    const Species& get_species(uint32_t id) const;
+    const Action& get_action(ActionID id) const;
+    const Skill& get_skill(SkillID id) const;
+    const Species& get_species(SpeciesID id) const;
     const std::vector<ActionID>& get_actionset(SpeciesID species_id) const;
     const std::vector<SkillID>& get_skillset(SpeciesID species_id) const;
 

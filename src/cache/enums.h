@@ -249,6 +249,29 @@ enum ActionID {
     ACTION_COUNT
 };
 
+enum CoverID {
+    COVER_NONE,
+    COVER_RING1,
+    COVER_RING2,
+    COVER_ARC2,
+    COVER_ARC3,
+    COVER_ARC4,
+    COVER_ARC5,
+    COVER_TILE1,
+    COVER_TILE2,
+    COVER_TILE3,
+    COVER_TILE4,
+    COVER_TILE5,
+    COVER_LINE2,
+    COVER_LINE3,
+    COVER_LINE4,
+    COVER_LINE5,
+};
+
+enum EffectID {
+    EFFECT_NONE,
+};
+
 enum RarityID {
     RARITY_COMMON,
     RARITY_UNCOMMON,
@@ -586,6 +609,12 @@ enum SpeciesID {
     SPECIES_PSEUTLE,
 
     SPECIES_COUNT
+};
+
+enum StyleID {
+    STYLE_NONE,
+    STYLE_INNER,
+    STYLE_OUTER,
 };
 
 enum TypeID {

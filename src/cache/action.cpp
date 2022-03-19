@@ -35,24 +35,54 @@ Action::Action(const nlohmann::json& json)
     }
 }
 
-std::string Action::get_cover_string(uint8_t cover)
+std::string Action::get_cover_string(CoverID cover)
 {
-    static const std::vector<std::string> covers = {
-        "-", "RING 1", "RING 2", "ARC 2",
-        "ARC 3", "ARC 4", "ARC 5", "TILE 1",
-        "TILE 2", "TILE 3", "TILE 4", "TILE 5",
-        "LINE 2", "LINE 3", "LINE 4", "LINE 5"
-    };
-
-    return covers.at(cover);
+    switch (cover) {
+    case COVER_RING1:
+        return "RING 1";
+    case COVER_RING2:
+        return "RING 2";
+    case COVER_ARC2:
+        return "ARC 2";
+    case COVER_ARC3:
+        return "ARC 3";
+    case COVER_ARC4:
+        return "ARC 4";
+    case COVER_ARC5:
+        return "ARC 5";
+    case COVER_TILE1:
+        return "TILE 1";
+    case COVER_TILE2:
+        return "TILE 2";
+    case COVER_TILE3:
+        return "TILE 3";
+    case COVER_TILE4:
+        return "TILE 4";
+    case COVER_TILE5:
+        return "TILE 5";
+    case COVER_LINE2:
+        return "LINE 2";
+    case COVER_LINE3:
+        return "LINE 3";
+    case COVER_LINE4:
+        return "LINE 4";
+    case COVER_LINE5:
+        return "LINE 5";
+    case COVER_NONE:
+    default:
+        return "-";
+    }
 }
 
-std::string Action::get_style_string(uint8_t style)
+std::string Action::get_style_string(StyleID style)
 {
-    if (style == 1)
+    switch (style) {
+    case STYLE_INNER:
         return "INNER";
-    else if (style == 2)
+    case STYLE_OUTER:
         return "OUTER";
-
-    return "-";
+    case STYLE_NONE:
+    default:
+        return "-";
+    }
 }

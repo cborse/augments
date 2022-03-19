@@ -96,11 +96,11 @@ void AugmentsScene::refresh_data()
     augments.clear();
     for (int i = 0; i < game.cache.user_actions.size(); i++) {
         if (game.cache.user_actions.at(i) > 0)
-            augments.push_back(game.cache.get_action(i));
+            augments.push_back(game.cache.get_action((ActionID)i));
     }
     for (int i = 0; i < game.cache.user_skills.size(); i++) {
         if (game.cache.user_skills.at(i) > 0)
-            augments.push_back(game.cache.get_skill(i));
+            augments.push_back(game.cache.get_skill((SkillID)i));
     }
 
     auto lambda = [](auto const& x) {
@@ -121,7 +121,7 @@ void AugmentsScene::refresh_widgets()
     else if (augment && std::holds_alternative<Skill>(*augment))
         info.set_augment(std::get<Skill>(*augment));
     else
-        info.set_augment(game.cache.get_action(0));
+        info.set_augment(game.cache.get_action(ACTION_NONE));
 }
 
 void AugmentsScene::refresh_list_widgets()

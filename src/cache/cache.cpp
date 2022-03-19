@@ -62,17 +62,17 @@ void Cache::init(const nlohmann::json& json)
         creatures.emplace_back(obj);
 }
 
-const Action& Cache::get_action(uint32_t id) const
+const Action& Cache::get_action(ActionID id) const
 {
     return actions.at(id);
 }
 
-const Skill& Cache::get_skill(uint32_t id) const
+const Skill& Cache::get_skill(SkillID id) const
 {
     return skills.at(id);
 }
 
-const Species& Cache::get_species(uint32_t id) const
+const Species& Cache::get_species(SpeciesID id) const
 {
     return species.at(id);
 }

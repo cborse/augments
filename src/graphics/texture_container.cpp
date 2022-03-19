@@ -18,12 +18,12 @@ const Texture& TextureContainer::get_general(const std::string& id) const
     return general.at(id);
 }
 
-const Texture& TextureContainer::get_species(uint32_t id) const
+const Texture& TextureContainer::get_species(SpeciesID id) const
 {
     return species.at(id * 6);
 }
 
-const Texture& TextureContainer::get_species_icon(uint32_t id) const
+const Texture& TextureContainer::get_species_icon(SpeciesID id) const
 {
     return species_icons.at(id * 6);
 }
