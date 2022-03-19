@@ -10,7 +10,7 @@
 HatchScene::HatchScene(Game& game, const Creature& creature)
     : Scene(game), creature(creature)
 {
-    Rarity rarity = game.cache.get_species(creature.species_id).rarity;
+    RarityID rarity = game.cache.get_species(creature.species_id).rarity;
 
     widgets.add<Image>("animation")
         .with_anim_frame_count(26)
@@ -62,7 +62,7 @@ void HatchScene::start()
 {
     widgets.find<Label>("label").set_visibility(false);
 
-    Rarity rarity = game.cache.get_species(creature.species_id).rarity;
+    RarityID rarity = game.cache.get_species(creature.species_id).rarity;
 
     auto& animation = widgets.find<Image>("animation");
     animation.set_anim_type(Image::anim_type_frame);

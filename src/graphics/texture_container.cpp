@@ -20,42 +20,42 @@ const Texture& TextureContainer::get_general(const std::string& id) const
 
 const Texture& TextureContainer::get_species(uint32_t id) const
 {
-    return species.at((size_t)id * 6);
+    return species.at(id * 6);
 }
 
 const Texture& TextureContainer::get_species_icon(uint32_t id) const
 {
-    return species_icons.at((size_t)id * 6);
+    return species_icons.at(id * 6);
 }
 
-const Texture& TextureContainer::get_egg(Rarity rarity) const
+const Texture& TextureContainer::get_egg(RarityID rarity) const
 {
-    return eggs.at((size_t)rarity);
+    return eggs.at(rarity);
 }
 
-const Texture& TextureContainer::get_egg_icon(Rarity rarity) const
+const Texture& TextureContainer::get_egg_icon(RarityID rarity) const
 {
-    return egg_icons.at((size_t)rarity);
+    return egg_icons.at(rarity);
 }
 
-const Texture& TextureContainer::get_hatch_animation(Rarity rarity) const
+const Texture& TextureContainer::get_hatch_animation(RarityID rarity) const
 {
-    return hatch_animations.at((size_t)rarity);
+    return hatch_animations.at(rarity);
 }
 
-const Texture& TextureContainer::get_type(Type type) const
+const Texture& TextureContainer::get_type(TypeID type) const
 {
-    return types.at((size_t)type);
+    return types.at(type);
 }
 
-const Texture& TextureContainer::get_augment(Type type) const
+const Texture& TextureContainer::get_augment(TypeID type) const
 {
-    return augments.at((size_t)type);
+    return augments.at(type);
 }
 
 const Texture& TextureContainer::get_skill() const
 {
-    return augments.at((size_t)Type::illusion + 1);
+    return augments.at(TYPE_ILLUSION + 1);
 }
 
 void TextureContainer::load(const Renderer& renderer)

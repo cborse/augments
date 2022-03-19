@@ -19,10 +19,10 @@ public:
 
     uint32_t id = 0;
     std::string name;
-    Rarity rarity = Rarity::common;
-    Type type1 = Type::none;
-    Type type2 = Type::none;
-    Type type3 = Type::none;
+    RarityID rarity = RARITY_COMMON;
+    TypeID type1 = TYPE_NONE;
+    TypeID type2 = TYPE_NONE;
+    TypeID type3 = TYPE_NONE;
     uint32_t height = 0;
     uint32_t weight = 0;
     uint8_t inner_power = 0;
