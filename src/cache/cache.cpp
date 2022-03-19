@@ -17,7 +17,7 @@ void Cache::init(const nlohmann::json& json)
     // Actionsets
     actionsets.fill({});
     for (const auto& obj : json.at("actionsets"))
-        actionsets.at(json.at("species_id")).push_back(json.at("action_id"));
+        actionsets.at(obj.at("species_id")).push_back(obj.at("action_id"));
 
     skills.clear();
     for (const auto& obj : json.at("skills"))
@@ -31,7 +31,7 @@ void Cache::init(const nlohmann::json& json)
     // Skillsets
     skillsets.fill({});
     for (const auto& obj : json.at("skillsets"))
-        skillsets.at(json.at("species_id")).push_back(json.at("skill_id"));
+        skillsets.at(obj.at("species_id")).push_back(obj.at("skill_id"));
 
     // Species
     species.clear();
@@ -44,12 +44,12 @@ void Cache::init(const nlohmann::json& json)
     // User actions
     user_actions.fill(0);
     for (const auto& obj : json.at("user_actions"))
-        user_actions.at(json.at("action_id")) = json.at("qty");
+        user_actions.at(obj.at("action_id")) = obj.at("qty");
 
     // User skills
     user_skills.fill(0);
     for (const auto& obj : json.at("user_skills"))
-        user_skills.at(json.at("skill_id")) = json.at("qty");
+        user_skills.at(obj.at("skill_id")) = obj.at("qty");
 
     // Staffs
     staffs.clear();
