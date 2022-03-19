@@ -15,7 +15,7 @@ public:
     Skill() = default;
     explicit Skill(const nlohmann::json& json);
 
-    uint32_t id = 0;
+    SkillID id = SKILL_NONE;
     std::string name;
     bool core = false;
     std::string desc1;

@@ -18,7 +18,7 @@ public:
     static std::string get_cover_string(uint8_t cover);
     static std::string get_style_string(uint8_t style);
 
-    uint32_t id = 0;
+    ActionID id = ACTION_NONE;
     std::string name;
     TypeID type = TYPE_NONE;
     bool core = false;

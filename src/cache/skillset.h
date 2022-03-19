@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include "enums.h"
 #include "nlohmann/json.hpp"
 
 class Skillset {
@@ -14,6 +15,6 @@ public:
     Skillset() = default;
     explicit Skillset(const nlohmann::json& json);
 
-    uint32_t species_id = 0;
-    uint32_t skill_id = 0;
+    SpeciesID species_id = SPECIES_NONE;
+    SkillID skill_id = SKILL_NONE;
 };

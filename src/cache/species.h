@@ -17,7 +17,7 @@ public:
 
     int get_needed_egg_wins() const;
 
-    uint32_t id = 0;
+    SpeciesID id = SPECIES_NONE;
     std::string name;
     RarityID rarity = RARITY_COMMON;
     TypeID type1 = TYPE_NONE;
