@@ -26,8 +26,8 @@ public:
     const Texture& get_egg_icon(RarityID rarity) const;
     const Texture& get_hatch_animation(RarityID rarity) const;
     const Texture& get_type(TypeID type) const;
-    const Texture& get_augment(TypeID type) const;
-    const Texture& get_skill() const;
+    const Texture& get_action_augment(TypeID type) const;
+    const Texture& get_skill_augment() const;
 
 private:
     std::map<std::string, Texture> general;

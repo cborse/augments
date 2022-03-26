@@ -439,13 +439,13 @@ void TeamScene::refresh_augment_widgets()
     if (creature) {
         if (std::holds_alternative<Action>(*augment)) {
             const Action& action = std::get<Action>(*augment);
-            image_augment.set_texture(game.renderer.get_textures().get_augment(action.type));
+            image_augment.set_texture(game.renderer.get_textures().get_action_augment(action.type));
             label_augment.set_string(action.name);
             label_unable.set_visibility(!can_learn(*creature, action));
         }
         else if (std::holds_alternative<Skill>(*augment)) {
             const Skill& skill = std::get<Skill>(*augment);
-            image_augment.set_texture(game.renderer.get_textures().get_skill());
+            image_augment.set_texture(game.renderer.get_textures().get_skill_augment());
             label_augment.set_string(skill.name);
             label_unable.set_visibility(!can_learn(*creature, skill));
         }

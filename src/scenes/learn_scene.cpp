@@ -109,7 +109,7 @@ void LearnScene::refresh_list_widgets()
         if (std::holds_alternative<Action>(augment)) {
             const Action& action = game.cache.get_action(creature.actions[i]);
             if (action.id != 0) {
-                cell.get_image().set_texture(game.renderer.get_textures().get_augment(action.type));
+                cell.get_image().set_texture(game.renderer.get_textures().get_action_augment(action.type));
                 cell.get_label().set_string(action.name);
             }
             else {
@@ -120,7 +120,7 @@ void LearnScene::refresh_list_widgets()
         else if (std::holds_alternative<Skill>(augment)) {
             const Skill& skill = game.cache.get_skill(creature.skills[i]);
             if (skill.id != 0) {
-                cell.get_image().set_texture(game.renderer.get_textures().get_skill());
+                cell.get_image().set_texture(game.renderer.get_textures().get_skill_augment());
                 cell.get_label().set_string(skill.name);
             }
             else {
@@ -135,12 +135,12 @@ void LearnScene::refresh_list_widgets()
 
     if (std::holds_alternative<Action>(augment)) {
         const Action& action = std::get<Action>(augment);
-        cell_new.get_image().set_texture(game.renderer.get_textures().get_augment(action.type));
+        cell_new.get_image().set_texture(game.renderer.get_textures().get_action_augment(action.type));
         cell_new.get_label().set_string(action.name);
     }
     else if (std::holds_alternative<Skill>(augment)) {
         const Skill& skill = std::get<Skill>(augment);
-        cell_new.get_image().set_texture(game.renderer.get_textures().get_skill());
+        cell_new.get_image().set_texture(game.renderer.get_textures().get_skill_augment());
         cell_new.get_label().set_string(skill.name);
     }
 }

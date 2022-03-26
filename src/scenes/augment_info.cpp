@@ -101,7 +101,7 @@ void AugmentInfo::refresh()
 
     if (action) {
         name.set_string(action->name);
-        icon.set_texture(renderer.get_textures().get_augment(action->type));
+        icon.set_texture(renderer.get_textures().get_action_augment(action->type));
         desc1.set_string(action->desc1);
         desc2.set_string(action->desc2);
         desc3.set_string(action->desc3);
@@ -135,7 +135,7 @@ void AugmentInfo::refresh()
     }
     else if (skill) {
         name.set_string(skill->name);
-        icon.set_texture(renderer.get_textures().get_skill());
+        icon.set_texture(renderer.get_textures().get_skill_augment());
         desc1.set_string(skill->desc1);
         desc2.set_string(skill->desc2);
         desc3.set_string(skill->desc3);

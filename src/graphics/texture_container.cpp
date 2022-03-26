@@ -48,12 +48,12 @@ const Texture& TextureContainer::get_type(TypeID type) const
     return types.at(type);
 }
 
-const Texture& TextureContainer::get_augment(TypeID type) const
+const Texture& TextureContainer::get_action_augment(TypeID type) const
 {
     return augments.at(type);
 }
 
-const Texture& TextureContainer::get_skill() const
+const Texture& TextureContainer::get_skill_augment() const
 {
     return augments.at(TYPE_ILLUSION + 1);
 }
