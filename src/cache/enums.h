@@ -608,7 +608,7 @@ enum SpeciesID {
     SPECIES_CORKCUB,
     SPECIES_PSEUTLE,
 
-    SPECIES_COUNT = SPECIES_PSEUTLE
+    SPECIES_COUNT
 };
 
 enum StyleID {
