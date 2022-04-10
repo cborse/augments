@@ -1,10 +1,3 @@
-//
-// AUGMENTS
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #pragma once
 
 #include <functional>
@@ -12,10 +5,10 @@
 
 class Button : public Widget {
 public:
-    explicit Button(const Renderer& renderer);
+    Button(const Renderer& renderer, const TextureContainer& textures);
 
     virtual bool handle_event(const SDL_Event& e) override;
-    virtual void update() override;
+    virtual void update() override {}
     virtual void draw() const override;
 
     void set_action(std::function<void()> action);

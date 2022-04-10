@@ -1,10 +1,3 @@
-//
-// Augments
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #pragma once
 
 #include <functional>
@@ -26,18 +19,21 @@ public:
 
     void set_body(const std::string& body) const;
     void set_callback(Callback callback);
-    void set_header_id(uint64_t id);
-    void set_header_token(const std::string& token);
+    void set_timeout(long secs) const;
     void set_uri(const std::string& uri) const;
 
     HttpRequest& with_body(const std::string& body);
     HttpRequest& with_callback(Callback callback);
-    HttpRequest& with_header_id(uint64_t id);
-    HttpRequest& with_header_token(const std::string& token);
     HttpRequest& with_timeout(long secs);
     HttpRequest& with_uri(const std::string& uri);
 
 private:
+    void set_header_id(uint64_t id);
+    void set_header_token(const std::string& token);
+
+    HttpRequest& with_header_id(uint64_t id);
+    HttpRequest& with_header_token(const std::string& token);
+
     CURL* handle = nullptr;
     curl_slist* headers = nullptr;
     std::unique_ptr<std::string> response;

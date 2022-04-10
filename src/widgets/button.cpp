@@ -1,13 +1,8 @@
-//
-// AUGMENTS
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #include "button.h"
 
-Button::Button(const Renderer& renderer) : Widget(renderer), label(renderer)
+Button::Button(const Renderer& renderer, const TextureContainer& textures)
+    : Widget(renderer, textures)
+    , label(renderer, textures)
 {
     label.set_color({ 243, 239, 225 });
     label.set_shadow(true);
@@ -15,7 +10,12 @@ Button::Button(const Renderer& renderer) : Widget(renderer), label(renderer)
 
 bool Button::handle_event(const SDL_Event& e)
 {
-    if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT && visible && hovered) {
+    if (e.type == SDL_MOUSEMOTION) {
+        SDL_Point mouse = { e.motion.x, e.motion.y };
+        hovered = SDL_PointInRect(&mouse, &bounds);
+        return false;
+    }
+    else if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT && visible && hovered) {
         action();
         return true;
     }
@@ -23,15 +23,9 @@ bool Button::handle_event(const SDL_Event& e)
     return false;
 }
 
-void Button::update()
-{
-    hovered = SDL_PointInRect(&renderer.get_mouse(), &bounds);
-}
-
 void Button::draw() const
 {
     if (visible) {
-        const TextureContainer& textures = renderer.get_textures();
         if (hovered)
             renderer.draw_border(bounds, textures.get_general("button_hovered"), { 44, 44, 40 });
         else

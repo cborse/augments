@@ -1,10 +1,3 @@
-//
-// AUGMENTS
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #include <steam/steam_api.h>
 #include "augments_scene.h"
 #include "menu_scene.h"

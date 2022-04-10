@@ -1,14 +1,7 @@
-//
-// AUGMENTS
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #include "learn_scene.h"
 
 LearnScene::LearnScene(Game& game, const Augment& augment, Creature& creature)
-    : Scene(game), info(game.renderer), augment(augment), creature(creature)
+    : Scene(game), info(game.renderer, game.textures), augment(augment), creature(creature)
 {
     // Back button
     widgets.add<Button>()
@@ -74,8 +67,8 @@ void LearnScene::draw() const
 {
     game.renderer.clear({ 243, 239, 225 });
 
-    game.renderer.draw_border({ 8, 23, 464, 239 }, game.renderer.get_textures().get_general("window"), { 23, 23, 20 });
-    game.renderer.draw_border({ 12, 27, 172, 230 }, game.renderer.get_textures().get_general("frame"), { 59, 59, 53 });
+    game.renderer.draw_border({ 8, 23, 464, 239 }, game.textures.get_general("window"), { 23, 23, 20 });
+    game.renderer.draw_border({ 12, 27, 172, 230 }, game.textures.get_general("frame"), { 59, 59, 53 });
     info.draw();
 
     widgets.draw();
@@ -109,7 +102,7 @@ void LearnScene::refresh_list_widgets()
         if (std::holds_alternative<Action>(augment)) {
             const Action& action = game.cache.get_action(creature.actions[i]);
             if (action.id != 0) {
-                cell.get_image().set_texture(game.renderer.get_textures().get_action_augment(action.type));
+                cell.get_image().set_texture(game.textures.get_action_augment(action.type));
                 cell.get_label().set_string(action.name);
             }
             else {
@@ -120,7 +113,7 @@ void LearnScene::refresh_list_widgets()
         else if (std::holds_alternative<Skill>(augment)) {
             const Skill& skill = game.cache.get_skill(creature.skills[i]);
             if (skill.id != 0) {
-                cell.get_image().set_texture(game.renderer.get_textures().get_skill_augment());
+                cell.get_image().set_texture(game.textures.get_skill_augment());
                 cell.get_label().set_string(skill.name);
             }
             else {
@@ -135,12 +128,12 @@ void LearnScene::refresh_list_widgets()
 
     if (std::holds_alternative<Action>(augment)) {
         const Action& action = std::get<Action>(augment);
-        cell_new.get_image().set_texture(game.renderer.get_textures().get_action_augment(action.type));
+        cell_new.get_image().set_texture(game.textures.get_action_augment(action.type));
         cell_new.get_label().set_string(action.name);
     }
     else if (std::holds_alternative<Skill>(augment)) {
         const Skill& skill = std::get<Skill>(augment);
-        cell_new.get_image().set_texture(game.renderer.get_textures().get_skill_augment());
+        cell_new.get_image().set_texture(game.textures.get_skill_augment());
         cell_new.get_label().set_string(skill.name);
     }
 }
@@ -166,7 +159,7 @@ void LearnScene::replace()
 
         // Client
         creature.actions[index] = action.id;
-        game.cache.user_actions.at(action.id)--;
+        game.cache.user_actions[action.id]--;
 
         // Server
         const nlohmann::json json = {
@@ -175,9 +168,7 @@ void LearnScene::replace()
             { "action_id", action.id }
         };
 
-        game.api.push_request()
-            .with_header_id(game.cache.user.id)
-            .with_header_token(game.cache.user.token)
+        game.http.push_request()
             .with_body(json.dump())
             .with_uri("learn_action");
     }
@@ -186,7 +177,7 @@ void LearnScene::replace()
 
         // Client
         creature.skills[index] = skill.id;
-        game.cache.user_skills.at(skill.id)--;
+        game.cache.user_skills[skill.id]--;
 
         // Server
         const nlohmann::json json = {
@@ -195,9 +186,7 @@ void LearnScene::replace()
             { "skill_id", skill.id }
         };
 
-        game.api.push_request()
-            .with_header_id(game.cache.user.id)
-            .with_header_token(game.cache.user.token)
+        game.http.push_request()
             .with_body(json.dump())
             .with_uri("learn_skill");
     }

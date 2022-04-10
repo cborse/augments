@@ -1,10 +1,3 @@
-//
-// AUGMENTS
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #include <SDL_image.h>
 #include "renderer.h"
 #include "error.h"
@@ -35,9 +28,6 @@ Renderer::Renderer()
         std::string msg(TTF_GetError());
         throw Error("Failed to load font: " + msg + ".");
     }
-
-    // Load all textures
-    textures.load(*this);
 }
 
 Renderer::~Renderer()
@@ -62,11 +52,6 @@ void Renderer::toggle_fullscreen() const
 {
     Uint32 flags = SDL_GetWindowFlags(window);
     SDL_SetWindowFullscreen(window, flags ^ SDL_WINDOW_FULLSCREEN_DESKTOP);
-}
-
-void Renderer::update_mouse(const SDL_Event& e)
-{
-    mouse = { e.motion.x, e.motion.y };
 }
 
 void Renderer::fade() const
@@ -146,14 +131,4 @@ Texture Renderer::load_texture(const std::string& filename) const
     if (!texture)
         throw Error("Failed to load texture: " + filename);
     return texture;
-}
-
-const TextureContainer& Renderer::get_textures() const
-{
-    return textures;
-}
-
-const SDL_Point& Renderer::get_mouse() const
-{
-    return mouse;
 }

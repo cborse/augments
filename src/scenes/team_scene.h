@@ -1,20 +1,13 @@
-//
-// AUGMENTS
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #pragma once
 
 #include "scene.h"
-#include "cache/augment.h"
 
 class TeamScene : public Scene {
 public:
     TeamScene(Game& game, const Augment* augment = nullptr);
 
-    virtual void resume() override;
+    virtual void pause() override {}
+    virtual void unpause() override;
     virtual void handle_event(const SDL_Event& e) override;
     virtual void update() override;
     virtual void draw() const override;
@@ -42,6 +35,7 @@ private:
     int get_page_size() const;
     bool can_learn(const Creature& creature, const Action& action) const;
     bool can_learn(const Creature& creature, const Skill& skill) const;
+    int get_needed_egg_wins(const Species& species) const;
 
     void assign();
     void unassign();

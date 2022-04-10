@@ -1,10 +1,3 @@
-//
-// AUGMENTS
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #include "dialog_scene.h"
 
 DialogScene::DialogScene(Game& game)
@@ -25,7 +18,7 @@ void DialogScene::update()
 void DialogScene::draw() const
 {
     game.renderer.fade();
-    game.renderer.draw_border({ 140, 85, 200, num_lines * 14 + 14 + 24 }, game.renderer.get_textures().get_general("window"), { 23, 23, 20 });
+    game.renderer.draw_border({ 140, 85, 200, num_lines * 14 + 14 + 24 }, game.textures.get_general("window"), { 23, 23, 20 });
 
     widgets.draw();
 }

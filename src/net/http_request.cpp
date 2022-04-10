@@ -1,10 +1,3 @@
-//
-// Augments
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #include <string>
 #include "http_request.h"
 #include "error.h"
@@ -91,18 +84,9 @@ void HttpRequest::set_callback(Callback callback)
     this->callback = callback;
 }
 
-void HttpRequest::set_header_id(uint64_t id)
+void HttpRequest::set_timeout(long secs) const
 {
-    std::string s = "X-Aug-ID: " + std::to_string(id);
-    headers = curl_slist_append(headers, s.c_str());
-    curl_easy_setopt(handle, CURLOPT_HTTPHEADER, headers);
-}
-
-void HttpRequest::set_header_token(const std::string& token)
-{
-    std::string s = "X-Aug-Token: " + token;
-    headers = curl_slist_append(headers, s.c_str());
-    curl_easy_setopt(handle, CURLOPT_HTTPHEADER, headers);
+    curl_easy_setopt(handle, CURLOPT_TIMEOUT, secs);
 }
 
 void HttpRequest::set_uri(const std::string& uri) const
@@ -122,6 +106,32 @@ HttpRequest& HttpRequest::with_callback(Callback callback)
     return *this;
 }
 
+HttpRequest& HttpRequest::with_timeout(long secs)
+{
+    set_timeout(secs);
+    return *this;
+}
+
+HttpRequest& HttpRequest::with_uri(const std::string& uri)
+{
+    set_uri(uri);
+    return *this;
+}
+
+void HttpRequest::set_header_id(uint64_t id)
+{
+    std::string s = "X-Aug-ID: " + std::to_string(id);
+    headers = curl_slist_append(headers, s.c_str());
+    curl_easy_setopt(handle, CURLOPT_HTTPHEADER, headers);
+}
+
+void HttpRequest::set_header_token(const std::string& token)
+{
+    std::string s = "X-Aug-Token: " + token;
+    headers = curl_slist_append(headers, s.c_str());
+    curl_easy_setopt(handle, CURLOPT_HTTPHEADER, headers);
+}
+
 HttpRequest& HttpRequest::with_header_id(uint64_t id)
 {
     set_header_id(id);
@@ -131,17 +141,5 @@ HttpRequest& HttpRequest::with_header_id(uint64_t id)
 HttpRequest& HttpRequest::with_header_token(const std::string& token)
 {
     set_header_token(token);
-    return *this;
-}
-
-HttpRequest& HttpRequest::with_timeout(long secs)
-{
-    curl_easy_setopt(handle, CURLOPT_TIMEOUT, secs);
-    return *this;
-}
-
-HttpRequest& HttpRequest::with_uri(const std::string& uri)
-{
-    set_uri(uri);
     return *this;
 }

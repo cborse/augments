@@ -1,10 +1,3 @@
-//
-// AUGMENTS
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #include "texture.h"
 
 Texture::Texture(SDL_Texture* texture)

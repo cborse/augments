@@ -1,64 +1,11 @@
-//
-// AUGMENTS
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #include "texture_container.h"
-#include "renderer.h"
 
 // ************** TEMP
 #include <filesystem>
 #include <set>
 // **************
 
-const Texture& TextureContainer::get_general(const std::string& id) const
-{
-    return general.at(id);
-}
-
-const Texture& TextureContainer::get_species(SpeciesID id) const
-{
-    return species.at(id * 6);
-}
-
-const Texture& TextureContainer::get_species_icon(SpeciesID id) const
-{
-    return species_icons.at(id * 6);
-}
-
-const Texture& TextureContainer::get_egg(RarityID rarity) const
-{
-    return eggs.at(rarity);
-}
-
-const Texture& TextureContainer::get_egg_icon(RarityID rarity) const
-{
-    return egg_icons.at(rarity);
-}
-
-const Texture& TextureContainer::get_hatch_animation(RarityID rarity) const
-{
-    return hatch_animations.at(rarity);
-}
-
-const Texture& TextureContainer::get_type(TypeID type) const
-{
-    return types.at(type);
-}
-
-const Texture& TextureContainer::get_action_augment(TypeID type) const
-{
-    return augments.at(type);
-}
-
-const Texture& TextureContainer::get_skill_augment() const
-{
-    return augments.at(TYPE_ILLUSION + 1);
-}
-
-void TextureContainer::load(const Renderer& renderer)
+TextureContainer::TextureContainer(const Renderer& renderer)
 {
     // General
     general.emplace(std::make_pair("cursor", renderer.load_texture("assets/general/cursor.png")));
@@ -152,4 +99,49 @@ void TextureContainer::load(const Renderer& renderer)
     augments.emplace_back(renderer.load_texture("assets/augments/Action Augment Fire.png"));
     augments.emplace_back(renderer.load_texture("assets/augments/Action Augment Illusion.png"));
     augments.emplace_back(renderer.load_texture("assets/augments/Skill Augment.png"));
+}
+
+const Texture& TextureContainer::get_general(const std::string& id) const
+{
+    return general.at(id);
+}
+
+const Texture& TextureContainer::get_species(SpeciesID id) const
+{
+    return species.at(id * 6);
+}
+
+const Texture& TextureContainer::get_species_icon(SpeciesID id) const
+{
+    return species_icons.at(id * 6);
+}
+
+const Texture& TextureContainer::get_egg(RarityID rarity) const
+{
+    return eggs.at(rarity);
+}
+
+const Texture& TextureContainer::get_egg_icon(RarityID rarity) const
+{
+    return egg_icons.at(rarity);
+}
+
+const Texture& TextureContainer::get_hatch_animation(RarityID rarity) const
+{
+    return hatch_animations.at(rarity);
+}
+
+const Texture& TextureContainer::get_type(TypeID type) const
+{
+    return types.at(type);
+}
+
+const Texture& TextureContainer::get_action_augment(TypeID type) const
+{
+    return augments.at(type);
+}
+
+const Texture& TextureContainer::get_skill_augment() const
+{
+    return augments.at(TYPE_ILLUSION + 1);
 }

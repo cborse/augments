@@ -1,17 +1,10 @@
-//
-// AUGMENTS
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #pragma once
 
 #include "widget.h"
 
 class ProgressBar : public Widget {
 public:
-    explicit ProgressBar(const Renderer& renderer) : Widget(renderer) {}
+    ProgressBar(const Renderer& renderer, const TextureContainer& textures) : Widget(renderer, textures) {}
 
     virtual bool handle_event(const SDL_Event& e) override;
     virtual void update() override {}

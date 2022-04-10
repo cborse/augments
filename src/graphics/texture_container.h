@@ -1,23 +1,13 @@
-//
-// AUGMENTS
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #pragma once
 
 #include <map>
-#include <string>
 #include <vector>
-#include "texture.h"
 #include "cache/enums.h"
-
-class Renderer;
+#include "renderer.h"
 
 class TextureContainer {
 public:
-    void load(const class Renderer& renderer);
+    explicit TextureContainer(const Renderer& renderer);
 
     const Texture& get_general(const std::string& id) const;
     const Texture& get_species(SpeciesID id) const;

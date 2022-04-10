@@ -1,10 +1,3 @@
-//
-// AUGMENTS
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #include "widget_container.h"
 
 void WidgetContainer::handle_event(const SDL_Event& e) const

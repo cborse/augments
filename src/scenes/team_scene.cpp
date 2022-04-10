@@ -1,10 +1,3 @@
-//
-// AUGMENTS
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #include "team_scene.h"
 #include "dialog_scene.h"
 #include "hatch_scene.h"
@@ -38,7 +31,7 @@ TeamScene::TeamScene(Game& game, const Augment* augment)
         .with_string(">");
 
     widgets.add<Label>("label-staff_page")
-        .with_alignment(Label::center)
+        .with_alignment(Label::Align::center)
         .with_color({ 243, 239, 225 })
         .with_position({ 12 + 140 / 2, 41 });
 
@@ -58,7 +51,7 @@ TeamScene::TeamScene(Game& game, const Augment* augment)
 
         widgets.add<Image>("image-assigned" + std::to_string(i))
             .with_position({ 189 + i % 4 * 42, 88 + i / 4 * 38 })
-            .with_texture(game.renderer.get_textures().get_general("assigned"));
+            .with_texture(game.textures.get_general("assigned"));
     }
 
     // Pages
@@ -73,13 +66,13 @@ TeamScene::TeamScene(Game& game, const Augment* augment)
         .with_string(">");
 
     widgets.add<Label>("label-storage_page")
-        .with_alignment(Label::center)
+        .with_alignment(Label::Align::center)
         .with_color({ 243, 239, 225 })
         .with_position({ 154 + 178 / 2, 41 });
 
     // Summary
     widgets.add<Label>("label-summary_name")
-        .with_alignment(Label::center)
+        .with_alignment(Label::Align::center)
         .with_color({ 243, 239, 225 })
         .with_position({ 334 + 134 / 2, 41 });
 
@@ -88,7 +81,7 @@ TeamScene::TeamScene(Game& game, const Augment* augment)
 
     widgets.add<Image>("image-summary_level")
         .with_position({ 344, 138 })
-        .with_texture(game.renderer.get_textures().get_general("level"));
+        .with_texture(game.textures.get_general("level"));
 
     widgets.add<Label>("label-summary_level")
         .with_color({ 243, 239, 225 })
@@ -96,7 +89,7 @@ TeamScene::TeamScene(Game& game, const Augment* augment)
 
     widgets.add<Image>("image-summary_xp")
         .with_position({ 392, 138 })
-        .with_texture(game.renderer.get_textures().get_general("xp"));
+        .with_texture(game.textures.get_general("xp"));
 
     widgets.add<Label>("label-summary_xp")
         .with_color({ 243, 239, 225 })
@@ -121,7 +114,7 @@ TeamScene::TeamScene(Game& game, const Augment* augment)
         .with_visibility(augment);
 
     widgets.add<Label>("label-augment_unable")
-        .with_alignment(Label::center)
+        .with_alignment(Label::Align::center)
         .with_color({ 182, 83, 83 })
         .with_position({ 401, 216 })
         .with_string("unable!")
@@ -139,7 +132,7 @@ TeamScene::TeamScene(Game& game, const Augment* augment)
     refresh_widgets();
 }
 
-void TeamScene::resume()
+void TeamScene::unpause()
 {
     refresh_data();
     refresh_widgets();
@@ -159,10 +152,10 @@ void TeamScene::draw() const
 {
     game.renderer.clear({ 243, 239, 225 });
 
-    game.renderer.draw_border({ 8, 23, 464, 239 }, game.renderer.get_textures().get_general("window"), { 23, 23, 20 });
-    game.renderer.draw_border({ 12, 27, 140, 230 }, game.renderer.get_textures().get_general("frame"), { 59, 59, 53 });
-    game.renderer.draw_border({ 154, 27, 178, 230 }, game.renderer.get_textures().get_general("frame"), { 59, 59, 53 });
-    game.renderer.draw_border({ 334, 27, 134, 230 }, game.renderer.get_textures().get_general("frame"), { 59, 59, 53 });
+    game.renderer.draw_border({ 8, 23, 464, 239 }, game.textures.get_general("window"), { 23, 23, 20 });
+    game.renderer.draw_border({ 12, 27, 140, 230 }, game.textures.get_general("frame"), { 59, 59, 53 });
+    game.renderer.draw_border({ 154, 27, 178, 230 }, game.textures.get_general("frame"), { 59, 59, 53 });
+    game.renderer.draw_border({ 334, 27, 134, 230 }, game.textures.get_general("frame"), { 59, 59, 53 });
 
     widgets.draw();
 }
@@ -210,12 +203,12 @@ void TeamScene::refresh_list_widgets()
 
         auto& cell_image = cell.get_image();
         if (i >= size)
-            cell_image.set_anim_type(Image::anim_type_none);
+            cell_image.set_anim_type(Image::AnimType::none);
 
         if (i < size) {
             const Creature* creature = staff_creatures.at(i);
             cell.set_string(creature->name);
-            cell.set_texture(game.renderer.get_textures().get_species_icon(creature->species_id));
+            cell.set_texture(game.textures.get_species_icon(creature->species_id));
 
             bool can_augment = false;
             if (augment) {
@@ -233,9 +226,9 @@ void TeamScene::refresh_list_widgets()
             cell.get_label().set_alpha(augment && !can_augment ? 64 : 255);
 
             if (i == index)
-                cell_image.set_anim_type(Image::anim_type_bounce);
+                cell_image.set_anim_type(Image::AnimType::bounce);
             else
-                cell_image.set_anim_type(Image::anim_type_none);
+                cell_image.set_anim_type(Image::AnimType::none);
         }
     }
 }
@@ -250,7 +243,7 @@ void TeamScene::refresh_grid_widgets()
 
         auto& cell_image = cell.get_image();
         if (i >= size)
-            cell_image.set_anim_type(Image::anim_type_none);
+            cell_image.set_anim_type(Image::AnimType::none);
 
         auto& assigned = widgets.find<Image>("image-assigned" + std::to_string(i));
         assigned.set_visibility(false);
@@ -259,17 +252,17 @@ void TeamScene::refresh_grid_widgets()
             if (page == -1) {
                 const Creature* creature = eggs.at(i);
                 const Species& species = game.cache.get_species(creature->species_id);
-                cell.set_texture(game.renderer.get_textures().get_egg_icon(species.rarity));
+                cell.set_texture(game.textures.get_egg_icon(species.rarity));
 
-                if (creature->wins >= (uint32_t)species.get_needed_egg_wins())
-                    cell_image.set_anim_type(Image::anim_type_shake);
+                if (creature->wins >= (uint32_t)get_needed_egg_wins(species))
+                    cell_image.set_anim_type(Image::AnimType::shake);
                 else
-                    cell_image.set_anim_type(Image::anim_type_none);
+                    cell_image.set_anim_type(Image::AnimType::none);
             }
             else {
                 const Creature* creature = storage.at(i + page * 20);
                 assigned.set_visibility(creature->staff_slot != -1);
-                cell.set_texture(game.renderer.get_textures().get_species_icon(creature->species_id));
+                cell.set_texture(game.textures.get_species_icon(creature->species_id));
 
                 bool can_augment = false;
                 if (augment) {
@@ -287,9 +280,9 @@ void TeamScene::refresh_grid_widgets()
                 assigned.set_alpha(augment && !can_augment ? 64 : 255);
 
                 if (i == index - 8)
-                    cell_image.set_anim_type(Image::anim_type_bounce);
+                    cell_image.set_anim_type(Image::AnimType::bounce);
                 else
-                    cell_image.set_anim_type(Image::anim_type_none);
+                    cell_image.set_anim_type(Image::AnimType::none);
             }
         }
     }
@@ -320,11 +313,11 @@ void TeamScene::refresh_summary_widgets()
     if (creature) {
         if (creature->egg) {
             const Species& species = game.cache.get_species(creature->species_id);
-            image_creature.set_texture(game.renderer.get_textures().get_egg(species.rarity));
+            image_creature.set_texture(game.textures.get_egg(species.rarity));
             label_name.set_string("EGG");
         }
         else {
-            image_creature.set_texture(game.renderer.get_textures().get_species(creature->species_id));
+            image_creature.set_texture(game.textures.get_species(creature->species_id));
             label_name.set_string(creature->name);
             label_level.set_string(std::to_string(creature->get_level()));
             label_xp.set_string(std::to_string(creature->xp));
@@ -416,7 +409,7 @@ void TeamScene::refresh_control_widgets()
     // Egg
     else {
         const Species& species = game.cache.get_species(creature->species_id);
-        if (creature->wins >= (uint32_t)species.get_needed_egg_wins()) {
+        if (creature->wins >= (uint32_t)get_needed_egg_wins(species)) {
             control3.set_visibility(true);
             control3.set_string("hatch");
             control3.set_action(std::bind(&TeamScene::hatch, this));
@@ -439,13 +432,13 @@ void TeamScene::refresh_augment_widgets()
     if (creature) {
         if (std::holds_alternative<Action>(*augment)) {
             const Action& action = std::get<Action>(*augment);
-            image_augment.set_texture(game.renderer.get_textures().get_action_augment(action.type));
+            image_augment.set_texture(game.textures.get_action_augment(action.type));
             label_augment.set_string(action.name);
             label_unable.set_visibility(!can_learn(*creature, action));
         }
         else if (std::holds_alternative<Skill>(*augment)) {
             const Skill& skill = std::get<Skill>(*augment);
-            image_augment.set_texture(game.renderer.get_textures().get_skill_augment());
+            image_augment.set_texture(game.textures.get_skill_augment());
             label_augment.set_string(skill.name);
             label_unable.set_visibility(!can_learn(*creature, skill));
         }
@@ -462,7 +455,7 @@ void TeamScene::animate_pair()
         for (int i = 0; i < 20 && i < get_page_size(); i++) {
             if (creature->id == storage.at(i + page * 20)->id) {
                 auto& cell = widgets.find<Cell>("cell-grid" + std::to_string(i));
-                cell.get_image().set_anim_type(Image::anim_type_bounce);
+                cell.get_image().set_anim_type(Image::AnimType::bounce);
             }
         }
     }
@@ -470,7 +463,7 @@ void TeamScene::animate_pair()
         for (int i = 0; i < staff_creatures.size(); i++) {
             if (creature->id == staff_creatures.at(i)->id) {
                 auto& cell = widgets.find<Cell>("cell-list" + std::to_string(i));
-                cell.get_image().set_anim_type(Image::anim_type_bounce);
+                cell.get_image().set_anim_type(Image::AnimType::bounce);
             }
         }
     }
@@ -555,8 +548,12 @@ bool TeamScene::can_learn(const Creature& creature, const Action& action) const
     if (action.core && (action.type == species.type1 || action.type == species.type2) || action.type == species.type3)
         return true;
 
-    const std::vector<ActionID>& actionset = game.cache.get_actionset(creature.species_id);
-    return std::find(actionset.begin(), actionset.end(), action.id) != actionset.end();
+    for (const auto& action_id : species.actionset) {
+        if (action_id == action.id)
+            return true;
+    }
+
+    return false;
 }
 
 bool TeamScene::can_learn(const Creature& creature, const Skill& skill) const
@@ -572,8 +569,18 @@ bool TeamScene::can_learn(const Creature& creature, const Skill& skill) const
     if (skill.core)
         return true;
 
-    const std::vector<SkillID>& skillset = game.cache.get_skillset(creature.species_id);
-    return std::find(skillset.begin(), skillset.end(), skill.id) != skillset.end();
+    const Species& species = game.cache.get_species(creature.species_id);
+    for (const auto& skill_id : species.skillset) {
+        if (skill_id == skill.id)
+            return true;
+    }
+
+    return false;
+}
+
+int TeamScene::get_needed_egg_wins(const Species& species) const
+{
+    return (int)pow(2, (int)species.rarity + 1);
 }
 
 void TeamScene::assign()
@@ -593,9 +600,7 @@ void TeamScene::assign()
         { "staff_slot", creature->staff_slot }
     };
 
-    game.api.push_request()
-        .with_header_id(game.cache.user.id)
-        .with_header_token(game.cache.user.token)
+    game.http.push_request()
         .with_body(json.dump())
         .with_uri("assign");
 
@@ -612,9 +617,7 @@ void TeamScene::unassign()
 
     // Server
     const nlohmann::json json = { { "creature_id", creature->id } };
-    game.api.push_request()
-        .with_header_id(game.cache.user.id)
-        .with_header_token(game.cache.user.token)
+    game.http.push_request()
         .with_body(json.dump())
         .with_uri("unassign");
 
@@ -643,9 +646,7 @@ void TeamScene::hatch()
 
     // Server
     const nlohmann::json json = { { "creature_id", creature->id } };
-    game.api.push_request()
-        .with_header_id(game.cache.user.id)
-        .with_header_token(game.cache.user.token)
+    game.http.push_request()
         .with_body(json.dump())
         .with_uri("hatch_egg");
 
@@ -679,7 +680,7 @@ void TeamScene::use_augment()
     // Ask
     auto dlg = std::make_unique<DialogScene>(game);
     dlg->add_line("Use " + augment_name);
-    dlg->add_line("on " + creature->name + "?");
+    dlg->add_line("on " + std::string(creature->name) + "?");
     dlg->add_choice("yes", std::bind(&TeamScene::use_augment2, this));
     dlg->add_choice("no", std::bind(&Game::pop_scene, &game, 1));
     game.push_scene(std::move(dlg));
@@ -704,7 +705,7 @@ void TeamScene::use_augment2()
 
         // Client
         creature->actions[slot] = action.id;
-        game.cache.user_actions.at(action.id)--;
+        game.cache.user_actions[action.id]--;
 
         // Server
         const nlohmann::json json = {
@@ -713,9 +714,7 @@ void TeamScene::use_augment2()
             { "action_id", action.id }
         };
 
-        game.api.push_request()
-            .with_header_id(game.cache.user.id)
-            .with_header_token(game.cache.user.token)
+        game.http.push_request()
             .with_body(json.dump())
             .with_uri("learn_action");
     }
@@ -731,7 +730,7 @@ void TeamScene::use_augment2()
 
         // Client
         creature->skills[slot] = skill.id;
-        game.cache.user_skills.at(skill.id)--;
+        game.cache.user_skills[skill.id]--;
 
         // Server
         const nlohmann::json json = {
@@ -740,9 +739,7 @@ void TeamScene::use_augment2()
             { "skill_id", skill.id }
         };
 
-        game.api.push_request()
-            .with_header_id(game.cache.user.id)
-            .with_header_token(game.cache.user.token)
+        game.http.push_request()
             .with_body(json.dump())
             .with_uri("learn_skill");
     }

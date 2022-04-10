@@ -1,10 +1,3 @@
-//
-// AUGMENTS
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #include <windows.h>
 #include <curl/curl.h>
 #include <SDL_image.h>

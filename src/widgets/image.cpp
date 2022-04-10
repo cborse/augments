@@ -1,10 +1,3 @@
-//
-// AUGMENTS
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #include "image.h"
 
 bool Image::handle_event(const SDL_Event& e)
@@ -15,7 +8,7 @@ bool Image::handle_event(const SDL_Event& e)
 void Image::update()
 {
     switch (anim_type) {
-    case anim_type_frame:
+    case AnimType::frame:
         if (anim_counter < anim_frame_count * anim_speed_factor - 1) {
             anim_counter++;
             if (anim_counter % anim_speed_factor == 0)
@@ -23,7 +16,7 @@ void Image::update()
         }
         break;
 
-    case anim_type_bounce:
+    case AnimType::bounce:
         if (anim_counter < anim_speed_factor * 1)
             anim_offset.y = -1;
         else if (anim_counter < anim_speed_factor * 2)
@@ -33,7 +26,7 @@ void Image::update()
         anim_counter++;
         break;
 
-    case anim_type_shake:
+    case AnimType::shake:
         if (anim_counter < anim_speed_factor * 1)
             anim_angle = -4.0;
         else if (anim_counter < anim_speed_factor * 2)
@@ -59,17 +52,17 @@ void Image::draw() const
             texture->set_alpha(alpha);
 
         switch (anim_type) {
-        case anim_type_frame:
+        case AnimType::frame:
             renderer.draw_sub(*texture, position,
                               { 0, (anim_current_frame % anim_frame_count) * anim_frame_size.y,
                               anim_frame_size.x, anim_frame_size.y });
             break;
 
-        case anim_type_bounce:
+        case AnimType::bounce:
             renderer.draw(*texture, { position.x + anim_offset.x, position.y + anim_offset.y });
             break;
 
-        case anim_type_shake:
+        case AnimType::shake:
             renderer.draw_angle(*texture, position, anim_angle);
             break;
 

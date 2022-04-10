@@ -1,15 +1,8 @@
-//
-// AUGMENTS
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #include "augments_scene.h"
 #include "team_scene.h"
 
 AugmentsScene::AugmentsScene(Game& game)
-    : Scene(game), info(game.renderer)
+    : Scene(game), info(game.renderer, game.textures)
 {
     // Back button
     widgets.add<Button>()
@@ -36,7 +29,7 @@ AugmentsScene::AugmentsScene(Game& game)
         .with_string(">");
 
     widgets.add<Label>("label-page")
-        .with_alignment(Label::center)
+        .with_alignment(Label::Align::center)
         .with_color({ 243, 239, 225 })
         .with_position({ 12 + 172 / 2, 41 })
         .with_shadow(true);
@@ -49,7 +42,7 @@ AugmentsScene::AugmentsScene(Game& game)
             .with_image_offset({ -24, -1 });
 
         widgets.add<Label>("label-list_qty" + std::to_string(i))
-            .with_alignment(Label::right)
+            .with_alignment(Label::Align::right)
             .with_color({ 243, 239, 225 })
             .with_position({ 174, 69 + i * 24 });
     }
@@ -64,7 +57,7 @@ AugmentsScene::AugmentsScene(Game& game)
     refresh_widgets();
 }
 
-void AugmentsScene::resume()
+void AugmentsScene::unpause()
 {
     refresh_data();
     refresh_widgets();
@@ -84,8 +77,8 @@ void AugmentsScene::draw() const
 {
     game.renderer.clear({ 243, 239, 225 });
 
-    game.renderer.draw_border({ 8, 23, 464, 239 }, game.renderer.get_textures().get_general("window"), { 23, 23, 20 });
-    game.renderer.draw_border({ 12, 27, 172, 230 }, game.renderer.get_textures().get_general("frame"), { 59, 59, 53 });
+    game.renderer.draw_border({ 8, 23, 464, 239 }, game.textures.get_general("window"), { 23, 23, 20 });
+    game.renderer.draw_border({ 12, 27, 172, 230 }, game.textures.get_general("frame"), { 59, 59, 53 });
     info.draw();
 
     widgets.draw();
@@ -94,12 +87,12 @@ void AugmentsScene::draw() const
 void AugmentsScene::refresh_data()
 {
     augments.clear();
-    for (int i = 0; i < game.cache.user_actions.size(); i++) {
-        if (game.cache.user_actions.at(i) > 0)
+    for (int i = 0; i < ACTION_COUNT; i++) {
+        if (game.cache.user_actions[i] > 0)
             augments.push_back(game.cache.get_action((ActionID)i));
     }
-    for (int i = 0; i < game.cache.user_skills.size(); i++) {
-        if (game.cache.user_skills.at(i) > 0)
+    for (int i = 0; i < SKILL_COUNT; i++) {
+        if (game.cache.user_skills[i] > 0)
             augments.push_back(game.cache.get_skill((SkillID)i));
     }
 
@@ -142,21 +135,21 @@ void AugmentsScene::refresh_list_widgets()
             if (std::holds_alternative<Action>(augment)) {
                 const Action& action = std::get<Action>(augment);
 
-                cell.get_image().set_texture(game.renderer.get_textures().get_action_augment(action.type));
+                cell.get_image().set_texture(game.textures.get_action_augment(action.type));
 
                 cell.get_label().set_string(action.name);
 
-                std::string qty = std::to_string(game.cache.user_actions.at(action.id));
+                std::string qty = std::to_string(game.cache.user_actions[action.id]);
                 label_qty.set_string(qty.length() > 1 ? ("x" + qty) : "x " + qty);
             }
             else if (std::holds_alternative<Skill>(augment)) {
                 const Skill& skill = std::get<Skill>(augment);
 
-                cell.get_image().set_texture(game.renderer.get_textures().get_skill_augment());
+                cell.get_image().set_texture(game.textures.get_skill_augment());
 
                 cell.get_label().set_string(skill.name);
 
-                std::string qty = std::to_string(game.cache.user_skills.at(skill.id));
+                std::string qty = std::to_string(game.cache.user_skills[skill.id]);
                 label_qty.set_string(qty.length() > 1 ? ("x" + qty) : "x " + qty);
             }
         }

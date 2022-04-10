@@ -1,23 +1,16 @@
-//
-// AUGMENTS
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #pragma once
 
 #include "widget.h"
 
 class Label : public Widget {
 public:
-    enum Align {
+    enum class Align {
         left,
         center,
         right,
     };
 
-    explicit Label(const Renderer& renderer) : Widget(renderer) {}
+    Label(const Renderer& renderer, const TextureContainer& textures) : Widget(renderer, textures) {}
 
     virtual bool handle_event(const SDL_Event& e) override;
     virtual void update() override {}
@@ -46,7 +39,7 @@ private:
 
     bool visible = true;
     bool shadow = true;
-    Align alignment = left;
+    Align alignment = Align::left;
     uint8_t alpha = 255;
     std::string string;
     SDL_Color color = {};

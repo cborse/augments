@@ -1,10 +1,3 @@
-//
-// AUGMENTS
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #include "hatch_scene.h"
 
 HatchScene::HatchScene(Game& game, const Creature& creature)
@@ -16,15 +9,15 @@ HatchScene::HatchScene(Game& game, const Creature& creature)
         .with_anim_frame_count(26)
         .with_anim_frame_size({ 102, 102 })
         .with_position({ 230, 114 })
-        .with_texture(game.renderer.get_textures().get_egg_icon(rarity));
+        .with_texture(game.textures.get_egg_icon(rarity));
 
     widgets.add<Image>("image")
         .with_position({ 204, 75 + 4 + 9 })
-        .with_texture(game.renderer.get_textures().get_species(creature.species_id))
+        .with_texture(game.textures.get_species(creature.species_id))
         .with_visibility(false);
 
     widgets.add<Label>("label")
-        .with_alignment(Label::center)
+        .with_alignment(Label::Align::center)
         .with_color({ 243, 239, 225 })
         .with_position({ 96 + 288 / 2, 184 })
         .with_shadow(true)
@@ -53,7 +46,7 @@ void HatchScene::draw() const
 {
     game.renderer.fade();
 
-    game.renderer.draw_border({ 100, 58, 280, 166 }, game.renderer.get_textures().get_general("frame"), { 59, 59, 53 });
+    game.renderer.draw_border({ 100, 58, 280, 166 }, game.textures.get_general("frame"), { 59, 59, 53 });
 
     widgets.draw();
 }
@@ -65,8 +58,8 @@ void HatchScene::start()
     RarityID rarity = game.cache.get_species(creature.species_id).rarity;
 
     auto& animation = widgets.find<Image>("animation");
-    animation.set_anim_type(Image::anim_type_frame);
-    animation.set_texture(game.renderer.get_textures().get_hatch_animation(rarity));
+    animation.set_anim_type(Image::AnimType::frame);
+    animation.set_texture(game.textures.get_hatch_animation(rarity));
     animation.set_position({ 189, 73 });
 
     widgets.find<Button>("button").set_visibility(false);
@@ -83,6 +76,6 @@ void HatchScene::end()
     button.set_visibility(true);
 
     auto& label = widgets.find<Label>("label");
-    label.set_string(creature.name + " hatched from the egg!");
+    label.set_string(std::string(creature.name) + " hatched from the egg!");
     label.set_visibility(true);
 }

@@ -1,13 +1,6 @@
-//
-// AUGMENTS
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #pragma once
 
-#include "graphics/renderer.h"
+#include "graphics/texture_container.h"
 
 class Widget {
 public:
@@ -18,7 +11,8 @@ public:
     virtual void draw() const = 0;
 
 protected:
-    explicit Widget(const Renderer& renderer) : renderer(renderer) {}
+    Widget(const Renderer& renderer, const TextureContainer& textures) : renderer(renderer), textures(textures) {}
 
     const Renderer& renderer;
+    const TextureContainer& textures;
 };

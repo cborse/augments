@@ -10,74 +10,10 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\cache\action.h" />
-    <ClInclude Include="src\cache\augment.h" />
-    <ClInclude Include="src\cache\cache.h" />
-    <ClInclude Include="src\cache\creature.h" />
-    <ClInclude Include="src\cache\enums.h" />
-    <ClInclude Include="src\cache\skill.h" />
-    <ClInclude Include="src\cache\species.h" />
-    <ClInclude Include="src\cache\staff.h" />
-    <ClInclude Include="src\cache\user.h" />
-    <ClInclude Include="src\error.h" />
-    <ClInclude Include="src\game.h" />
-    <ClInclude Include="src\graphics\renderer.h" />
-    <ClInclude Include="src\graphics\texture.h" />
-    <ClInclude Include="src\graphics\texture_container.h" />
-    <ClInclude Include="src\net\http_container.h" />
-    <ClInclude Include="src\net\http_request.h" />
-    <ClInclude Include="src\scenes\augments_scene.h" />
-    <ClInclude Include="src\scenes\augment_info.h" />
-    <ClInclude Include="src\scenes\dialog_scene.h" />
-    <ClInclude Include="src\scenes\hatch_scene.h" />
-    <ClInclude Include="src\scenes\learn_scene.h" />
-    <ClInclude Include="src\scenes\login_scene.h" />
-    <ClInclude Include="src\scenes\menu_scene.h" />
-    <ClInclude Include="src\scenes\scene.h" />
-    <ClInclude Include="src\scenes\team_scene.h" />
-    <ClInclude Include="src\widgets\button.h" />
-    <ClInclude Include="src\widgets\cell.h" />
-    <ClInclude Include="src\widgets\image.h" />
-    <ClInclude Include="src\widgets\label.h" />
-    <ClInclude Include="src\widgets\progress_bar.h" />
-    <ClInclude Include="src\widgets\widget.h" />
-    <ClInclude Include="src\widgets\widget_container.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\cache\action.cpp" />
-    <ClCompile Include="src\cache\cache.cpp" />
-    <ClCompile Include="src\cache\creature.cpp" />
-    <ClCompile Include="src\cache\skill.cpp" />
-    <ClCompile Include="src\cache\species.cpp" />
-    <ClCompile Include="src\cache\staff.cpp" />
-    <ClCompile Include="src\cache\user.cpp" />
-    <ClCompile Include="src\game.cpp" />
-    <ClCompile Include="src\graphics\renderer.cpp" />
-    <ClCompile Include="src\graphics\texture.cpp" />
-    <ClCompile Include="src\graphics\texture_container.cpp" />
-    <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\net\http_container.cpp" />
-    <ClCompile Include="src\net\http_request.cpp" />
-    <ClCompile Include="src\scenes\augments_scene.cpp" />
-    <ClCompile Include="src\scenes\augment_info.cpp" />
-    <ClCompile Include="src\scenes\dialog_scene.cpp" />
-    <ClCompile Include="src\scenes\hatch_scene.cpp" />
-    <ClCompile Include="src\scenes\learn_scene.cpp" />
-    <ClCompile Include="src\scenes\login_scene.cpp" />
-    <ClCompile Include="src\scenes\menu_scene.cpp" />
-    <ClCompile Include="src\scenes\team_scene.cpp" />
-    <ClCompile Include="src\widgets\button.cpp" />
-    <ClCompile Include="src\widgets\cell.cpp" />
-    <ClCompile Include="src\widgets\image.cpp" />
-    <ClCompile Include="src\widgets\label.cpp" />
-    <ClCompile Include="src\widgets\progress_bar.cpp" />
-    <ClCompile Include="src\widgets\widget_container.cpp" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{79ebefc9-3fe1-4de7-86b1-e25ee464fefe}</ProjectGuid>
+    <ProjectGuid>{15bc4fe5-61e2-4f06-ac86-802263c3ce7a}</ProjectGuid>
     <RootNamespace>augments</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -119,7 +55,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>src;external;C:\dev\lib\SDL2-devel-2.0.20-VC\SDL2-2.0.20\include;C:\dev\lib\SDL2_image-devel-2.0.5-VC\SDL2_image-2.0.5\include;C:\dev\lib\SDL2_ttf-devel-2.0.18-VC\SDL2_ttf-2.0.18\include;C:\dev\lib\libcurl\include;C:\dev\lib\steamworks_sdk_153a\sdk\public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996; 26812; 26819</DisableSpecificWarnings>
     </ClCompile>
@@ -138,8 +74,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>src;external;C:\dev\lib\SDL2-devel-2.0.16-VC\SDL2-2.0.16\include;C:\dev\lib\SDL2_image-devel-2.0.5-VC\SDL2_image-2.0.5\include;C:\dev\lib\SDL2_ttf-devel-2.0.15-VC\SDL2_ttf-2.0.15\include;C:\dev\lib\libcurl\include;C:\dev\lib\steamworks_sdk_152\sdk\public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>src;external;C:\dev\lib\SDL2-devel-2.0.20-VC\SDL2-2.0.20\include;C:\dev\lib\SDL2_image-devel-2.0.5-VC\SDL2_image-2.0.5\include;C:\dev\lib\SDL2_ttf-devel-2.0.18-VC\SDL2_ttf-2.0.18\include;C:\dev\lib\libcurl\include;C:\dev\lib\steamworks_sdk_153a\sdk\public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996; 26812; 26819</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -147,10 +83,70 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\dev\lib\SDL2-devel-2.0.16-VC\SDL2-2.0.16\lib\x64;C:\dev\lib\SDL2_image-devel-2.0.5-VC\SDL2_image-2.0.5\lib\x64;C:\dev\lib\SDL2_ttf-devel-2.0.15-VC\SDL2_ttf-2.0.15\lib\x64;C:\dev\lib\libcurl\lib;C:\dev\lib\steamworks_sdk_152\sdk\redistributable_bin\win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\dev\lib\SDL2-devel-2.0.20-VC\SDL2-2.0.20\lib\x64;C:\dev\lib\SDL2_image-devel-2.0.5-VC\SDL2_image-2.0.5\lib\x64;C:\dev\lib\SDL2_ttf-devel-2.0.18-VC\SDL2_ttf-2.0.18\lib\x64;C:\dev\lib\libcurl\lib;C:\dev\lib\steamworks_sdk_153a\sdk\redistributable_bin\win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;libcurl.lib;steam_api64.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\cache\action.cpp" />
+    <ClCompile Include="src\cache\cache.cpp" />
+    <ClCompile Include="src\cache\skill.cpp" />
+    <ClCompile Include="src\cache\species.cpp" />
+    <ClCompile Include="src\game.cpp" />
+    <ClCompile Include="src\graphics\renderer.cpp" />
+    <ClCompile Include="src\graphics\texture.cpp" />
+    <ClCompile Include="src\graphics\texture_container.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\net\http_container.cpp" />
+    <ClCompile Include="src\net\http_request.cpp" />
+    <ClCompile Include="src\scenes\augments_scene.cpp" />
+    <ClCompile Include="src\scenes\augment_info.cpp" />
+    <ClCompile Include="src\scenes\dialog_scene.cpp" />
+    <ClCompile Include="src\scenes\hatch_scene.cpp" />
+    <ClCompile Include="src\scenes\learn_scene.cpp" />
+    <ClCompile Include="src\scenes\login_scene.cpp" />
+    <ClCompile Include="src\scenes\menu_scene.cpp" />
+    <ClCompile Include="src\scenes\team_scene.cpp" />
+    <ClCompile Include="src\widgets\button.cpp" />
+    <ClCompile Include="src\widgets\cell.cpp" />
+    <ClCompile Include="src\widgets\image.cpp" />
+    <ClCompile Include="src\widgets\label.cpp" />
+    <ClCompile Include="src\widgets\progress_bar.cpp" />
+    <ClCompile Include="src\widgets\widget_container.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\cache\action.h" />
+    <ClInclude Include="src\cache\cache.h" />
+    <ClInclude Include="src\cache\creature.h" />
+    <ClInclude Include="src\cache\enums.h" />
+    <ClInclude Include="src\cache\skill.h" />
+    <ClInclude Include="src\cache\species.h" />
+    <ClInclude Include="src\cache\staff.h" />
+    <ClInclude Include="src\cache\user.h" />
+    <ClInclude Include="src\error.h" />
+    <ClInclude Include="src\game.h" />
+    <ClInclude Include="src\graphics\renderer.h" />
+    <ClInclude Include="src\graphics\texture.h" />
+    <ClInclude Include="src\graphics\texture_container.h" />
+    <ClInclude Include="src\net\http_container.h" />
+    <ClInclude Include="src\net\http_request.h" />
+    <ClInclude Include="src\scenes\augments_scene.h" />
+    <ClInclude Include="src\scenes\augment_info.h" />
+    <ClInclude Include="src\scenes\dialog_scene.h" />
+    <ClInclude Include="src\scenes\hatch_scene.h" />
+    <ClInclude Include="src\scenes\learn_scene.h" />
+    <ClInclude Include="src\scenes\login_scene.h" />
+    <ClInclude Include="src\scenes\menu_scene.h" />
+    <ClInclude Include="src\scenes\scene.h" />
+    <ClInclude Include="src\scenes\team_scene.h" />
+    <ClInclude Include="src\widgets\button.h" />
+    <ClInclude Include="src\widgets\cell.h" />
+    <ClInclude Include="src\widgets\image.h" />
+    <ClInclude Include="src\widgets\label.h" />
+    <ClInclude Include="src\widgets\progress_bar.h" />
+    <ClInclude Include="src\widgets\widget.h" />
+    <ClInclude Include="src\widgets\widget_container.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

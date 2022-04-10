@@ -1,16 +1,9 @@
-//
-// AUGMENTS
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #include "cell.h"
 
-Cell::Cell(const Renderer& renderer)
-    : Widget(renderer)
-    , image(renderer)
-    , label(renderer)
+Cell::Cell(const Renderer& renderer, const TextureContainer& textures)
+    : Widget(renderer, textures)
+    , image(renderer, textures)
+    , label(renderer, textures)
 {
     label.set_color({ 243, 239, 225 });
 }
@@ -36,7 +29,6 @@ void Cell::update()
 void Cell::draw() const
 {
     if (visible) {
-        const TextureContainer& textures = renderer.get_textures();
         if (active)
             renderer.draw_border(bounds, textures.get_general("cell_active"), { 82, 81, 74 });
         else
@@ -73,16 +65,16 @@ void Cell::set_bounds(const SDL_Rect& bounds)
 {
     this->bounds = bounds;
 
-    if (align == Label::center) {
-        label.set_alignment(Label::center);
+    if (align == Label::Align::center) {
+        label.set_alignment(Label::Align::center);
         label.set_position({ bounds.x + bounds.w / 2, bounds.y + 6 });
     }
-    else if (align == Label::right) {
-        label.set_alignment(Label::right);
+    else if (align == Label::Align::right) {
+        label.set_alignment(Label::Align::right);
         label.set_position({ bounds.x + bounds.w - 4, bounds.y + 6 });
     }
     else {
-        label.set_alignment(Label::left);
+        label.set_alignment(Label::Align::left);
         label.set_position({ bounds.x + 4, bounds.y + 6 });
     }
 }

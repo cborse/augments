@@ -1,24 +1,17 @@
-//
-// AUGMENTS
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #pragma once
 
 #include "widget.h"
 
 class Image : public Widget {
 public:
-    enum AnimType {
-        anim_type_none,
-        anim_type_frame,
-        anim_type_bounce,
-        anim_type_shake,
+    enum class AnimType {
+        none,
+        frame,
+        bounce,
+        shake,
     };
 
-    explicit Image(const Renderer& renderer) : Widget(renderer) {}
+    Image(const Renderer& renderer, const TextureContainer& textures) : Widget(renderer, textures) {}
 
     virtual bool handle_event(const SDL_Event& e) override;
     virtual void update() override;
@@ -49,7 +42,7 @@ private:
     const Texture* texture = nullptr;
 
     // Animation stuff
-    AnimType anim_type = anim_type_none;
+    AnimType anim_type = AnimType::none;
     int anim_counter = 0;
     int anim_current_frame = 0;
     int anim_frame_count = 0;

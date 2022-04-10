@@ -1,10 +1,3 @@
-//
-// AUGMENTS
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #pragma once
 
 #include <functional>
@@ -13,7 +6,7 @@
 
 class Cell : public Widget {
 public:
-    explicit Cell(const Renderer& renderer);
+    Cell(const Renderer& renderer, const TextureContainer& textures);
 
     virtual bool handle_event(const SDL_Event& e) override;
     virtual void update() override;
@@ -45,7 +38,7 @@ private:
     bool visible = true;
     bool content_visible = true;
     bool active = false;
-    Label::Align align = Label::left;
+    Label::Align align = Label::Align::left;
     SDL_Rect bounds = {};
     std::function<void()> action = [] {};
     Image image;

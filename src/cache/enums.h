@@ -1,10 +1,3 @@
-//
-// AUGMENTS
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #pragma once
 
 enum ActionID {
@@ -246,7 +239,7 @@ enum ActionID {
     ACTION_MIRAGE,
     ACTION_PEEK_A_BOO,
 
-    ACTION_COUNT = ACTION_PEEK_A_BOO
+    ACTION_COUNT
 };
 
 enum CoverID {
@@ -450,7 +443,7 @@ enum SkillID {
     SKILL_CORK,
     SKILL_CRACKEDSHELL,
 
-    SKILL_COUNT = SKILL_CRACKEDSHELL
+    SKILL_COUNT
 };
 
 enum SpeciesID {
@@ -627,7 +620,7 @@ enum TypeID {
     TYPE_METAL,
     TYPE_STONE,
     TYPE_SOLAR,
-    TYPE_PYSCHE,
+    TYPE_PSYCHE,
     TYPE_WIND,
     TYPE_ELECTRIC,
     TYPE_SPIRIT,

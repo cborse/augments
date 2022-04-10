@@ -1,10 +1,3 @@
-//
-// Augments
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #include <string>
 #include "http_container.h"
 #include "error.h"
@@ -59,10 +52,22 @@ void HttpContainer::update()
 HttpRequest& HttpContainer::push_request()
 {
     HttpRequest request;
+    request.set_header_id(id);
+    request.set_header_token(token);
 
     if (requests.empty())
         curl_multi_add_handle(multi_handle, request.handle);
-    requests.push(std::move(request));
 
+    requests.push(std::move(request));
     return requests.back();
+}
+
+void HttpContainer::set_header_id(uint64_t id)
+{
+    this->id = id;
+}
+
+void HttpContainer::set_header_token(const std::string& token)
+{
+    this->token = token;
 }

@@ -1,10 +1,4 @@
-//
-// AUGMENTS
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
+#include "label.h"
 #include "label.h"
 
 bool Label::handle_event(const SDL_Event& e)
@@ -20,9 +14,9 @@ void Label::draw() const
 
         SDL_Point draw_position = position;
 
-        if (alignment == center)
+        if (alignment == Align::center)
             draw_position = { position.x - get_size().x / 2, position.y };
-        else if (alignment == right)
+        else if (alignment == Align::right)
             draw_position = { position.x - get_size().x, position.y };
 
         if (shadow && alpha == 255)

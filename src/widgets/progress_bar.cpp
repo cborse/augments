@@ -1,10 +1,3 @@
-//
-// AUGMENTS
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #include "progress_bar.h"
 
 bool ProgressBar::handle_event(const SDL_Event& e)

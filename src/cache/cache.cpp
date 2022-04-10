@@ -1,88 +1,64 @@
-//
-// AUGMENTS
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #include "cache.h"
 
 void Cache::init(const nlohmann::json& json)
 {
-    // Actions
-    actions.clear();
-    for (const auto& obj : json.at("actions"))
-        actions.emplace_back(obj);
-
-    // Actionsets
-    actionsets.fill({});
-    for (const auto& obj : json.at("actionsets"))
-        actionsets.at(obj.at("species_id")).push_back(obj.at("action_id"));
-
-    skills.clear();
-    for (const auto& obj : json.at("skills"))
-        skills.emplace_back(obj);
-
-    // Skills
-    skills.clear();
-    for (const auto& obj : json.at("skills"))
-        skills.emplace_back(obj);
-
-    // Skillsets
-    skillsets.fill({});
-    for (const auto& obj : json.at("skillsets"))
-        skillsets.at(obj.at("species_id")).push_back(obj.at("skill_id"));
-
-    // Species
-    species.clear();
-    for (const auto& obj : json.at("species"))
-        species.emplace_back(obj);
-
     // User
-    user = User(json.at("user"));
-
-    // User actions
-    user_actions.fill(0);
-    for (const auto& obj : json.at("user_actions"))
-        user_actions.at(obj.at("action_id")) = obj.at("qty");
-
-    // User skills
-    user_skills.fill(0);
-    for (const auto& obj : json.at("user_skills"))
-        user_skills.at(obj.at("skill_id")) = obj.at("qty");
+    user.id = json.at("user").at("id");
+    user.steam_id = json.at("user").at("steam_id");
+    user.egg_cap = json.at("user").at("egg_cap");
+    user.storage_pages = json.at("user").at("storage_pages");
 
     // Staffs
     staffs.clear();
-    for (const auto& obj : json.at("staffs"))
-        staffs.emplace_back(obj);
+    for (const auto& obj : json.at("staffs")) {
+        Staff staff;
+        staff.slot = obj.at("slot");
+        staff.name = obj.at("name");
+        staffs.push_back(staff);
+    }
 
     // Creatures
     creatures.clear();
-    for (const auto& obj : json.at("creatures"))
-        creatures.emplace_back(obj);
+    for (const auto& obj : json.at("creatures")) {
+        Creature creature;
+        creature.id = obj.at("id");
+        creature.species_id = obj.at("species_id");
+        creature.staff_slot = obj.at("staff_slot");
+        creature.name = obj.at("name");
+        creature.egg = obj.at("egg");
+        creature.xp = obj.at("xp");
+        creature.wins = obj.at("wins");
+        creature.actions[0] = obj.at("action1");
+        creature.actions[1] = obj.at("action2");
+        creature.actions[2] = obj.at("action3");
+        creature.skills[0] = obj.at("skill1");
+        creature.skills[1] = obj.at("skill2");
+        creature.skills[2] = obj.at("skill3");
+        creatures.push_back(creature);
+    }
+
+    // User actions
+    memset(user_actions, 0, ACTION_COUNT);
+    for (const auto& obj : json.at("user_actions"))
+        user_actions[obj.at("action_id")] = obj.at("qty");
+
+    // User skills
+    memset(user_skills, 0, SKILL_COUNT);
+    for (const auto& obj : json.at("user_skills"))
+        user_skills[obj.at("skill_id")] = obj.at("qty");
 }
 
 const Action& Cache::get_action(ActionID id) const
 {
-    return actions.at(id);
+    return actions[id];
 }
 
 const Skill& Cache::get_skill(SkillID id) const
 {
-    return skills.at(id);
+    return skills[id];
 }
 
 const Species& Cache::get_species(SpeciesID id) const
 {
-    return species.at(id);
-}
-
-const std::vector<ActionID>& Cache::get_actionset(SpeciesID species_id) const
-{
-    return actionsets.at(species_id);
-}
-
-const std::vector<SkillID>& Cache::get_skillset(SpeciesID species_id) const
-{
-    return skillsets.at(species_id);
+    return species[id];
 }

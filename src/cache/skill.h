@@ -1,23 +1,12 @@
-//
-// AUGMENTS
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #pragma once
 
+#include <string>
 #include "enums.h"
-#include "nlohmann/json.hpp"
 
-class Skill {
-public:
-    Skill() = default;
-    explicit Skill(const nlohmann::json& json);
-
-    SkillID id = SKILL_NONE;
+struct Skill {
+    SkillID id;
     std::string name;
-    bool core = false;
+    bool core;
     std::string desc1;
     std::string desc2;
     std::string desc3;

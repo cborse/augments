@@ -1,10 +1,3 @@
-//
-// AUGMENTS
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #include <iomanip>
 #include <sstream>
 #include "login_scene.h"
@@ -48,7 +41,7 @@ void LoginScene::steam_callback(GetAuthSessionTicketResponse_t* result)
     auto callback = std::bind_front(&LoginScene::login_callback, this);
     const nlohmann::json json({ { "steam_id", steam_id }, { "steam_ticket", hex_ticket } });
 
-    game.api.push_request()
+    game.http.push_request()
         .with_body(json.dump())
         .with_callback(callback)
         .with_uri("login");
@@ -60,13 +53,11 @@ void LoginScene::login_callback(long code, const std::string& response)
 
     try {
         const auto json = nlohmann::json::parse(response);
-        uint64_t id = json.at("id");
-        std::string token = json.at("token");
+        game.http.set_header_id(json.at("id"));
+        game.http.set_header_token(json.at("token"));
 
-        game.api.push_request()
+        game.http.push_request()
             .with_callback(std::bind_front(&LoginScene::get_data_callback, this))
-            .with_header_id(id)
-            .with_header_token(token)
             .with_uri("get_data");
     }
     catch (...) {

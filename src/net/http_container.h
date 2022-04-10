@@ -1,10 +1,3 @@
-//
-// Augments
-//
-// Copyright 2022 Christopher Borsellino
-// All rights reserved.
-//
-
 #pragma once
 
 #include <queue>
@@ -17,8 +10,12 @@ public:
 
     void update();
     HttpRequest& push_request();
+    void set_header_id(uint64_t id);
+    void set_header_token(const std::string& token);
 
 private:
     CURLM* multi_handle = nullptr;
     std::queue<HttpRequest> requests;
+    uint64_t id = 0;
+    std::string token;
 };
