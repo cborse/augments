@@ -62,13 +62,17 @@ TeamScene::TeamScene(Game& game, const Augment* augment)
 
     widgets.add<Button>("button-storage_right")
         .with_action(std::bind(&TeamScene::click_storage_right, this))
-        .with_bounds({ 306, 36, 20, 18 })
+        .with_bounds({ 274, 36, 20, 18 })
         .with_string(">");
+
+    widgets.add<Button>("button-storage_sort")
+        .with_action(std::bind(&TeamScene::click_storage_sort, this))
+        .with_bounds({ 298, 36, 28, 18 });
 
     widgets.add<Label>("label-storage_page")
         .with_alignment(Label::Align::center)
         .with_color({ 243, 239, 225 })
-        .with_position({ 154 + 178 / 2, 41 });
+        .with_position({ 180 + 94 / 2, 41 });
 
     // Summary
     widgets.add<Label>("label-summary_name")
@@ -177,6 +181,20 @@ void TeamScene::refresh_data()
                 staff_creatures.push_back(&creature);
         }
     }
+
+    // Sort storage
+    if (sort == StorageSort::level) {
+        std::sort(storage.begin(), storage.end(),
+                  [](const auto& a, const auto& b) {
+                      return a->get_level() < b->get_level();
+                  });
+    }
+    else {
+        std::sort(storage.begin(), storage.end(),
+                  [](const auto& a, const auto& b) {
+                      return a->name < b->name;
+                  });
+    }
 }
 
 void TeamScene::refresh_widgets()
@@ -185,7 +203,7 @@ void TeamScene::refresh_widgets()
     refresh_grid_widgets();
     refresh_summary_widgets();
     refresh_staff_widgets();
-    refresh_page_widgets();
+    refresh_storage_widgets();
     refresh_control_widgets();
     animate_pair();
 
@@ -338,13 +356,17 @@ void TeamScene::refresh_staff_widgets()
     label_page.set_string(game.cache.staffs.at(staff).name);
 }
 
-void TeamScene::refresh_page_widgets()
+void TeamScene::refresh_storage_widgets()
 {
-    auto& label_left = widgets.find<Button>("button-storage_left");
-    label_left.set_visibility(page >= 0 && !augment || page > 0);
+    auto& button_left = widgets.find<Button>("button-storage_left");
+    button_left.set_visibility(page >= 0 && !augment || page > 0);
 
-    auto& label_right = widgets.find<Button>("button-storage_right");
-    label_right.set_visibility(page + 1 < (int)game.cache.user.storage_pages && !storage.empty());
+    auto& button_right = widgets.find<Button>("button-storage_right");
+    button_right.set_visibility(page + 1 < (int)game.cache.user.storage_pages && !storage.empty());
+
+    auto& button_sort = widgets.find<Button>("button-storage_sort");
+    button_sort.set_visibility(page >= 0);
+    button_sort.set_string(sort == StorageSort::level ? "Lv" : "Az");
 
     auto& label_page = widgets.find<Label>("label-storage_page");
     label_page.set_string(page == -1 ? "EGGS" : "STORAGE " + std::to_string(page + 1));
@@ -495,6 +517,17 @@ void TeamScene::click_storage_right()
     refresh_widgets();
 }
 
+void TeamScene::click_storage_sort()
+{
+    if (sort == StorageSort::alpha)
+        sort = StorageSort::level;
+    else
+        sort = StorageSort::alpha;
+
+    refresh_data();
+    refresh_widgets();
+}
+
 void TeamScene::click_list(int i)
 {
     if (index != i) {
@@ -622,6 +655,12 @@ void TeamScene::unassign()
         .with_uri("unassign");
 
     refresh_data();
+
+    // If creature isn't selected, select the next one
+    if (index > 0 && index < 8 && !get_selected_creature()) {
+        index--;
+    }
+
     refresh_widgets();
 }
 

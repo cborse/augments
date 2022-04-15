@@ -13,13 +13,15 @@ public:
     virtual void draw() const override;
 
 private:
+    enum class StorageSort { alpha, level, };
+
     void refresh_data();
     void refresh_widgets();
     void refresh_list_widgets();
     void refresh_grid_widgets();
     void refresh_summary_widgets();
     void refresh_staff_widgets();
-    void refresh_page_widgets();
+    void refresh_storage_widgets();
     void refresh_control_widgets();
     void refresh_augment_widgets();
     void animate_pair();
@@ -28,6 +30,7 @@ private:
     void click_staff_right();
     void click_storage_left();
     void click_storage_right();
+    void click_storage_sort();
     void click_list(int i);
     void click_grid(int i);
 
@@ -46,6 +49,7 @@ private:
     int index = 8;
     int staff = 0;
     int page = 0;
+    StorageSort sort = StorageSort::alpha;
     const Augment* augment = nullptr;
 
     std::vector<Creature*> eggs;
