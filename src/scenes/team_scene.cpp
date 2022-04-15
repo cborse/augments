@@ -656,7 +656,7 @@ void TeamScene::unassign()
 
     refresh_data();
 
-    // If creature isn't selected, select the next one
+    // If on staff index and creature isn't selected, select the next one
     if (index > 0 && index < 8 && !get_selected_creature()) {
         index--;
     }
