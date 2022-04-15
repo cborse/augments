@@ -102,7 +102,7 @@ TeamScene::TeamScene(Game& game, const Augment* augment)
     widgets.add<Label>("label-summary_next")
         .with_color({ 243, 239, 225 })
         .with_position({ 344, 157 })
-        .with_string("next");
+        .with_string("NEXT");
 
     widgets.add<ProgressBar>("pbar-summary")
         .with_bounds({ 380, 157, 78, 8 });
@@ -121,7 +121,7 @@ TeamScene::TeamScene(Game& game, const Augment* augment)
         .with_alignment(Label::Align::center)
         .with_color({ 182, 83, 83 })
         .with_position({ 401, 216 })
-        .with_string("unable!")
+        .with_string("UNABLE!")
         .with_visibility(augment);
 
     // Controls
