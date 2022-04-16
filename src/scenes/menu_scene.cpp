@@ -14,26 +14,26 @@ MenuScene::MenuScene(Game& game)
 
     widgets.add<Button>()
         .with_bounds({ 180, 100, 100, 18 })
-        .with_string("battle");
+        .with_string("BATTLE");
 
     widgets.add<Button>()
         .with_action([&]() { game.push_scene(std::make_unique<TeamScene>(game)); })
         .with_bounds({ 180, 122, 100, 18 })
-        .with_string("staffs");
+        .with_string("STAFFS");
 
     widgets.add<Button>()
         .with_action([&]() { game.push_scene(std::make_unique<AugmentsScene>(game)); })
         .with_bounds({ 180, 144, 100, 18 })
-        .with_string("augments");
+        .with_string("AUGMENTS");
 
     widgets.add<Button>()
         .with_bounds({ 180, 166, 100, 18 })
-        .with_string("market");
+        .with_string("MARKET");
 
     widgets.add<Button>()
         .with_action([&] { SDL_Event e; e.type = SDL_QUIT; SDL_PushEvent(&e); })
         .with_bounds({ 180, 188, 100, 18 })
-        .with_string("quit");
+        .with_string("QUIT");
 }
 
 void MenuScene::handle_event(const SDL_Event& e)

@@ -26,7 +26,7 @@ HatchScene::HatchScene(Game& game, const Creature& creature)
     widgets.add<Button>("button")
         .with_action(std::bind(&HatchScene::start, this))
         .with_bounds({ 218, 200, 44, 18 })
-        .with_string("ok");
+        .with_string("OK");
 }
 
 void HatchScene::handle_event(const SDL_Event& e)
@@ -72,7 +72,7 @@ void HatchScene::end()
 
     auto& button = widgets.find<Button>("button");
     button.set_action(std::bind(&Game::pop_scene, &game, 1));
-    button.set_string("back");
+    button.set_string("BACK");
     button.set_visibility(true);
 
     auto& label = widgets.find<Label>("label");

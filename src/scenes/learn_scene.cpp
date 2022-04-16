@@ -7,7 +7,7 @@ LearnScene::LearnScene(Game& game, const Augment& augment, Creature& creature)
     widgets.add<Button>()
         .with_action(std::bind(&Game::pop_scene, &game, 1))
         .with_bounds({ 8, 3, 44, 18 })
-        .with_string("back");
+        .with_string("BACK");
 
     bool is_action = std::holds_alternative<Action>(augment);
 
@@ -48,7 +48,7 @@ LearnScene::LearnScene(Game& game, const Augment& augment, Creature& creature)
     widgets.add<Button>("button-control")
         .with_action(std::bind(&LearnScene::replace, this))
         .with_bounds({ 394, 36, 68, 18 })
-        .with_string("replace");
+        .with_string("REPLACE");
 
     refresh_widgets();
 }

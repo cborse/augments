@@ -10,7 +10,7 @@ TeamScene::TeamScene(Game& game, const Augment* augment)
     widgets.add<Button>()
         .with_action(std::bind(&Game::pop_scene, &game, 1))
         .with_bounds({ 8, 3, 44, 18 })
-        .with_string("back");
+        .with_string("BACK");
 
     // Title
     widgets.add<Label>()
@@ -366,7 +366,7 @@ void TeamScene::refresh_storage_widgets()
 
     auto& button_sort = widgets.find<Button>("button-storage_sort");
     button_sort.set_visibility(page >= 0);
-    button_sort.set_string(sort == StorageSort::level ? "Lv" : "Az");
+    button_sort.set_string(sort == StorageSort::level ? "=" : "=");
 
     auto& label_page = widgets.find<Label>("label-storage_page");
     label_page.set_string(page == -1 ? "EGGS" : "STORAGE " + std::to_string(page + 1));
@@ -403,10 +403,10 @@ void TeamScene::refresh_control_widgets()
         control2.set_visibility(usable && !creature->egg);
         control3.set_visibility(!creature->egg);
 
-        control2.set_string("use");
+        control2.set_string("USE");
         control2.set_action(std::bind(&TeamScene::use_augment, this));
 
-        control3.set_string("stats");
+        control3.set_string("STATS");
     }
     // Creature
     else if (!creature->egg) {
@@ -416,24 +416,24 @@ void TeamScene::refresh_control_widgets()
         control3.set_visibility(true);
 
         if (creature->staff_slot == -1) {
-            control0.set_string("assign");
+            control0.set_string("ASSIGN");
             control0.set_action(std::bind(&TeamScene::assign, this));
         }
         else {
-            control0.set_string("unassign");
+            control0.set_string("UNASSIGN");
             control0.set_action(std::bind(&TeamScene::unassign, this));
         }
 
-        control1.set_string("stats");
-        control2.set_string("rename");
-        control3.set_string("release");
+        control1.set_string("STATS");
+        control2.set_string("RENAME");
+        control3.set_string("RELEASE");
     }
     // Egg
     else {
         const Species& species = game.cache.get_species(creature->species_id);
         if (creature->wins >= (uint32_t)get_needed_egg_wins(species)) {
             control3.set_visibility(true);
-            control3.set_string("hatch");
+            control3.set_string("HATCH");
             control3.set_action(std::bind(&TeamScene::hatch, this));
         }
     }
@@ -720,8 +720,8 @@ void TeamScene::use_augment()
     auto dlg = std::make_unique<DialogScene>(game);
     dlg->add_line("Use " + augment_name);
     dlg->add_line("on " + std::string(creature->name) + "?");
-    dlg->add_choice("yes", std::bind(&TeamScene::use_augment2, this));
-    dlg->add_choice("no", std::bind(&Game::pop_scene, &game, 1));
+    dlg->add_choice("YES", std::bind(&TeamScene::use_augment2, this));
+    dlg->add_choice("NO", std::bind(&Game::pop_scene, &game, 1));
     game.push_scene(std::move(dlg));
 }
 

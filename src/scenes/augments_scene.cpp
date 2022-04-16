@@ -8,7 +8,7 @@ AugmentsScene::AugmentsScene(Game& game)
     widgets.add<Button>()
         .with_action(std::bind(&Game::pop_scene, &game, 1))
         .with_bounds({ 8, 3, 44, 18 })
-        .with_string("back");
+        .with_string("BACK");
 
     // Title
     widgets.add<Label>()
@@ -179,10 +179,10 @@ void AugmentsScene::refresh_control_widgets()
     control1.set_visibility(index < size);
 
     if (index < size) {
-        control0.set_string("use");
+        control0.set_string("USE");
         control0.set_action(std::bind(&AugmentsScene::use, this));
 
-        control1.set_string("trash");
+        control1.set_string("TRASH");
     }
 }
 
