@@ -578,7 +578,7 @@ bool TeamScene::can_learn(const Creature& creature, const Action& action) const
     }
 
     const Species& species = game.cache.get_species(creature.species_id);
-    if (action.core && (action.type == species.type1 || action.type == species.type2) || action.type == species.type3)
+    if (action.core && (action.type == species.type1 || action.type == species.type2))
         return true;
 
     for (const auto& action_id : species.actionset) {

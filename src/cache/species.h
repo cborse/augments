@@ -11,7 +11,7 @@ struct Species {
     RarityID rarity;
     TypeID type1;
     TypeID type2;
-    TypeID type3;
+    PerkID perk;
     uint32_t height;
     uint32_t weight;
     uint8_t inner_power;
