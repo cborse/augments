@@ -366,7 +366,7 @@ void TeamScene::refresh_storage_widgets()
 
     auto& button_sort = widgets.find<Button>("button-storage_sort");
     button_sort.set_visibility(page >= 0);
-    button_sort.set_string(sort == StorageSort::level ? "=" : "=");
+    button_sort.set_string(sort == StorageSort::level ? "Lv" : "Az");
 
     auto& label_page = widgets.find<Label>("label-storage_page");
     label_page.set_string(page == -1 ? "EGGS" : "STORAGE " + std::to_string(page + 1));
