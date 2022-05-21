@@ -87,13 +87,13 @@
     <ClCompile Include="src\scenes\augments_scene.cpp">
       <Filter>src\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="src\cache\species.cpp">
-      <Filter>src\cache</Filter>
-    </ClCompile>
     <ClCompile Include="src\cache\action.cpp">
       <Filter>src\cache</Filter>
     </ClCompile>
     <ClCompile Include="src\cache\skill.cpp">
+      <Filter>src\cache</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cache\species.cpp">
       <Filter>src\cache</Filter>
     </ClCompile>
   </ItemGroup>
@@ -152,18 +152,6 @@
     <ClInclude Include="src\cache\cache.h">
       <Filter>src\cache</Filter>
     </ClInclude>
-    <ClInclude Include="src\cache\enums.h">
-      <Filter>src\cache</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cache\action.h">
-      <Filter>src\cache</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cache\skill.h">
-      <Filter>src\cache</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cache\species.h">
-      <Filter>src\cache</Filter>
-    </ClInclude>
     <ClInclude Include="src\cache\creature.h">
       <Filter>src\cache</Filter>
     </ClInclude>
@@ -190,6 +178,18 @@
     </ClInclude>
     <ClInclude Include="src\scenes\augments_scene.h">
       <Filter>src\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cache\action.h">
+      <Filter>src\cache</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cache\enums.h">
+      <Filter>src\cache</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cache\skill.h">
+      <Filter>src\cache</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cache\species.h">
+      <Filter>src\cache</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

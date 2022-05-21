@@ -186,7 +186,7 @@ void TeamScene::refresh_data()
     if (sort == StorageSort::level) {
         std::sort(storage.begin(), storage.end(),
                   [](const auto& a, const auto& b) {
-                      return a->get_level() < b->get_level();
+                      return a->wins < b->wins;
                   });
     }
     else {
@@ -338,8 +338,8 @@ void TeamScene::refresh_summary_widgets()
             image_creature.set_texture(game.textures.get_species(creature->species_id));
             label_name.set_string(creature->name);
             label_level.set_string(std::to_string(creature->get_level()));
-            label_xp.set_string(std::to_string(creature->xp));
-            pbar.set_value(creature->get_level_progress());
+            //label_xp.set_string(std::to_string(creature->xp));
+            //pbar.set_value(creature->get_level_progress());
         }
     }
 }

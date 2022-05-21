@@ -26,7 +26,6 @@ void Cache::init(const nlohmann::json& json)
         creature.staff_slot = obj.at("staff_slot");
         creature.name = obj.at("name");
         creature.egg = obj.at("egg");
-        creature.xp = obj.at("xp");
         creature.wins = obj.at("wins");
         creature.actions[0] = obj.at("action1");
         creature.actions[1] = obj.at("action2");
