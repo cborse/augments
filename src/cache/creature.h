@@ -7,7 +7,7 @@
 struct Creature {
     int get_level() const
     {
-        return wins * 12 + 1;
+        return wins / 12 + 1;
     }
 
     uint64_t id;
