@@ -7,7 +7,7 @@
 
 class WidgetContainer {
 public:
-    WidgetContainer(const Renderer& renderer) : renderer(renderer) {}
+    explicit WidgetContainer(const Renderer& renderer) : renderer(renderer) {}
 
     void handle_event(const SDL_Event& e) const;
     void update() const;
