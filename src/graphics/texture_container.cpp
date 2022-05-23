@@ -1,11 +1,12 @@
 #include "texture_container.h"
+#include "renderer.h"
 
 // ************** TEMP
 #include <filesystem>
 #include <set>
 // **************
 
-TextureContainer::TextureContainer(const Renderer& renderer)
+void TextureContainer::load(const Renderer& renderer)
 {
     // General
     general.emplace(std::make_pair("cursor", renderer.load_texture("assets/general/cursor.png")));
@@ -14,14 +15,15 @@ TextureContainer::TextureContainer(const Renderer& renderer)
     general.emplace(std::make_pair("staff", renderer.load_texture("assets/general/staff.png")));
     general.emplace(std::make_pair("assigned", renderer.load_texture("assets/general/assigned.png")));
     general.emplace(std::make_pair("alphacentauri", renderer.load_texture("assets/general/alphacentauri.png")));
-    general.emplace(std::make_pair("button", renderer.load_texture("assets/general/button.png")));
-    general.emplace(std::make_pair("button_hovered", renderer.load_texture("assets/general/button_hovered.png")));
-    general.emplace(std::make_pair("window", renderer.load_texture("assets/general/window.png")));
-    general.emplace(std::make_pair("frame", renderer.load_texture("assets/general/frame.png")));
-    general.emplace(std::make_pair("cell", renderer.load_texture("assets/general/cell.png")));
-    general.emplace(std::make_pair("cell_active", renderer.load_texture("assets/general/cell_active.png")));
     general.emplace(std::make_pair("level", renderer.load_texture("assets/general/level.png")));
     general.emplace(std::make_pair("xp", renderer.load_texture("assets/general/xp.png")));
+
+    borders.emplace(std::make_pair("button", renderer.load_texture("assets/general/button.png")));
+    borders.emplace(std::make_pair("button_hovered", renderer.load_texture("assets/general/button_hovered.png")));
+    borders.emplace(std::make_pair("window", renderer.load_texture("assets/general/window.png")));
+    borders.emplace(std::make_pair("frame", renderer.load_texture("assets/general/frame.png")));
+    borders.emplace(std::make_pair("cell", renderer.load_texture("assets/general/cell.png")));
+    borders.emplace(std::make_pair("cell_active", renderer.load_texture("assets/general/cell_active.png")));
 
     // Eggs
     eggs.emplace_back(renderer.load_texture("assets/eggs/egg_common.png"));
@@ -104,6 +106,11 @@ TextureContainer::TextureContainer(const Renderer& renderer)
 const Texture& TextureContainer::get_general(const std::string& id) const
 {
     return general.at(id);
+}
+
+const Texture& TextureContainer::get_border(const std::string& id) const
+{
+    return borders.at(id);
 }
 
 const Texture& TextureContainer::get_species(SpeciesID id) const

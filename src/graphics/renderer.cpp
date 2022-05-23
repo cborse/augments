@@ -28,6 +28,8 @@ Renderer::Renderer()
         std::string msg(TTF_GetError());
         throw Error("Failed to load font: " + msg + ".");
     }
+
+    textures.load(*this);
 }
 
 Renderer::~Renderer()
@@ -92,8 +94,10 @@ void Renderer::draw_sub(const Texture& texture, const SDL_Point& position, const
     SDL_RenderCopy(renderer, texture.texture, &sub, &dst);
 }
 
-void Renderer::draw_border(const SDL_Rect& bounds, const Texture& texture, const SDL_Color& fill_color) const
+void Renderer::draw_border(const SDL_Rect& bounds, const std::string& texture_name, const SDL_Color& fill_color) const
 {
+    const Texture& texture = textures.get_border(texture_name);
+
     // Corners
     draw_sub(texture, { bounds.x, bounds.y }, { 0, 0, 5, 5 });
     draw_sub(texture, { bounds.x + bounds.w - 5, bounds.y }, { 6, 0, 5, 5 });
@@ -131,4 +135,9 @@ Texture Renderer::load_texture(const std::string& filename) const
     if (!texture)
         throw Error("Failed to load texture: " + filename);
     return texture;
+}
+
+const TextureContainer& Renderer::get_textures() const
+{
+    return textures;
 }

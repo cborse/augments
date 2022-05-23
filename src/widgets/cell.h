@@ -6,7 +6,7 @@
 
 class Cell : public Widget {
 public:
-    Cell(const Renderer& renderer, const TextureContainer& textures);
+    explicit Cell(const Renderer& renderer);
 
     virtual bool handle_event(const SDL_Event& e) override;
     virtual void update() override;

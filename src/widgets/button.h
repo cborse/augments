@@ -5,7 +5,7 @@
 
 class Button : public Widget {
 public:
-    Button(const Renderer& renderer, const TextureContainer& textures);
+    explicit Button(const Renderer& renderer);
 
     virtual bool handle_event(const SDL_Event& e) override;
     virtual void update() override {}

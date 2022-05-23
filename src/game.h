@@ -1,7 +1,7 @@
 #pragma once
 
 #include "cache/cache.h"
-#include "graphics/texture_container.h"
+#include "graphics/renderer.h"
 #include "net/http_container.h"
 
 class Scene;
@@ -19,7 +19,6 @@ public:
     Cache cache;
     Renderer renderer;
     HttpContainer http;
-    TextureContainer textures;
 
 private:
     std::vector<std::unique_ptr<Scene>> scenes;

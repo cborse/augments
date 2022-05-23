@@ -6,7 +6,7 @@
 
 class AugmentInfo {
 public:
-    AugmentInfo(const Renderer& renderer, const TextureContainer& textures);
+    AugmentInfo(const Renderer& renderer);
 
     void draw() const;
     void set_augment(const Action& action);
@@ -21,6 +21,5 @@ private:
     const Action* action = nullptr;
     const Skill* skill = nullptr;
     const Renderer& renderer;
-    const TextureContainer& textures;
     WidgetContainer widgets;
 };

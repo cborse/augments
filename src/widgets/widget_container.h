@@ -7,7 +7,7 @@
 
 class WidgetContainer {
 public:
-    WidgetContainer(const Renderer& renderer, const TextureContainer& textures) : renderer(renderer), textures(textures) {}
+    WidgetContainer(const Renderer& renderer) : renderer(renderer) {}
 
     void handle_event(const SDL_Event& e) const;
     void update() const;
@@ -16,7 +16,7 @@ public:
     template <typename T>
     T& add(const std::string& id = "")
     {
-        widgets.emplace_back(std::make_unique<T>(renderer, textures));
+        widgets.emplace_back(std::make_unique<T>(renderer));
         if (!id.empty())
             indices.insert({ id, widgets.size() - 1 });
         return dynamic_cast<T&>(*widgets.back());
@@ -30,7 +30,6 @@ public:
 
 private:
     const Renderer& renderer;
-    const TextureContainer& textures;
     std::vector<std::unique_ptr<Widget>> widgets;
     std::map<std::string, size_t> indices;
 };

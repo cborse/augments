@@ -1,6 +1,6 @@
 #pragma once
 
-#include "graphics/texture_container.h"
+#include "graphics/renderer.h"
 
 class Widget {
 public:
@@ -11,8 +11,7 @@ public:
     virtual void draw() const = 0;
 
 protected:
-    Widget(const Renderer& renderer, const TextureContainer& textures) : renderer(renderer), textures(textures) {}
+    explicit Widget(const Renderer& renderer) : renderer(renderer) {}
 
     const Renderer& renderer;
-    const TextureContainer& textures;
 };

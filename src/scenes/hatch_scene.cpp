@@ -9,11 +9,11 @@ HatchScene::HatchScene(Game& game, const Creature& creature)
         .with_anim_frame_count(26)
         .with_anim_frame_size({ 102, 102 })
         .with_position({ 230, 114 })
-        .with_texture(game.textures.get_egg_icon(rarity));
+        .with_texture(game.renderer.get_textures().get_egg_icon(rarity));
 
     widgets.add<Image>("image")
         .with_position({ 204, 75 + 4 + 9 })
-        .with_texture(game.textures.get_species(creature.species_id))
+        .with_texture(game.renderer.get_textures().get_species(creature.species_id))
         .with_visibility(false);
 
     widgets.add<Label>("label")
@@ -46,7 +46,7 @@ void HatchScene::draw() const
 {
     game.renderer.fade();
 
-    game.renderer.draw_border({ 100, 58, 280, 166 }, game.textures.get_general("frame"), { 59, 59, 53 });
+    game.renderer.draw_border({ 100, 58, 280, 166 }, "frame", { 59, 59, 53 });
 
     widgets.draw();
 }
@@ -59,7 +59,7 @@ void HatchScene::start()
 
     auto& animation = widgets.find<Image>("animation");
     animation.set_anim_type(Image::AnimType::frame);
-    animation.set_texture(game.textures.get_hatch_animation(rarity));
+    animation.set_texture(game.renderer.get_textures().get_hatch_animation(rarity));
     animation.set_position({ 189, 73 });
 
     widgets.find<Button>("button").set_visibility(false);

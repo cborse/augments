@@ -1,7 +1,7 @@
 #include "augment_info.h"
 
-AugmentInfo::AugmentInfo(const Renderer& renderer, const TextureContainer& textures)
-    : renderer(renderer), textures(textures), widgets(renderer, textures)
+AugmentInfo::AugmentInfo(const Renderer& renderer)
+    : renderer(renderer), widgets(renderer)
 {
     widgets.add<Label>("label-info_name")
         .with_color({ 243, 239, 225 })
@@ -44,7 +44,7 @@ AugmentInfo::AugmentInfo(const Renderer& renderer, const TextureContainer& textu
 
 void AugmentInfo::draw() const
 {
-    renderer.draw_border({ 186, 27, 282, 230 }, textures.get_general("frame"), { 59, 59, 53 });
+    renderer.draw_border({ 186, 27, 282, 230 }, "frame", { 59, 59, 53 });
     widgets.draw();
 }
 
@@ -94,7 +94,7 @@ void AugmentInfo::refresh()
 
     if (action) {
         name.set_string(action->name);
-        icon.set_texture(textures.get_action_augment(action->type));
+        icon.set_texture(renderer.get_textures().get_action_augment(action->type));
         desc1.set_string(action->desc1);
         desc2.set_string(action->desc2);
         desc3.set_string(action->desc3);
@@ -128,7 +128,7 @@ void AugmentInfo::refresh()
     }
     else if (skill) {
         name.set_string(skill->name);
-        icon.set_texture(textures.get_skill_augment());
+        icon.set_texture(renderer.get_textures().get_skill_augment());
         desc1.set_string(skill->desc1);
         desc2.set_string(skill->desc2);
         desc3.set_string(skill->desc3);

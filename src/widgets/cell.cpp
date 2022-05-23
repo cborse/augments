@@ -1,9 +1,9 @@
 #include "cell.h"
 
-Cell::Cell(const Renderer& renderer, const TextureContainer& textures)
-    : Widget(renderer, textures)
-    , image(renderer, textures)
-    , label(renderer, textures)
+Cell::Cell(const Renderer& renderer)
+    : Widget(renderer)
+    , image(renderer)
+    , label(renderer)
 {
     label.set_color({ 243, 239, 225 });
 }
@@ -30,9 +30,9 @@ void Cell::draw() const
 {
     if (visible) {
         if (active)
-            renderer.draw_border(bounds, textures.get_general("cell_active"), { 82, 81, 74 });
+            renderer.draw_border(bounds, "cell_active", { 82, 81, 74 });
         else
-            renderer.draw_border(bounds, textures.get_general("cell"), { 48, 48, 44 });
+            renderer.draw_border(bounds, "cell", { 48, 48, 44 });
 
         if (content_visible) {
             image.draw();

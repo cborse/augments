@@ -3,7 +3,6 @@
 #include "scenes/login_scene.h"
 
 Game::Game()
-    : textures(renderer)
 {
     SDL_ShowCursor(SDL_DISABLE);
 }
@@ -55,7 +54,7 @@ void Game::loop()
         renderer.clear();
         for (const auto& scene : scenes)
             scene->draw();
-        renderer.draw(textures.get_general("cursor"), mouse);
+        renderer.draw(renderer.get_textures().get_general("cursor"), mouse);
         renderer.present();
 
         last_count = this_count;

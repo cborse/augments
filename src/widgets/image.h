@@ -11,7 +11,7 @@ public:
         shake,
     };
 
-    Image(const Renderer& renderer, const TextureContainer& textures) : Widget(renderer, textures) {}
+    explicit Image(const Renderer& renderer) : Widget(renderer) {}
 
     virtual bool handle_event(const SDL_Event& e) override;
     virtual void update() override;

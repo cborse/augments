@@ -14,7 +14,7 @@ public:
     virtual void draw() const = 0;
 
 protected:
-    explicit Scene(Game& game) : game(game), widgets(game.renderer, game.textures) {}
+    explicit Scene(Game& game) : game(game), widgets(game.renderer) {}
 
     Game& game;
     WidgetContainer widgets;

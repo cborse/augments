@@ -2,7 +2,7 @@
 #include "team_scene.h"
 
 AugmentsScene::AugmentsScene(Game& game)
-    : Scene(game), info(game.renderer, game.textures)
+    : Scene(game), info(game.renderer)
 {
     // Back button
     widgets.add<Button>()
@@ -77,8 +77,8 @@ void AugmentsScene::draw() const
 {
     game.renderer.clear({ 243, 239, 225 });
 
-    game.renderer.draw_border({ 8, 23, 464, 239 }, game.textures.get_general("window"), { 23, 23, 20 });
-    game.renderer.draw_border({ 12, 27, 172, 230 }, game.textures.get_general("frame"), { 59, 59, 53 });
+    game.renderer.draw_border({ 8, 23, 464, 239 }, "window", { 23, 23, 20 });
+    game.renderer.draw_border({ 12, 27, 172, 230 }, "frame", { 59, 59, 53 });
     info.draw();
 
     widgets.draw();
@@ -135,7 +135,7 @@ void AugmentsScene::refresh_list_widgets()
             if (std::holds_alternative<Action>(augment)) {
                 const Action& action = std::get<Action>(augment);
 
-                cell.get_image().set_texture(game.textures.get_action_augment(action.type));
+                cell.get_image().set_texture(game.renderer.get_textures().get_action_augment(action.type));
 
                 cell.get_label().set_string(action.name);
 
@@ -145,7 +145,7 @@ void AugmentsScene::refresh_list_widgets()
             else if (std::holds_alternative<Skill>(augment)) {
                 const Skill& skill = std::get<Skill>(augment);
 
-                cell.get_image().set_texture(game.textures.get_skill_augment());
+                cell.get_image().set_texture(game.renderer.get_textures().get_skill_augment());
 
                 cell.get_label().set_string(skill.name);
 

@@ -1,8 +1,8 @@
 #include "button.h"
 
-Button::Button(const Renderer& renderer, const TextureContainer& textures)
-    : Widget(renderer, textures)
-    , label(renderer, textures)
+Button::Button(const Renderer& renderer)
+    : Widget(renderer)
+    , label(renderer)
 {
     label.set_color({ 243, 239, 225 });
     label.set_shadow(true);
@@ -27,9 +27,9 @@ void Button::draw() const
 {
     if (visible) {
         if (hovered)
-            renderer.draw_border(bounds, textures.get_general("button_hovered"), { 44, 44, 40 });
+            renderer.draw_border(bounds, "button_hovered", { 44, 44, 40 });
         else
-            renderer.draw_border(bounds, textures.get_general("button"), { 44, 44, 40 });
+            renderer.draw_border(bounds, "button", { 44, 44, 40 });
         label.draw();
     }
 }

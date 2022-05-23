@@ -18,7 +18,7 @@ void DialogScene::update()
 void DialogScene::draw() const
 {
     game.renderer.fade();
-    game.renderer.draw_border({ 140, 85, 200, num_lines * 14 + 14 + 24 }, game.textures.get_general("window"), { 23, 23, 20 });
+    game.renderer.draw_border({ 140, 85, 200, num_lines * 14 + 14 + 24 }, "window", { 23, 23, 20 });
 
     widgets.draw();
 }

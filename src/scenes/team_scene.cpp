@@ -51,7 +51,7 @@ TeamScene::TeamScene(Game& game, const Augment* augment)
 
         widgets.add<Image>("image-assigned" + std::to_string(i))
             .with_position({ 189 + i % 4 * 42, 88 + i / 4 * 38 })
-            .with_texture(game.textures.get_general("assigned"));
+            .with_texture(game.renderer.get_textures().get_general("assigned"));
     }
 
     // Pages
@@ -85,7 +85,7 @@ TeamScene::TeamScene(Game& game, const Augment* augment)
 
     widgets.add<Image>("image-summary_level")
         .with_position({ 344, 138 })
-        .with_texture(game.textures.get_general("level"));
+        .with_texture(game.renderer.get_textures().get_general("level"));
 
     widgets.add<Label>("label-summary_level")
         .with_color({ 243, 239, 225 })
@@ -93,7 +93,7 @@ TeamScene::TeamScene(Game& game, const Augment* augment)
 
     widgets.add<Image>("image-summary_xp")
         .with_position({ 392, 138 })
-        .with_texture(game.textures.get_general("xp"));
+        .with_texture(game.renderer.get_textures().get_general("xp"));
 
     widgets.add<Label>("label-summary_xp")
         .with_color({ 243, 239, 225 })
@@ -156,10 +156,10 @@ void TeamScene::draw() const
 {
     game.renderer.clear({ 243, 239, 225 });
 
-    game.renderer.draw_border({ 8, 23, 464, 239 }, game.textures.get_general("window"), { 23, 23, 20 });
-    game.renderer.draw_border({ 12, 27, 140, 230 }, game.textures.get_general("frame"), { 59, 59, 53 });
-    game.renderer.draw_border({ 154, 27, 178, 230 }, game.textures.get_general("frame"), { 59, 59, 53 });
-    game.renderer.draw_border({ 334, 27, 134, 230 }, game.textures.get_general("frame"), { 59, 59, 53 });
+    game.renderer.draw_border({ 8, 23, 464, 239 }, "window", { 23, 23, 20 });
+    game.renderer.draw_border({ 12, 27, 140, 230 }, "frame", { 59, 59, 53 });
+    game.renderer.draw_border({ 154, 27, 178, 230 }, "frame", { 59, 59, 53 });
+    game.renderer.draw_border({ 334, 27, 134, 230 }, "frame", { 59, 59, 53 });
 
     widgets.draw();
 }
@@ -226,7 +226,7 @@ void TeamScene::refresh_list_widgets()
         if (i < size) {
             const Creature* creature = staff_creatures.at(i);
             cell.set_string(creature->name);
-            cell.set_texture(game.textures.get_species_icon(creature->species_id));
+            cell.set_texture(game.renderer.get_textures().get_species_icon(creature->species_id));
 
             bool can_augment = false;
             if (augment) {
@@ -270,7 +270,7 @@ void TeamScene::refresh_grid_widgets()
             if (page == -1) {
                 const Creature* creature = eggs.at(i);
                 const Species& species = game.cache.get_species(creature->species_id);
-                cell.set_texture(game.textures.get_egg_icon(species.rarity));
+                cell.set_texture(game.renderer.get_textures().get_egg_icon(species.rarity));
 
                 if (creature->wins >= (uint32_t)get_needed_egg_wins(species))
                     cell_image.set_anim_type(Image::AnimType::shake);
@@ -280,7 +280,7 @@ void TeamScene::refresh_grid_widgets()
             else {
                 const Creature* creature = storage.at(i + page * 20);
                 assigned.set_visibility(creature->staff_slot != -1);
-                cell.set_texture(game.textures.get_species_icon(creature->species_id));
+                cell.set_texture(game.renderer.get_textures().get_species_icon(creature->species_id));
 
                 bool can_augment = false;
                 if (augment) {
@@ -331,11 +331,11 @@ void TeamScene::refresh_summary_widgets()
     if (creature) {
         if (creature->egg) {
             const Species& species = game.cache.get_species(creature->species_id);
-            image_creature.set_texture(game.textures.get_egg(species.rarity));
+            image_creature.set_texture(game.renderer.get_textures().get_egg(species.rarity));
             label_name.set_string("EGG");
         }
         else {
-            image_creature.set_texture(game.textures.get_species(creature->species_id));
+            image_creature.set_texture(game.renderer.get_textures().get_species(creature->species_id));
             label_name.set_string(creature->name);
             label_level.set_string(std::to_string(creature->get_level()));
             //label_xp.set_string(std::to_string(creature->xp));
@@ -454,13 +454,13 @@ void TeamScene::refresh_augment_widgets()
     if (creature) {
         if (std::holds_alternative<Action>(*augment)) {
             const Action& action = std::get<Action>(*augment);
-            image_augment.set_texture(game.textures.get_action_augment(action.type));
+            image_augment.set_texture(game.renderer.get_textures().get_action_augment(action.type));
             label_augment.set_string(action.name);
             label_unable.set_visibility(!can_learn(*creature, action));
         }
         else if (std::holds_alternative<Skill>(*augment)) {
             const Skill& skill = std::get<Skill>(*augment);
-            image_augment.set_texture(game.textures.get_skill_augment());
+            image_augment.set_texture(game.renderer.get_textures().get_skill_augment());
             label_augment.set_string(skill.name);
             label_unable.set_visibility(!can_learn(*creature, skill));
         }
