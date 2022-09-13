@@ -67,15 +67,15 @@ void Cell::set_bounds(const SDL_Rect& bounds)
 
     if (align == Label::Align::center) {
         label.set_alignment(Label::Align::center);
-        label.set_position({ bounds.x + bounds.w / 2, bounds.y + 6 });
+        label.set_position({ bounds.x + bounds.w / 2, bounds.y + bounds.h / 2 - 3 });
     }
     else if (align == Label::Align::right) {
         label.set_alignment(Label::Align::right);
-        label.set_position({ bounds.x + bounds.w - 4, bounds.y + 6 });
+        label.set_position({ bounds.x + bounds.w - 4, bounds.y + bounds.h / 2 - 3 });
     }
     else {
         label.set_alignment(Label::Align::left);
-        label.set_position({ bounds.x + 4, bounds.y + 6 });
+        label.set_position({ bounds.x + 4, bounds.y + bounds.h / 2 - 3 });
     }
 }
 

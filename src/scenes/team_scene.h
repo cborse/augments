@@ -55,4 +55,6 @@ private:
     std::vector<Creature*> eggs;
     std::vector<Creature*> storage;
     std::vector<Creature*> staff_creatures;
+
+    static constexpr int max_creatures_per_staff = 7;
 };

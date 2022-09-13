@@ -36,11 +36,11 @@ TeamScene::TeamScene(Game& game, const Augment* augment)
         .with_color({ 243, 239, 225 })
         .with_position({ 12 + 140 / 2, 41 });
 
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < max_creatures_per_staff; i++) {
         widgets.add<Cell>("cell-list" + std::to_string(i))
             .with_action(std::bind(&TeamScene::click_list, this, i))
-            .with_bounds({ 42, 63 + i * 24, 103, 18 })
-            .with_image_offset({ -24, -1 });
+            .with_bounds({ 42, 64 + i * 27, 103, 24 })
+            .with_image_offset({ -24, 2 });
     }
 
     // Grid
@@ -215,7 +215,7 @@ void TeamScene::refresh_widgets()
 void TeamScene::refresh_list_widgets()
 {
     int size = (int)staff_creatures.size();
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < max_creatures_per_staff; i++) {
         auto& cell = widgets.find<Cell>("cell-list" + std::to_string(i));
         cell.set_active(i == index);
         cell.set_content_visibility(i < size);
@@ -257,7 +257,7 @@ void TeamScene::refresh_grid_widgets()
     int size = page == -1 ? (int)eggs.size() : get_page_size();
     for (int i = 0; i < 20; i++) {
         auto& cell = widgets.find<Cell>("cell-grid" + std::to_string(i));
-        cell.set_active(i == index - 8);
+        cell.set_active(i == index - max_creatures_per_staff);
         cell.set_content_visibility(i < size);
 
         auto& cell_image = cell.get_image();
@@ -298,7 +298,7 @@ void TeamScene::refresh_grid_widgets()
                 cell_image.set_alpha(augment && !can_augment ? 64 : 255);
                 assigned.set_alpha(augment && !can_augment ? 64 : 255);
 
-                if (i == index - 8)
+                if (i == index - max_creatures_per_staff)
                     cell_image.set_anim_type(Image::AnimType::bounce);
                 else
                     cell_image.set_anim_type(Image::AnimType::none);
@@ -474,7 +474,7 @@ void TeamScene::animate_pair()
     if (!creature || creature->egg || page == -1)
         return;
 
-    if (index < 8) {
+    if (index < max_creatures_per_staff) {
         for (int i = 0; i < 20 && i < get_page_size(); i++) {
             if (creature->id == storage.at(i + page * 20)->id) {
                 auto& cell = widgets.find<Cell>("cell-grid" + std::to_string(i));
@@ -539,25 +539,25 @@ void TeamScene::click_list(int i)
 
 void TeamScene::click_grid(int i)
 {
-    if (index != i + 8) {
-        index = i + 8;
+    if (index != i + max_creatures_per_staff) {
+        index = i + max_creatures_per_staff;
         refresh_widgets();
     }
 }
 
 Creature* TeamScene::get_selected_creature() const
 {
-    if (index < 8) {
+    if (index < max_creatures_per_staff) {
         if (index < staff_creatures.size())
             return staff_creatures.at(index);
     }
     else if (page == -1) {
-        if (index - 8 < eggs.size())
-            return eggs.at(index - 8);
+        if (index - max_creatures_per_staff < eggs.size())
+            return eggs.at(index - max_creatures_per_staff);
     }
     else {
-        if (index - 8 < get_page_size())
-            return storage.at(index - 8 + page * 20);
+        if (index - max_creatures_per_staff < get_page_size())
+            return storage.at(index - max_creatures_per_staff + page * 20);
     }
 
     return nullptr;
@@ -620,7 +620,7 @@ int TeamScene::get_needed_egg_wins(const Species& species) const
 void TeamScene::assign()
 {
     // Make sure there's room on the staff
-    if (staff_creatures.size() >= 8)
+    if (staff_creatures.size() >= max_creatures_per_staff)
         return;
 
     Creature* creature = get_selected_creature();
@@ -658,7 +658,7 @@ void TeamScene::unassign()
     refresh_data();
 
     // If on staff index and creature isn't selected, select the next one
-    if (index > 0 && index < 8 && !get_selected_creature()) {
+    if (index > 0 && index < max_creatures_per_staff && !get_selected_creature()) {
         index--;
     }
 
