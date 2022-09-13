@@ -2,6 +2,7 @@
 #include "dialog_scene.h"
 #include "hatch_scene.h"
 #include "learn_scene.h"
+#include "nlohmann/json.hpp"
 
 TeamScene::TeamScene(Game& game, const Augment* augment)
     : Scene(game), augment(augment)

@@ -3,6 +3,7 @@
 #include "login_scene.h"
 #include "error.h"
 #include "menu_scene.h"
+#include "nlohmann/json.hpp"
 
 LoginScene::LoginScene(Game& game)
     : Scene(game)

@@ -1,4 +1,5 @@
 #include "learn_scene.h"
+#include "nlohmann/json.hpp"
 
 LearnScene::LearnScene(Game& game, const Augment& augment, Creature& creature)
     : Scene(game), info(game.renderer), augment(augment), creature(creature)

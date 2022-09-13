@@ -1,4 +1,5 @@
 #include "cache.h"
+#include "nlohmann/json.hpp"
 
 void Cache::init(const nlohmann::json& json)
 {

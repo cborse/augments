@@ -42,7 +42,7 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
         game.loop();
     }
     catch (const Error& e) {
-        fatal_error(std::string(e.what()) + "\n\nPlease restart the application and try again.");
+        fatal_error(e.whats() + "\n\nPlease restart the application and try again.");
     }
     catch (const std::exception& e) {
         fatal_error("Error: " + std::string(e.what()) + ".\n\nPlease restart the application and try again.");

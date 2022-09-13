@@ -8,7 +8,7 @@
 #include "species.h"
 #include "staff.h"
 #include "user.h"
-#include "nlohmann/json.hpp"
+#include "nlohmann/json_fwd.hpp"
 
 typedef std::variant<Action, Skill> Augment;
 
